@@ -70,17 +70,16 @@ public class Board : MonoBehaviour {
         }
     }
 
-    public bool checkEmptyBelow(List<int> triangleIndices)
+    public bool checkEmpty(List<int> triangleIndices)
     {
         for (int i = 0; i < triangleIndices.Count; ++i)
         {
-            if(triangleIndices[i] < length * 4)
+            if(triangleIndices[i] < 0)
             {
                 return false;
             }
-            int triangleIndexBelow = triangleIndices[i] - length * 4;
-            Block currentBlockScript = fetchBlockScriptByIndex(triangleIndexBelow);
-            int quadrantIndex = (triangleIndexBelow % (length * 4) % 4);
+            Block currentBlockScript = fetchBlockScriptByIndex(triangleIndices[i]);
+            int quadrantIndex = (triangleIndices[i] % (length * 4) % 4);
             if ((quadrantIndex == 0 && currentBlockScript.permBottom) &&
                 (quadrantIndex == 1 && currentBlockScript.permLeft) && 
                 (quadrantIndex == 2 && currentBlockScript.permTop) &&

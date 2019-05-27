@@ -60,5 +60,5 @@ MonoBehaviour:
   - myList: 
   - myList: 
   - myList: 
-  dropTimeInterval: 1
+  dropTimeInterval: 0.5
   pieceColor: {r: 0.107794285, g: 0, b: 1, a: 1}

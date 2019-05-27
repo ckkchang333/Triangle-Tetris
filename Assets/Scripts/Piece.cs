@@ -22,17 +22,48 @@ public class Piece : MonoBehaviour {
     public float dropTimeInterval;
     private float timer;
 
+    public bool fall;
+
     public Color pieceColor = Color.red;
 
+    int getColumnIndex(int triangleIndex)
+    {
+        return (triangleIndex % (gameBoard.length * 4)) / 4;
+    }
 
+
+    int getRowIndex(int triangleIndex)
+    {
+        return triangleIndex / (gameBoard.length * 4);
+    }
     void fallOnce()
     {
         //for (int i = 0; i < trianglesIndices.Count; ++i)
         //{
         //    trianglesIndices[i] -= gameBoard.length * 4;
         //}
-        coreTriangle -= gameBoard.length * 4;
-        updateTriangleIndices();
+        if(gameBoard.checkEmpty(fallOncePosition()))
+        {
+            gameBoard.emptyTriangles(trianglesIndices);
+            coreTriangle -= gameBoard.length * 4;
+            updateTriangleIndices();
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    List<int> fallOncePosition()
+    {
+        List<int> newTriangleIndices = new List<int>();
+        int newCoreTriangle = coreTriangle - gameBoard.length * 4;
+        List<int> deltas = orientationsDeltas[orientationState].myList;
+        for (int i = 0; i < deltas.Count; ++i)
+        {
+            newTriangleIndices.Add(newCoreTriangle + deltas[i]);
+        }
+        return newTriangleIndices;
     }
 
     void updateTriangleIndices()
@@ -47,13 +78,16 @@ public class Piece : MonoBehaviour {
 
     void rotate()
     {
+        bool rotated = false;
         if(Input.GetKeyDown(KeyCode.Q))
         {
             orientationState -= 1;
+            rotated = true;
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             orientationState += 1;
+            rotated = true;
         }
         if(orientationState < 0)
         {
@@ -63,9 +97,60 @@ public class Piece : MonoBehaviour {
         {
             orientationState -= 4;
         }
-        gameBoard.emptyTriangles(trianglesIndices);
-        updateTriangleIndices();
-        gameBoard.updateBoard(trianglesIndices, pieceColor);
+        if(rotated)
+        {
+            gameBoard.emptyTriangles(trianglesIndices);
+            updateTriangleIndices();
+            for (int i = 0; i < trianglesIndices.Count; ++i)
+            {
+                Debug.Log(getRowIndex(coreTriangle));
+                Debug.Log(trianglesIndices[i]);
+                Debug.Log(getRowIndex(trianglesIndices[i]));
+                if (getRowIndex(trianglesIndices[i]) > getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == 0 && getColumnIndex(coreTriangle) != 0)
+                {
+                    coreTriangle -= 4;
+                    Debug.Log("Fix Move left");
+                    break;
+                }
+                else if (getRowIndex(trianglesIndices[i]) < getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == gameBoard.length - 1 && getColumnIndex(coreTriangle) != gameBoard.length - 1)
+                {
+                    coreTriangle += 4;
+                    Debug.Log("Fix Move right");
+                    break;
+                }
+            }
+            updateTriangleIndices();
+        }
+    }
+
+    void horizontalMove()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            for(int i = 0; i < trianglesIndices.Count; ++i)
+            {
+                if(getColumnIndex(trianglesIndices[i]) == 0)
+                {
+                    return;
+                }
+            }
+            gameBoard.emptyTriangles(trianglesIndices);
+            coreTriangle -= 4;
+            updateTriangleIndices();
+        }
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            for (int i = 0; i < trianglesIndices.Count; ++i)
+            {
+                if (getColumnIndex(trianglesIndices[i]) == gameBoard.length - 1)
+                {
+                    return;
+                }
+            }
+            gameBoard.emptyTriangles(trianglesIndices);
+            coreTriangle += 4;
+            updateTriangleIndices();
+        }
     }
     
 	// Use this for initialization
@@ -91,21 +176,16 @@ public class Piece : MonoBehaviour {
 	void Update () {
         timer -= Time.deltaTime;
         rotate();
+        horizontalMove();
         if (timer <= 0)
         {
-            gameBoard.emptyTriangles(trianglesIndices);
-            if (gameBoard.checkEmptyBelow(trianglesIndices))
+            if(fall)
             {
-
                 fallOnce();
             }
-            else
-            {
-                Destroy(this.gameObject);
-            }
-            gameBoard.updateBoard(trianglesIndices, pieceColor);
             timer = dropTimeInterval;
         }
+        gameBoard.updateBoard(trianglesIndices, pieceColor);
 
     }
 }
