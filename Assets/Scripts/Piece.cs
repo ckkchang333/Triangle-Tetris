@@ -38,10 +38,6 @@ public class Piece : MonoBehaviour {
     }
     void fallOnce()
     {
-        //for (int i = 0; i < trianglesIndices.Count; ++i)
-        //{
-        //    trianglesIndices[i] -= gameBoard.length * 4;
-        //}
         if(gameBoard.checkEmpty(fallOncePosition()))
         {
             gameBoard.emptyTriangles(trianglesIndices);
@@ -103,9 +99,6 @@ public class Piece : MonoBehaviour {
             updateTriangleIndices();
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
-                Debug.Log(getRowIndex(coreTriangle));
-                Debug.Log(trianglesIndices[i]);
-                Debug.Log(getRowIndex(trianglesIndices[i]));
                 if (getRowIndex(trianglesIndices[i]) > getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == 0 && getColumnIndex(coreTriangle) != 0)
                 {
                     coreTriangle -= 4;
@@ -152,6 +145,17 @@ public class Piece : MonoBehaviour {
             updateTriangleIndices();
         }
     }
+
+    void drop()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            for(int i = 0; i < gameBoard.height; ++i)
+            {
+                fallOnce();
+            }
+        }
+    }
     
 	// Use this for initialization
 	void Start () {
@@ -177,12 +181,10 @@ public class Piece : MonoBehaviour {
         timer -= Time.deltaTime;
         rotate();
         horizontalMove();
+        drop();
         if (timer <= 0)
         {
-            if(fall)
-            {
-                fallOnce();
-            }
+            fallOnce();
             timer = dropTimeInterval;
         }
         gameBoard.updateBoard(trianglesIndices, pieceColor);
