@@ -22,8 +22,6 @@ public class Piece : MonoBehaviour {
     public float dropTimeInterval;
     private float timer;
 
-    public bool fall;
-
     public Color pieceColor = Color.red;
 
     int getColumnIndex(int triangleIndex)
@@ -87,11 +85,11 @@ public class Piece : MonoBehaviour {
         }
         if(orientationState < 0)
         {
-            orientationState = 4 + orientationState;
+            orientationState = orientationsDeltas.Count + orientationState;
         }
-        else if(orientationState > 3)
+        else if(orientationState > orientationsDeltas.Count - 1)
         {
-            orientationState -= 4;
+            orientationState -= orientationsDeltas.Count;
         }
         if(rotated)
         {
