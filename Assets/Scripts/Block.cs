@@ -16,6 +16,8 @@ public class Block : MonoBehaviour {
 
     public float crossingThickness = 0.05f;     // block's sides thickness
 
+    public bool octal;
+
     public bool filledBottom, filledLeft, filledTop, filledRight;           // Activates the triangles to form the shapes
     public bool permBottom, permLeft, permTop, permRight;           // Activates the triangles to form the shapes
 
@@ -137,9 +139,12 @@ public class Block : MonoBehaviour {
 
 
         // Set thickness of center horizontal and vertical lines
-        this.transform.Find("lines").Find("blockCenterHori").localScale = new Vector3(1.0f, crossingThickness);
-        
-        this.transform.Find("lines").Find("blockCenterVerti").localScale = new Vector3(crossingThickness, 1.0f);
+        if(octal)
+        {
+            this.transform.Find("lines").Find("blockCenterHori").localScale = new Vector3(1.0f, crossingThickness);
+
+            this.transform.Find("lines").Find("blockCenterVerti").localScale = new Vector3(crossingThickness, 1.0f);
+        }
 
 
       

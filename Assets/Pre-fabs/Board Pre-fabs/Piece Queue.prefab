@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1264235791922796}
+  m_IsPrefabParent: 1
+--- !u!1 &1264235791922796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4543546254497446}
+  - component: {fileID: 114557330404430962}
+  m_Layer: 0
+  m_Name: Piece Queue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4543546254497446
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264235791922796}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.05696842, y: 1.9286948, z: -10.296875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114557330404430962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264235791922796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f1a058711dfe6c4684d2de471979c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usedPieces:
+  - {fileID: 1539387568034876, guid: 1e2d43849f56691468f4327fe848a93d, type: 2}
+  - {fileID: 1295840296350490, guid: a788d7f5582c9d94884a41211777e9fd, type: 2}
+  - {fileID: 1432949549465984, guid: 5e775fd4062c352459488765fa380fb7, type: 2}
+  - {fileID: 1827877657191322, guid: 1868b6b2dd4458c40a1543e7b679b4ae, type: 2}
+  - {fileID: 1141030796595374, guid: b70adde32df041c41baa28ab404d0d71, type: 2}
+  - {fileID: 1908723077578254, guid: 01d9c4adad6a36341a0f452d88a081b9, type: 2}
+  - {fileID: 1329582697992248, guid: 0ac0adc7f27396441859c6514316b281, type: 2}
+  queue: []
