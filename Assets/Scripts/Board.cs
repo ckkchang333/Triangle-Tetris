@@ -132,6 +132,11 @@ public class Board : MonoBehaviour {
         swapLock = false;
     }
 
+    void clearFilledRows()
+    {
+
+    }
+
     public int getHeight()
     {
         return height;

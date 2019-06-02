@@ -49,12 +49,6 @@ public class Piece : MonoBehaviour {
     }
     void fallOnce()
     {
-        List<int> newPosition = getNewTriangleIndices(0, -1);
-        for(int i = 0; i < newPosition.Count; ++i)
-        {
-            Debug.Log(newPosition[i]);
-        }
-        Debug.Log(gameBoard.checkEmpty(getNewTriangleIndices(0, -1)));
         if(gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
         {
             gameBoard.emptyTriangles(trianglesIndices);
@@ -119,17 +113,22 @@ public class Piece : MonoBehaviour {
         }
         if(rotated)
         {
+            Debug.Log("Checking Valid Rotate");
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
-                if (getRowIndex(trianglesIndices[i]) > getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == 0 && getColumnIndex(coreTriangle) != 0)
+                //if ((getRowIndex(trianglesIndices[i]) > getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == 0 && getColumnIndex(coreTriangle) != 0)
+                //   ||  (getColumnIndex(trianglesIndices[i]) == 0 && getColumnIndex(coreTriangle) != 0))
+                if(getColumnIndex(coreTriangle) > gameBoard.getWidth()/ 2 && getColumnIndex(trianglesIndices[i]) < gameBoard.getWidth()/2)
                 {
                     coreTriangle -= 4;
                     Debug.Log("Fix Move left");
                     break;
                 }
-                else if (getRowIndex(trianglesIndices[i]) < getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == gameBoard.width - 1 && getColumnIndex(coreTriangle) != gameBoard.width - 1)
+                //else if ((getRowIndex(trianglesIndices[i]) < getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == gameBoard.width - 1 && getColumnIndex(coreTriangle) != gameBoard.width - 1)
+                //        || (getColumnIndex(trianglesIndices[i]) == gameBoard.width - 1 && getColumnIndex(coreTriangle) != gameBoard.width - 1))
+                else if (getColumnIndex(coreTriangle) < gameBoard.getWidth() / 2 && getColumnIndex(trianglesIndices[i]) > gameBoard.getWidth() / 2)
                 {
                     coreTriangle += 4;
                     Debug.Log("Fix Move right");
@@ -256,7 +255,7 @@ public class Piece : MonoBehaviour {
             drop();
             if (timer <= 0)
             {
-                fallOnce();
+                //fallOnce();
                 timer = dropTimeInterval;
             }
             gameBoard.updateBoard(trianglesIndices, pieceColor);
