@@ -22,6 +22,10 @@ public class Board : MonoBehaviour {
     public GameObject piecePrefab;
     public GameObject currentPiece;
 
+
+    [Header("PieceQueue")]
+    public GameObject pieceQueue;
+
     void generateBoard ()
     {
         for (int i = 0; i < height; ++i)
@@ -108,6 +112,13 @@ public class Board : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(currentPiece == null)
+        {
+            GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().Dequeue();
+            currentPiece = Instantiate(piecePrefab);
+            currentPiece.GetComponent<Piece>().gameBoard = this;
+            
+        }
 	}
 
 
