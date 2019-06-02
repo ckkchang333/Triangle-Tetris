@@ -210,7 +210,7 @@ public class Piece : MonoBehaviour {
                 int value = orientationsDeltas[i].myList[j];
                 if (Mathf.Abs(value) > 999)
                 {
-                    orientationsDeltas[i].myList[j] = Mathf.Abs(value) % 1000 + value / 1000 * gameBoard.length * 4;
+                    orientationsDeltas[i].myList[j] = (Mathf.Abs(value) % 1000 / 100 == 1 ? -1 : 1) *  (Mathf.Abs(value) % 100) + value / 1000 * gameBoard.length * 4;
                 }
             }
         }

@@ -504,7 +504,7 @@ MonoBehaviour:
   gridHeight: 0.75
   gridSideThickness: 0.02
   gridCrossingThickness: 0.02
-  piecePrefab: {fileID: 1329582697992248, guid: 0ac0adc7f27396441859c6514316b281,
+  piecePrefab: {fileID: 1141030796595374, guid: b70adde32df041c41baa28ab404d0d71,
     type: 2}
   currentPiece: {fileID: 0}
   pieceQueue: {fileID: 515687468}
