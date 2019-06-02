@@ -36,13 +36,13 @@ public class Piece : MonoBehaviour {
     }
     void fallOnce()
     {
-        List<int> newPosition = getNewTriangleIndices(-1, 0);
+        List<int> newPosition = getNewTriangleIndices(0, -1);
         for(int i = 0; i < newPosition.Count; ++i)
         {
             Debug.Log(newPosition[i]);
         }
-        Debug.Log(gameBoard.checkEmpty(getNewTriangleIndices(-1, 0)));
-        if(gameBoard.checkEmpty(getNewTriangleIndices(-1, 0)))
+        Debug.Log(gameBoard.checkEmpty(getNewTriangleIndices(0, -1)));
+        if(gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
         {
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle -= gameBoard.length * 4;
@@ -55,7 +55,7 @@ public class Piece : MonoBehaviour {
         }
     }
 
-    List<int> getNewTriangleIndices(int newY, int newX)
+    List<int> getNewTriangleIndices(int newX, int newY)
     {
         List<int> newTriangleIndices = new List<int>();
         int newCoreTriangle = coreTriangle - gameBoard.length * 4 * -newY;
@@ -133,7 +133,7 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
-            if(!gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
+            if(!gameBoard.checkEmpty(getNewTriangleIndices(-1, 0)))
             {
                 return;
             }
@@ -150,13 +150,28 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
-            if (!gameBoard.checkEmpty(getNewTriangleIndices(0, 1)))
+            if (!gameBoard.checkEmpty(getNewTriangleIndices(1, 0)))
             {
                 return;
             }
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle += 4;
             updateTriangleIndices();
+        }
+    }
+
+    void lower()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (!gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
+            {
+                return;
+            }
+            gameBoard.emptyTriangles(trianglesIndices);
+            coreTriangle -= 4 * gameBoard.length;
+            updateTriangleIndices();
+            timer = dropTimeInterval;
         }
     }
 
@@ -195,6 +210,7 @@ public class Piece : MonoBehaviour {
         timer -= Time.deltaTime;
         rotate();
         horizontalMove();
+        lower();
         drop();
         if (timer <= 0)
         {
