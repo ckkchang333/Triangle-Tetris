@@ -133,12 +133,19 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
-            if(!gameBoard.checkEmpty(getNewTriangleIndices(-1, 0)))
+            if(gameBoard.checkEmpty(getNewTriangleIndices(-1, 0)))
+            {
+                coreTriangle -= 4;
+            }
+            else if(gameBoard.checkEmpty(getNewTriangleIndices(-1, -1)))
+            {
+                coreTriangle -= (4 + gameBoard.length * 4);
+            }
+            else
             {
                 return;
             }
             gameBoard.emptyTriangles(trianglesIndices);
-            coreTriangle -= 4;
             updateTriangleIndices();
         }
         else if(Input.GetKeyDown(KeyCode.D))
@@ -150,12 +157,19 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
-            if (!gameBoard.checkEmpty(getNewTriangleIndices(1, 0)))
+            if (gameBoard.checkEmpty(getNewTriangleIndices(1, 0)))
+            {
+                coreTriangle += 4;
+            }
+            else if (gameBoard.checkEmpty(getNewTriangleIndices(1, -1)))
+            {
+                coreTriangle -= (gameBoard.length * 4 - 4);
+            }
+            else
             {
                 return;
             }
             gameBoard.emptyTriangles(trianglesIndices);
-            coreTriangle += 4;
             updateTriangleIndices();
         }
     }
