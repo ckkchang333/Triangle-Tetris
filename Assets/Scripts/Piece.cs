@@ -36,13 +36,13 @@ public class Piece : MonoBehaviour {
     }
     void fallOnce()
     {
-        List<int> newPosition = fallOncePosition();
+        List<int> newPosition = getNewTriangleIndices(-1, 0);
         for(int i = 0; i < newPosition.Count; ++i)
         {
             Debug.Log(newPosition[i]);
         }
-        Debug.Log(gameBoard.checkEmpty(fallOncePosition()));
-        if(gameBoard.checkEmpty(fallOncePosition()))
+        Debug.Log(gameBoard.checkEmpty(getNewTriangleIndices(-1, 0)));
+        if(gameBoard.checkEmpty(getNewTriangleIndices(-1, 0)))
         {
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle -= gameBoard.length * 4;
@@ -55,10 +55,11 @@ public class Piece : MonoBehaviour {
         }
     }
 
-    List<int> fallOncePosition()
+    List<int> getNewTriangleIndices(int newY, int newX)
     {
         List<int> newTriangleIndices = new List<int>();
-        int newCoreTriangle = coreTriangle - gameBoard.length * 4;
+        int newCoreTriangle = coreTriangle - gameBoard.length * 4 * -newY;
+        newCoreTriangle += 4 * newX;
         List<int> deltas = orientationsDeltas[orientationState].myList;
         for (int i = 0; i < deltas.Count; ++i)
         {
@@ -132,6 +133,10 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
+            if(!gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
+            {
+                return;
+            }
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle -= 4;
             updateTriangleIndices();
@@ -144,6 +149,10 @@ public class Piece : MonoBehaviour {
                 {
                     return;
                 }
+            }
+            if (!gameBoard.checkEmpty(getNewTriangleIndices(0, 1)))
+            {
+                return;
             }
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle += 4;
