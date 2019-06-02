@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\Board.cs" />
     <Compile Include="Assets\Scripts\Piece.cs" />
+    <Compile Include="Assets\Scripts\pieceHolder.cs" />
     <Compile Include="Assets\Scripts\PieceQueue.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Unity Projects/Triangle Tetris/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

@@ -59,4 +59,6 @@ MonoBehaviour:
   - myList: feffffffffffffff000000000100000002000000030000000400000005000000
   - myList: 17fcffff16fcffff00000000010000000200000003000000e8030000eb030000
   dropTimeInterval: 0.5
+  pieceID: 1
+  active: 1
   pieceColor: {r: 1, g: 0.9459826, b: 0, a: 1}
