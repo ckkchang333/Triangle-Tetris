@@ -36,6 +36,12 @@ public class Piece : MonoBehaviour {
     }
     void fallOnce()
     {
+        List<int> newPosition = fallOncePosition();
+        for(int i = 0; i < newPosition.Count; ++i)
+        {
+            Debug.Log(newPosition[i]);
+        }
+        Debug.Log(gameBoard.checkEmpty(fallOncePosition()));
         if(gameBoard.checkEmpty(fallOncePosition()))
         {
             gameBoard.emptyTriangles(trianglesIndices);
@@ -44,6 +50,7 @@ public class Piece : MonoBehaviour {
         }
         else
         {
+            gameBoard.setPerm(trianglesIndices);
             Destroy(this.gameObject);
         }
     }

@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameBoard: {fileID: 0}
-  coreTriangle: 208
+  coreTriangle: 500
   orientationState: 0
   trianglesIndices: 
   orientationsDeltas:

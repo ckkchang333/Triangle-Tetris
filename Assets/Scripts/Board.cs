@@ -84,9 +84,9 @@ public class Board : MonoBehaviour {
             }
             Block currentBlockScript = fetchBlockScriptByIndex(triangleIndices[i]);
             int quadrantIndex = (triangleIndices[i] % (length * 4) % 4);
-            if ((quadrantIndex == 0 && currentBlockScript.permBottom) &&
-                (quadrantIndex == 1 && currentBlockScript.permLeft) && 
-                (quadrantIndex == 2 && currentBlockScript.permTop) &&
+            if ((quadrantIndex == 0 && currentBlockScript.permBottom) ||
+                (quadrantIndex == 1 && currentBlockScript.permLeft) ||
+                (quadrantIndex == 2 && currentBlockScript.permTop) ||
                 (quadrantIndex == 3 && currentBlockScript.permRight))
             {
                 return false;
@@ -101,6 +101,31 @@ public class Board : MonoBehaviour {
         int columnIndex = Mathf.FloorToInt((TriangleIndex % (length * 4.0f) / 4.0f));
         Block blockScript = this.transform.GetChild(rowIndex).GetChild(columnIndex).GetComponent<Block>();
         return blockScript;
+    }
+
+    public void setPerm(List<int> triangleIndices)
+    {
+        for (int i = 0; i < triangleIndices.Count; ++i)
+        {
+            Block currentBlockScript = fetchBlockScriptByIndex(triangleIndices[i]);
+            int quadrantIndex = (triangleIndices[i] % (length * 4) % 4);
+            if(quadrantIndex == 0)
+            {
+                currentBlockScript.permBottom = true;
+            }
+            if (quadrantIndex == 1)
+            {
+                currentBlockScript.permLeft = true;
+            }
+            if (quadrantIndex == 2)
+            {
+                currentBlockScript.permTop = true;
+            }
+            if (quadrantIndex == 3)
+            {
+                currentBlockScript.permRight = true;
+            }
+        }
     }
 
     // Use this for initialization

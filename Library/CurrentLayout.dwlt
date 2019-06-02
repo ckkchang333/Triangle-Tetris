@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -365,9 +365,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: e8fbffff
-    m_LastClickedID: -1048
-    m_ExpandedIDs: e8fbfffff0fbffff00000000
+    m_SelectedIDs: e02a0000
+    m_LastClickedID: 0
+    m_ExpandedIDs: 9cd8fefff0fbffff000000006c2c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -422,9 +422,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.2791386, y: 4.058607, z: -0.203125}
+    m_Target: {x: 0.31917146, y: -0.59280723, z: -0.1015625}
     speed: 2
-    m_Value: {x: 2.2791386, y: 4.058607, z: -0.203125}
+    m_Value: {x: 0.31917146, y: -0.59280723, z: -0.1015625}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -456,9 +456,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 24.035303
+    m_Target: 13.748304
     speed: 2
-    m_Value: 24.035303
+    m_Value: 13.748304
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -574,19 +574,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Sprites
+    - Assets/Pre-fabs/Used Pieces
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Sprites
+  - Assets/Pre-fabs/Used Pieces
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Unity Projects\Triangle Tetris
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 042c0000
-    m_LastClickedID: 11268
+    m_SelectedIDs: 2a2c0000
+    m_LastClickedID: 11306
     m_ExpandedIDs: 000000004e290000182a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -615,7 +615,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004e290000
+    m_ExpandedIDs: 000000004e290000182a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

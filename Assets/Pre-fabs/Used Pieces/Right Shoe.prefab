@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameBoard: {fileID: 0}
-  coreTriangle: 292
+  coreTriangle: 500
   orientationState: 0
   trianglesIndices: 
   orientationsDeltas:
@@ -61,5 +61,4 @@ MonoBehaviour:
   - myList: 0600000007000000090000000a000000ea030000eb030000ec030000ed030000ee030000ef030000f0030000f1030000
   - myList: 16fcffff15fcffff13fcffff12fcffff000000000300000004000000050000000600000007000000ec030000ef030000
   dropTimeInterval: 0.5
-  fall: 0
   pieceColor: {r: 0.107794285, g: 0, b: 1, a: 1}
