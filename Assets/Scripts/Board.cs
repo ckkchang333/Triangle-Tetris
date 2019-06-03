@@ -130,11 +130,63 @@ public class Board : MonoBehaviour {
             }
         }
         swapLock = false;
+        clearFilledRows();
     }
 
     void clearFilledRows()
     {
+        bool fullRowFound = false;
+        bool brokenRow = true;
+        //Debug.Log("Starting: " + fullRowFound.ToString());
+        int counter = 0;
+        for(int i  = 0; i < height; ++i)
+        {
+            Debug.Log("i/" + i);
+            for(int j = 0; j < width; ++j)
+            {
+                Debug.Log("j/" + j);
+                Debug.Log(i * width * 4 + j * 4);
+                Block blockScript =  fetchBlockScriptByIndex(i * width * 4 + j * 4);
+                Debug.Log(blockScript.permBottom.ToString() + " " + blockScript.permLeft.ToString() + " " + blockScript.permTop.ToString() + " " + blockScript.permRight.ToString() + " ");
+                if (!blockScript.permBottom || !blockScript.permLeft || !blockScript.permTop || !blockScript.permRight)
+                {
+                    if (fullRowFound)
+                    {
+                        Debug.Log("Clearing Row");
+                        for(int k = i; k < height; ++k)
+                        {
+                            for(int l = 0; l < width; ++l)
+                            {
+                                Block upperBlockScript = fetchBlockScriptByIndex(k * width * 4 + l * 4);
+                                Block lowerBlockScript = fetchBlockScriptByIndex((k - counter) * width * 4 + l * 4);
+                                lowerBlockScript.permBottom = upperBlockScript.permBottom;
+                                lowerBlockScript.permLeft = upperBlockScript.permLeft;
+                                lowerBlockScript.permTop = upperBlockScript.permTop;
+                                lowerBlockScript.permRight = upperBlockScript.permRight;
 
+                                Transform upperBlockTriangles = upperBlockScript.gameObject.transform.Find("triangles");
+                                Transform lowerBlockTriangles = lowerBlockScript.gameObject.transform.Find("triangles");
+
+                                for(int m = 0; m < 4; ++m)
+                                {
+                                    lowerBlockTriangles.GetChild(m).GetComponent<SpriteRenderer>().color = upperBlockTriangles.GetChild(m).GetComponent<SpriteRenderer>().color;
+                                }
+                            }
+                        }
+                        counter = 0;
+                    }
+                    fullRowFound = false;
+                    break;
+                }
+                else if(j == width - 1)
+                {
+                    fullRowFound = true;
+                }
+            }
+            //Debug.Log(i.ToString() + ": " + fullRowFound);
+            brokenRow = false;
+            ++counter;
+        }
     }
 
     public int getHeight()

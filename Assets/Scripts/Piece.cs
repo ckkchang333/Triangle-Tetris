@@ -255,7 +255,7 @@ public class Piece : MonoBehaviour {
             drop();
             if (timer <= 0)
             {
-                //fallOnce();
+                fallOnce();
                 timer = dropTimeInterval;
             }
             gameBoard.updateBoard(trianglesIndices, pieceColor);
