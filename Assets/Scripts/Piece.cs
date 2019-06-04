@@ -158,6 +158,10 @@ public class Piece : MonoBehaviour {
             {
                 coreTriangle -= (4 + gameBoard.width * 4);
             }
+            else if (gameBoard.checkEmpty(getNewTriangleIndices(-1, 1)))
+            {
+                coreTriangle += ( gameBoard.width * 4 - 4);
+            }
             else
             {
                 return;
@@ -181,6 +185,10 @@ public class Piece : MonoBehaviour {
             else if (gameBoard.checkEmpty(getNewTriangleIndices(1, -1)))
             {
                 coreTriangle -= (gameBoard.width * 4 - 4);
+            }
+            else if (gameBoard.checkEmpty(getNewTriangleIndices(1, 1)))
+            {
+                coreTriangle += (gameBoard.width * 4 + 4);
             }
             else
             {
