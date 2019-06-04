@@ -130,10 +130,9 @@ public class Board : MonoBehaviour {
             }
         }
         swapLock = false;
-        clearFilledRows();
     }
 
-    void clearFilledRows()
+    public void clearFilledRows()
     {
         bool fullRowFound = false;
         bool brokenRow = true;
@@ -202,7 +201,7 @@ public class Board : MonoBehaviour {
     // Use this for initialization
     void Start () {
         generateBoard();
-        generatePiece();
+        //generatePiece();
 
     }
 	

@@ -233,37 +233,37 @@ Prefab:
         type: 2}
       propertyPath: pieces.Array.data[0]
       value: 
-      objectReference: {fileID: 1539387568034876, guid: 1e2d43849f56691468f4327fe848a93d,
+      objectReference: {fileID: 1996716365460954, guid: 0637969dff273384e99105bb00b6dece,
         type: 2}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
       propertyPath: pieces.Array.data[1]
       value: 
-      objectReference: {fileID: 1295840296350490, guid: a788d7f5582c9d94884a41211777e9fd,
+      objectReference: {fileID: 1089256388093306, guid: c1279415c7714264a97c262ee898266f,
         type: 2}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
       propertyPath: pieces.Array.data[2]
       value: 
-      objectReference: {fileID: 1432949549465984, guid: 5e775fd4062c352459488765fa380fb7,
+      objectReference: {fileID: 1919653947908832, guid: 91f70ff211b59d749818c3ab95783cd0,
         type: 2}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
       propertyPath: pieces.Array.data[3]
       value: 
-      objectReference: {fileID: 1827877657191322, guid: 1868b6b2dd4458c40a1543e7b679b4ae,
+      objectReference: {fileID: 1606564547704480, guid: 5517b930ada1aad4c9b192ccb8bf0147,
         type: 2}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
       propertyPath: pieces.Array.data[4]
       value: 
-      objectReference: {fileID: 1141030796595374, guid: b70adde32df041c41baa28ab404d0d71,
+      objectReference: {fileID: 1094671944254844, guid: 5ad75b01b71b9c340ab836dd6cf0acf3,
         type: 2}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
       propertyPath: pieces.Array.data[5]
       value: 
-      objectReference: {fileID: 1908723077578254, guid: 01d9c4adad6a36341a0f452d88a081b9,
+      objectReference: {fileID: 1675695208939460, guid: 0f5cfbb9c7736d844ab47fe5ea31a01a,
         type: 2}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
@@ -299,13 +299,13 @@ Prefab:
         type: 2}
       propertyPath: sprites.Array.data[4]
       value: 
-      objectReference: {fileID: 1722816172730828, guid: e5b9a679130a0bc4d97236217fccd572,
+      objectReference: {fileID: 1406059696528384, guid: 52973ff020d8f7c44997e1775bcfecc6,
         type: 2}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
       propertyPath: sprites.Array.data[5]
       value: 
-      objectReference: {fileID: 1791496594446342, guid: 7b308651b4260cb4587c1bba5d6c7f40,
+      objectReference: {fileID: 1898444283615992, guid: eee624b2e63e8574a9df444f7e33dda6,
         type: 2}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
@@ -551,8 +551,7 @@ MonoBehaviour:
   gridHeight: 0.75
   gridSideThickness: 0.02
   gridCrossingThickness: 0.02
-  piecePrefab: {fileID: 1329582697992248, guid: 0ac0adc7f27396441859c6514316b281,
-    type: 2}
+  piecePrefab: {fileID: 0}
   currentPiece: {fileID: 0}
   pieceQueue: {fileID: 515687468}
   pieceHolder: {fileID: 1511883887}
@@ -762,7 +761,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 0}
+  m_BackGroundColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
