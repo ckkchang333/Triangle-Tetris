@@ -24,6 +24,8 @@ public class Piece : MonoBehaviour {
     public int pieceID;
     public bool active;
 
+    public GameObject pieceSprite;
+
     public Color pieceColor = Color.red;
 
 
@@ -47,6 +49,12 @@ public class Piece : MonoBehaviour {
     {
         return triangleIndex / (gameBoard.width * 4);
     }
+
+    public GameObject getSprite()
+    {
+        return pieceSprite;
+    }
+
     void fallOnce()
     {
         List<int> fallTriangleIndices = getNewTriangleIndices(0, -1);

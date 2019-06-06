@@ -5,21 +5,21 @@ using UnityEngine;
 public class PieceQueue : MonoBehaviour {
 
     public List<GameObject> pieces;
-    public List<GameObject> sprites;
+    //public List<GameObject> sprites;
     public List<GameObject> pieceQueue;
-    public List<GameObject> spriteQueue;
+    //public List<GameObject> spriteQueue;
 
     void fillQueue()
     {
         List<GameObject> pieceBucket = new List<GameObject>(pieces);
-        List<GameObject> spriteBucket = new List<GameObject>(sprites);
+        //List<GameObject> spriteBucket = new List<GameObject>(sprites);
         while (pieceBucket.Count > 0)
         {
             int pieceIndex = Random.Range(0, pieceBucket.Count);
             pieceQueue.Add(pieceBucket[pieceIndex]);
-            spriteQueue.Add(spriteBucket[pieceIndex]);
+            //spriteQueue.Add(spriteBucket[pieceIndex]);
             pieceBucket.RemoveAt(pieceIndex);
-            spriteBucket.RemoveAt(pieceIndex);
+            //spriteBucket.RemoveAt(pieceIndex);
         }
         updateUI();
 
@@ -33,7 +33,7 @@ public class PieceQueue : MonoBehaviour {
        } 
         for(int i = 0; i < 5; ++i)
         {
-            GameObject sprite = Instantiate(spriteQueue[i], this.transform.position - new Vector3(0, 1.5f * i), Quaternion.Euler(0, 0, 0));
+            GameObject sprite = Instantiate(pieceQueue[i].GetComponent<Piece>().getSprite(), this.transform.position - new Vector3(0, 1.5f * i), Quaternion.Euler(0, 0, 0));
             sprite.transform.parent = this.transform;
         }
     }
@@ -42,7 +42,7 @@ public class PieceQueue : MonoBehaviour {
     {
         GameObject frontPiece = pieceQueue[0];
         pieceQueue.RemoveAt(0);
-        spriteQueue.RemoveAt(0);
+        //spriteQueue.RemoveAt(0);
         if (pieceQueue.Count < 5)
         {
             fillQueue();

@@ -6,7 +6,7 @@ public class pieceHolder : MonoBehaviour {
 
     public GameObject heldPiece;
     public GameObject currentSprite;
-    public List<GameObject> sprites;
+    //public List<GameObject> sprites;
 
     public GameObject swap(GameObject incoming)
     {
@@ -18,7 +18,7 @@ public class pieceHolder : MonoBehaviour {
         }
         heldPiece = incoming;
         Destroy(currentSprite);
-        currentSprite = Instantiate(sprites[heldPiece.GetComponent<Piece>().getPieceID()], this.transform.position, Quaternion.Euler(0, 0, 0));
+        currentSprite = Instantiate(heldPiece.GetComponent<Piece>().getSprite(), this.transform.position, Quaternion.Euler(0, 0, 0));
         return outgoing;
     }
 
