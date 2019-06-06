@@ -135,7 +135,6 @@ public class Board : MonoBehaviour {
     public void clearFilledRows()
     {
         bool fullRowFound = false;
-        bool brokenRow = true;
         //Debug.Log("Starting: " + fullRowFound.ToString());
         int counter = 0;
         for(int i  = 0; i < height; ++i)
@@ -180,11 +179,10 @@ public class Board : MonoBehaviour {
                 else if(j == width - 1)
                 {
                     fullRowFound = true;
+                    ++counter;
                 }
             }
             //Debug.Log(i.ToString() + ": " + fullRowFound);
-            brokenRow = false;
-            ++counter;
         }
     }
 
