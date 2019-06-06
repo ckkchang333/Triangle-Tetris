@@ -49,7 +49,34 @@ public class Piece : MonoBehaviour {
     }
     void fallOnce()
     {
-        if(gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
+        List<int> fallTriangleIndices = getNewTriangleIndices(0, -1);
+        for (int i = 0; i < trianglesIndices.Count; ++i)
+        {
+            int current = trianglesIndices[i];
+            if (current % 4 == 0)
+            {
+                int oppositeBelowTriangleIndex = current - (gameBoard.getWidth() * 4 - 2);
+                if (!fallTriangleIndices.Contains(oppositeBelowTriangleIndex) && oppositeBelowTriangleIndex >= 0)
+                {
+                    fallTriangleIndices.Insert(i, oppositeBelowTriangleIndex);
+                }
+            }
+            else if (current % 4 == 2)
+            {
+                int oppositeBelowTriangleIndex = current - 2;
+                if (!fallTriangleIndices.Contains(oppositeBelowTriangleIndex) && oppositeBelowTriangleIndex >= 0)
+                {
+                    fallTriangleIndices.Insert(i, oppositeBelowTriangleIndex);
+                }
+            }
+        }
+        Debug.Log("Fall Once Start");
+        for (int i = 0; i < fallTriangleIndices.Count; ++i)
+        {
+            Debug.Log(fallTriangleIndices[i]);
+        }
+        Debug.Log("Fall Once End");
+        if (gameBoard.checkEmpty(fallTriangleIndices))
         {
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle -= gameBoard.width * 4;

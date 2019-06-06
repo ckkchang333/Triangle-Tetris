@@ -140,18 +140,18 @@ public class Board : MonoBehaviour {
         int counter = 0;
         for(int i  = 0; i < height; ++i)
         {
-            Debug.Log("i/" + i);
+            //Debug.Log("i/" + i);
             for(int j = 0; j < width; ++j)
             {
-                Debug.Log("j/" + j);
-                Debug.Log(i * width * 4 + j * 4);
+                //Debug.Log("j/" + j);
+                //Debug.Log(i * width * 4 + j * 4);
                 Block blockScript =  fetchBlockScriptByIndex(i * width * 4 + j * 4);
-                Debug.Log(blockScript.permBottom.ToString() + " " + blockScript.permLeft.ToString() + " " + blockScript.permTop.ToString() + " " + blockScript.permRight.ToString() + " ");
+                //Debug.Log(blockScript.permBottom.ToString() + " " + blockScript.permLeft.ToString() + " " + blockScript.permTop.ToString() + " " + blockScript.permRight.ToString() + " ");
                 if (!blockScript.permBottom || !blockScript.permLeft || !blockScript.permTop || !blockScript.permRight)
                 {
                     if (fullRowFound)
                     {
-                        Debug.Log("Clearing Row");
+                        //Debug.Log("Clearing Row");
                         for(int k = i; k < height; ++k)
                         {
                             for(int l = 0; l < width; ++l)
