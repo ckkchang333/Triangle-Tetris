@@ -151,6 +151,27 @@ public class Board : MonoBehaviour {
                     if (fullRowFound)
                     {
                         //Debug.Log("Clearing Row");
+                        if(i > 1)
+                        {
+                            Debug.Log("Clearing beneath");
+                            Debug.Log("i - 1: " + (i - 2).ToString());
+                            for (int l = 0; l < width; ++l)
+                            {
+                                Block beneathBlockScript = fetchBlockScriptByIndex((i- 2) * width * 4 + l * 4);
+                                if(beneathBlockScript.permTop && !beneathBlockScript.permBottom)
+                                {
+                                    Debug.Log("l: " + l.ToString());
+                                    beneathBlockScript.filledBottom = false;
+                                    beneathBlockScript.filledLeft = false;
+                                    beneathBlockScript.filledTop = false;
+                                    beneathBlockScript.filledRight = false;
+                                    beneathBlockScript.permBottom = false;
+                                    beneathBlockScript.permLeft = false;
+                                    beneathBlockScript.permTop = false;
+                                    beneathBlockScript.permRight = false;
+                                }
+                            }
+                        }
                         for(int k = i; k < height; ++k)
                         {
                             for(int l = 0; l < width; ++l)

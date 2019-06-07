@@ -78,12 +78,6 @@ public class Piece : MonoBehaviour {
                 }
             }
         }
-        Debug.Log("Fall Once Start");
-        for (int i = 0; i < fallTriangleIndices.Count; ++i)
-        {
-            Debug.Log(fallTriangleIndices[i]);
-        }
-        Debug.Log("Fall Once End");
         if (gameBoard.checkEmpty(fallTriangleIndices))
         {
             gameBoard.emptyTriangles(trianglesIndices);
