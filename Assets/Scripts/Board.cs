@@ -182,6 +182,10 @@ public class Board : MonoBehaviour {
                                 lowerBlockScript.permLeft = upperBlockScript.permLeft;
                                 lowerBlockScript.permTop = upperBlockScript.permTop;
                                 lowerBlockScript.permRight = upperBlockScript.permRight;
+                                lowerBlockScript.filledBottom = upperBlockScript.permBottom;
+                                lowerBlockScript.filledLeft = upperBlockScript.permLeft;
+                                lowerBlockScript.filledTop = upperBlockScript.permTop;
+                                lowerBlockScript.filledRight = upperBlockScript.permRight;
 
                                 Transform upperBlockTriangles = upperBlockScript.gameObject.transform.Find("triangles");
                                 Transform lowerBlockTriangles = lowerBlockScript.gameObject.transform.Find("triangles");

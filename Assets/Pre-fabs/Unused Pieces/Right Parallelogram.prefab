@@ -61,4 +61,6 @@ MonoBehaviour:
   dropTimeInterval: 0.5
   pieceID: 3
   active: 1
+  pieceSprite: {fileID: 1153761970521222, guid: e2d42187b81727e4e9e365788eb6060e,
+    type: 2}
   pieceColor: {r: 1, g: 0.59836286, b: 0, a: 1}
