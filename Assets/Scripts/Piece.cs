@@ -67,6 +67,7 @@ public class Piece : MonoBehaviour {
                 if (!fallTriangleIndices.Contains(oppositeBelowTriangleIndex) && oppositeBelowTriangleIndex >= 0)
                 {
                     fallTriangleIndices.Insert(i, oppositeBelowTriangleIndex);
+                    ++i;
                 }
             }
             else if (current % 4 == 2)
@@ -75,6 +76,7 @@ public class Piece : MonoBehaviour {
                 if (!fallTriangleIndices.Contains(oppositeBelowTriangleIndex) && oppositeBelowTriangleIndex >= 0)
                 {
                     fallTriangleIndices.Insert(i, oppositeBelowTriangleIndex);
+                    ++i;
                 }
             }
         }
@@ -142,7 +144,6 @@ public class Piece : MonoBehaviour {
         }
         if(rotated)
         {
-            Debug.Log("Checking Valid Rotate");
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
             for (int i = 0; i < trianglesIndices.Count; ++i)
@@ -152,7 +153,6 @@ public class Piece : MonoBehaviour {
                 if(getColumnIndex(coreTriangle) > gameBoard.getWidth()/ 2 && getColumnIndex(trianglesIndices[i]) < gameBoard.getWidth()/2)
                 {
                     coreTriangle -= 4;
-                    Debug.Log("Fix Move left");
                     break;
                 }
                 //else if ((getRowIndex(trianglesIndices[i]) < getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == gameBoard.width - 1 && getColumnIndex(coreTriangle) != gameBoard.width - 1)
@@ -160,7 +160,6 @@ public class Piece : MonoBehaviour {
                 else if (getColumnIndex(coreTriangle) < gameBoard.getWidth() / 2 && getColumnIndex(trianglesIndices[i]) > gameBoard.getWidth() / 2)
                 {
                     coreTriangle += 4;
-                    Debug.Log("Fix Move right");
                     break;
                 }
             }
@@ -179,7 +178,22 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
-            if(gameBoard.checkEmpty(getNewTriangleIndices(-1, 0)))
+            List<int> leftTriangleIndices = getNewTriangleIndices(-1, 0);
+            for(int i = 0; i < leftTriangleIndices.Count; ++i)
+            {
+                int current = leftTriangleIndices[i];
+                if(current % 4 == 1)
+                {
+                    leftTriangleIndices.Insert(i, current + 2);
+                    ++i;
+                }
+                else if (current % 4 == 3)
+                {
+                    leftTriangleIndices.Insert(i, current + 2);
+                    ++i;
+                }
+            }
+            if(gameBoard.checkEmpty(leftTriangleIndices))
             {
                 coreTriangle -= 4;
             }
@@ -207,7 +221,22 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
-            if (gameBoard.checkEmpty(getNewTriangleIndices(1, 0)))
+            List<int> rightTriangleIndices = getNewTriangleIndices(1, 0);
+            for (int i = 0; i < rightTriangleIndices.Count; ++i)
+            {
+                int current = rightTriangleIndices[i];
+                if (current % 4 == 1)
+                {
+                    rightTriangleIndices.Insert(i, current - 2);
+                    ++i;
+                }
+                else if (current % 4 == 3)
+                {
+                    rightTriangleIndices.Insert(i, current - 2);
+                    ++i;
+                }
+            }
+            if (gameBoard.checkEmpty(rightTriangleIndices))
             {
                 coreTriangle += 4;
             }
