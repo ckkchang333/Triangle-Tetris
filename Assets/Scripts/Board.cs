@@ -9,6 +9,7 @@ public class Board : MonoBehaviour {
     public int height = 12;             // in number of grids
     public float originX = -3.0f;
     public float originY = -4.0f;
+    public bool ghostOn = true;
 
     [Header("Grid Parameters")]
     public GameObject grid;
@@ -151,7 +152,6 @@ public class Board : MonoBehaviour {
                 {
                     if (fullRowFound)
                     {
-                        //Debug.Log("Clearing Row");
                         if(i > 1)
                         {
                             Debug.Log("Clearing beneath");
@@ -225,12 +225,14 @@ public class Board : MonoBehaviour {
 
     public void dropGhostPiece()
     {
-        ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
-        ghostPiece.GetComponent<Piece>().drop();
-        updateBoard(ghostPiece.GetComponent<Piece>().trianglesIndices, ghostPiece.GetComponent<Piece>().pieceColor);
-        Debug.Log("Dropping");
+        if(ghostOn)
+        {
+            emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
+            ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
+            ghostPiece.GetComponent<Piece>().ghostDrop();
+        }
     }
-
+    
     // Use this for initialization
     void Start () {
         generateBoard();
@@ -244,16 +246,21 @@ public class Board : MonoBehaviour {
 	void Update () {
         if(currentPiece == null && pieceQueue != null)
         {
+            Debug.Log("No active piece");
             GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().Dequeue();
             currentPiece = Instantiate(piecePrefab);
             currentPiece.GetComponent<Piece>().gameBoard = this;
-            dropGhostPiece();
-            
+            ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>();
+            ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
+            //ghostPiece.GetComponent<Piece>().ghostDrop();
+            //dropGhostPiece();
+
         }
 
         if(Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock)
         {
             emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
+            emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
             currentPiece.GetComponent<Piece>().activate(false);
             GameObject heldPiece = pieceHolder.GetComponent<pieceHolder>().swap(currentPiece);
             currentPiece = null;
@@ -263,7 +270,21 @@ public class Board : MonoBehaviour {
                 Destroy(heldPiece);
             }
             swapLock = true;
-            dropGhostPiece();
+            //ghostPiece.GetComponent<Piece>().ghostDrop();
+            //dropGhostPiece();
+        }
+
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            ghostOn = !ghostOn;
+            if (ghostOn)
+            {
+                dropGhostPiece();
+            }
+            else
+            {
+                emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
+            }
         }
 	}
 

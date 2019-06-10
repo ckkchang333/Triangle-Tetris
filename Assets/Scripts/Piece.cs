@@ -269,6 +269,7 @@ public class Piece : MonoBehaviour {
             }
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
+            gameBoard.dropGhostPiece();
         }
     }
 
@@ -316,6 +317,7 @@ public class Piece : MonoBehaviour {
             }
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
+            gameBoard.dropGhostPiece();
         }
         else if(Input.GetKeyDown(KeyCode.D))
         {
@@ -359,6 +361,7 @@ public class Piece : MonoBehaviour {
             }
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
+            gameBoard.dropGhostPiece();
         }
     }
 
@@ -379,13 +382,37 @@ public class Piece : MonoBehaviour {
 
     public void drop()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            for(int i = 0; i < gameBoard.height; ++i)
+            for (int i = 0; i < gameBoard.height; ++i)
             {
                 fallOnce();
             }
         }
+    }
+
+    public void ghostDrop()
+    {
+        List<int> shadow = new List<int>(trianglesIndices);
+        for(int i = 0; i < gameBoard.getHeight(); ++i)
+        {
+
+            for(int j = 0; j < trianglesIndices.Count; ++j)
+            {
+                shadow[j] -= 4 * gameBoard.getWidth();
+            }
+            if (!gameBoard.checkEmpty(shadow))
+            {
+                for (int j = 0; j < trianglesIndices.Count; ++j)
+                {
+                    shadow[j] += 4 * gameBoard.getWidth();
+                }
+                trianglesIndices = shadow;
+                gameBoard.updateBoard(trianglesIndices, pieceColor);
+                return;
+            }
+        }
+        Debug.Log("Ghost drop called");
     }
 
     public void activate(bool toggle)
@@ -423,7 +450,7 @@ public class Piece : MonoBehaviour {
             }
             resetPosition();
             updateTriangleIndices();
-
+            gameBoard.dropGhostPiece();
             gameBoard.updateBoard(trianglesIndices, pieceColor);
         }
     }
