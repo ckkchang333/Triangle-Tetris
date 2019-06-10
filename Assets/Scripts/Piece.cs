@@ -24,6 +24,8 @@ public class Piece : MonoBehaviour {
     public int pieceID;
     public bool active;
 
+
+
     public GameObject pieceSprite;
 
     public Color pieceColor = Color.red;
@@ -98,12 +100,21 @@ public class Piece : MonoBehaviour {
         coreTriangle = (gameBoard.getHeight() - 3) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
     }
 
-    List<int> getNewTriangleIndices(int newX, int newY)
+    List<int> getNewTriangleIndices(int newX, int newY, int newOrientationDelta = 0)
     {
         List<int> newTriangleIndices = new List<int>();
         int newCoreTriangle = coreTriangle - gameBoard.width * 4 * -newY;
         newCoreTriangle += 4 * newX;
-        List<int> deltas = orientationsDeltas[orientationState].myList;
+        int updatedOrientationState = orientationState + newOrientationDelta;
+        if(updatedOrientationState < 0)
+        {
+            updatedOrientationState += orientationsDeltas.Count;
+        }
+        else if (updatedOrientationState > orientationsDeltas.Count - 1)
+        {
+            updatedOrientationState -= orientationsDeltas.Count;
+        }
+        List<int> deltas = orientationsDeltas[updatedOrientationState].myList;
         for (int i = 0; i < deltas.Count; ++i)
         {
             newTriangleIndices.Add(newCoreTriangle + deltas[i]);
@@ -113,6 +124,14 @@ public class Piece : MonoBehaviour {
 
     void updateTriangleIndices()
     {
+        if (orientationState < 0)
+        {
+            orientationState += orientationsDeltas.Count;
+        }
+        else if(orientationState > orientationsDeltas.Count - 1)
+        {
+            orientationState -= orientationsDeltas.Count;
+        }
         List<int> currentDeltas = orientationsDeltas[orientationState].myList;
         trianglesIndices.Clear();
         for (int i = 0; i < currentDeltas.Count; ++i)
@@ -144,25 +163,111 @@ public class Piece : MonoBehaviour {
         }
         if(rotated)
         {
+            float startTime = Time.realtimeSinceStartup;
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
-                //if ((getRowIndex(trianglesIndices[i]) > getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == 0 && getColumnIndex(coreTriangle) != 0)
-                //   ||  (getColumnIndex(trianglesIndices[i]) == 0 && getColumnIndex(coreTriangle) != 0))
                 if(getColumnIndex(coreTriangle) > gameBoard.getWidth()/ 2 && getColumnIndex(trianglesIndices[i]) < gameBoard.getWidth()/2)
                 {
                     coreTriangle -= 4;
                     break;
                 }
-                //else if ((getRowIndex(trianglesIndices[i]) < getRowIndex(coreTriangle) && getColumnIndex(trianglesIndices[i]) == gameBoard.width - 1 && getColumnIndex(coreTriangle) != gameBoard.width - 1)
-                //        || (getColumnIndex(trianglesIndices[i]) == gameBoard.width - 1 && getColumnIndex(coreTriangle) != gameBoard.width - 1))
                 else if (getColumnIndex(coreTriangle) < gameBoard.getWidth() / 2 && getColumnIndex(trianglesIndices[i]) > gameBoard.getWidth() / 2)
                 {
                     coreTriangle += 4;
                     break;
                 }
             }
+            updateTriangleIndices();
+            Debug.Log(Time.realtimeSinceStartup - startTime);
+        }
+    }
+
+
+    void rotateNeo()
+    {
+        int rotateDelta = 0;
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            rotateDelta = -1;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            rotateDelta = 1;
+        }
+        if(rotateDelta != 0)
+        {
+            float startTime = Time.realtimeSinceStartup;
+            int additionalShift = 0;
+            List<int> rotatedTriangleIndices =  getNewTriangleIndices(0, 0, rotateDelta);
+            for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
+            {
+                if (getColumnIndex(coreTriangle) > gameBoard.getWidth() / 2 && getColumnIndex(rotatedTriangleIndices[i]) < gameBoard.getWidth() / 2)
+                {
+                    for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                    {
+                        rotatedTriangleIndices[j] -= 4;
+                        additionalShift = -4;
+                    }
+                        break;
+                }
+                else if (getColumnIndex(coreTriangle) < gameBoard.getWidth() / 2 && getColumnIndex(rotatedTriangleIndices[i]) > gameBoard.getWidth() / 2)
+                {
+                    for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                    {
+                        rotatedTriangleIndices[j] += 4;
+                        additionalShift = 4;
+                    }
+                    break;
+                }
+            }
+            if(gameBoard.checkEmpty(rotatedTriangleIndices))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += additionalShift;
+            }
+            else if(gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 0)))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += (-4 + additionalShift);
+            }
+            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 0)))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += (4 + additionalShift);
+            }
+            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -1)))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += (-4 * gameBoard.getWidth() + additionalShift);
+            }
+            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -1)))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += (-4 * gameBoard.getWidth() - 4 + additionalShift);
+            }
+            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -1)))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += (-4 * gameBoard.getWidth() + 4 + additionalShift);
+            }
+            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, 1)))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += (4 * gameBoard.getWidth() + additionalShift);
+            }
+            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 1)))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += (4 * gameBoard.getWidth() - 4 + additionalShift);
+            }
+            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 1)))
+            {
+                orientationState += rotateDelta;
+                coreTriangle += (4 * gameBoard.getWidth() + 4 + additionalShift);
+            }
+            gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
         }
     }
@@ -272,7 +377,7 @@ public class Piece : MonoBehaviour {
         }
     }
 
-    void drop()
+    public void drop()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -288,26 +393,39 @@ public class Piece : MonoBehaviour {
         active = toggle;
     }
 
+    List<int> shiftPassedIndices(List<int> indices, int newX, int newY)
+    {
+        for(int i = 0; i < indices.Count; ++i)
+        {
+            indices[i] += (gameBoard.getWidth() * 4 * newY) + (newX * 4);
+        }
+        return indices;
+    }
+
+
 
     
 	// Use this for initialization
 	void Start () {
-        timer = dropTimeInterval;
-        for(int i = 0; i < orientationsDeltas.Count; ++i)
+        if(active)
         {
-            for(int j = 0; j < orientationsDeltas[i].myList.Count; ++j)
+            timer = dropTimeInterval;
+            for (int i = 0; i < orientationsDeltas.Count; ++i)
             {
-                int value = orientationsDeltas[i].myList[j];
-                if (Mathf.Abs(value) > 999)
+                for (int j = 0; j < orientationsDeltas[i].myList.Count; ++j)
                 {
-                    orientationsDeltas[i].myList[j] = (Mathf.Abs(value) % 1000 / 100 == 1 ? -1 : 1) *  (Mathf.Abs(value) % 100) + value / 1000 * gameBoard.width * 4;
+                    int value = orientationsDeltas[i].myList[j];
+                    if (Mathf.Abs(value) > 999)
+                    {
+                        orientationsDeltas[i].myList[j] = (Mathf.Abs(value) % 1000 / 100 == 1 ? -1 : 1) * (Mathf.Abs(value) % 100) + value / 1000 * gameBoard.width * 4;
+                    }
                 }
             }
-        }
-        resetPosition();
-        updateTriangleIndices();
+            resetPosition();
+            updateTriangleIndices();
 
-        gameBoard.updateBoard(trianglesIndices, pieceColor);
+            gameBoard.updateBoard(trianglesIndices, pieceColor);
+        }
     }
 	
 	// Update is called once per frame
@@ -315,7 +433,8 @@ public class Piece : MonoBehaviour {
         if (active)
         {
             timer -= Time.deltaTime;
-            rotate();
+            //rotate();
+            rotateNeo();
             horizontalMove();
             lower();
             drop();
@@ -326,8 +445,6 @@ public class Piece : MonoBehaviour {
             }
             gameBoard.updateBoard(trianglesIndices, pieceColor);
         }
-
-
     }
 
     private void OnDestroy()

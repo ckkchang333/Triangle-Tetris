@@ -21,6 +21,7 @@ public class Board : MonoBehaviour {
     [Header("Piece")]
     public GameObject piecePrefab;
     public GameObject currentPiece;
+    public GameObject ghostPiece;
 
 
     [Header("External Components")]
@@ -221,10 +222,21 @@ public class Board : MonoBehaviour {
         return width;
     }
 
+
+    public void dropGhostPiece()
+    {
+        ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
+        ghostPiece.GetComponent<Piece>().drop();
+        updateBoard(ghostPiece.GetComponent<Piece>().trianglesIndices, ghostPiece.GetComponent<Piece>().pieceColor);
+        Debug.Log("Dropping");
+    }
+
     // Use this for initialization
     void Start () {
         generateBoard();
         //generatePiece();
+        ghostPiece = Instantiate(ghostPiece);
+        ghostPiece.GetComponent<Piece>().gameBoard = this;
 
     }
 	
@@ -235,6 +247,7 @@ public class Board : MonoBehaviour {
             GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().Dequeue();
             currentPiece = Instantiate(piecePrefab);
             currentPiece.GetComponent<Piece>().gameBoard = this;
+            dropGhostPiece();
             
         }
 
@@ -250,6 +263,7 @@ public class Board : MonoBehaviour {
                 Destroy(heldPiece);
             }
             swapLock = true;
+            dropGhostPiece();
         }
 	}
 

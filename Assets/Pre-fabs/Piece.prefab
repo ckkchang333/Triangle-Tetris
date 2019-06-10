@@ -63,4 +63,5 @@ MonoBehaviour:
   dropTimeInterval: 0.5
   pieceID: 0
   active: 1
-  pieceColor: {r: 0.107794285, g: 0, b: 1, a: 1}
+  pieceSprite: {fileID: 0}
+  pieceColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
