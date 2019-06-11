@@ -269,6 +269,7 @@ public class Piece : MonoBehaviour {
                 orientationState += rotateDelta;
                 coreTriangle += (4 * gameBoard.getWidth() + 4 + additionalShift);
             }
+            timer += 0.5f * Time.deltaTime;
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
             gameBoard.dropGhostPiece();
@@ -287,31 +288,35 @@ public class Piece : MonoBehaviour {
                 }
             }
             List<int> leftTriangleIndices = getNewTriangleIndices(-1, 0);
-            for(int i = 0; i < leftTriangleIndices.Count; ++i)
+            List<int> leftBelowTriangleIndices = getNewTriangleIndices(-1, -1);
+            for (int i = 0; i < trianglesIndices.Count; ++i)
             {
-                int current = leftTriangleIndices[i];
+                int current = trianglesIndices[i];
                 if(current % 4 == 1)
                 {
-                    leftTriangleIndices.Insert(i, current + 2);
-                    ++i;
+                    leftTriangleIndices.Add(current - 2);
+                    leftBelowTriangleIndices.Add(current - 2);
                 }
                 else if (current % 4 == 3)
                 {
-                    leftTriangleIndices.Insert(i, current + 2);
-                    ++i;
+                    leftTriangleIndices.Add(current - 2);
+                    leftBelowTriangleIndices.Add(current - 2);
                 }
             }
             if(gameBoard.checkEmpty(leftTriangleIndices))
             {
                 coreTriangle -= 4;
+                timer += 0.5f * Time.deltaTime;
             }
-            else if(gameBoard.checkEmpty(getNewTriangleIndices(-1, -1)))
+            else if(gameBoard.checkEmpty(leftBelowTriangleIndices))
             {
                 coreTriangle -= (4 + gameBoard.width * 4);
+                timer += 0.5f * Time.deltaTime;
             }
             else if (gameBoard.checkEmpty(getNewTriangleIndices(-1, 1)))
             {
                 coreTriangle += ( gameBoard.width * 4 - 4);
+                timer += 0.5f * Time.deltaTime;
             }
             else
             {
@@ -331,31 +336,35 @@ public class Piece : MonoBehaviour {
                 }
             }
             List<int> rightTriangleIndices = getNewTriangleIndices(1, 0);
-            for (int i = 0; i < rightTriangleIndices.Count; ++i)
+            List<int> rightBelowTriangleIndices = getNewTriangleIndices(1, -1);
+            for (int i = 0; i < trianglesIndices.Count; ++i)
             {
-                int current = rightTriangleIndices[i];
+                int current = trianglesIndices[i];
                 if (current % 4 == 1)
                 {
-                    rightTriangleIndices.Insert(i, current - 2);
-                    ++i;
+                    rightTriangleIndices.Add(current + 2);
+                    rightBelowTriangleIndices.Add(current + 2);
                 }
                 else if (current % 4 == 3)
                 {
-                    rightTriangleIndices.Insert(i, current - 2);
-                    ++i;
+                    rightTriangleIndices.Add(current + 2);
+                    rightBelowTriangleIndices.Add(current + 2);
                 }
             }
             if (gameBoard.checkEmpty(rightTriangleIndices))
             {
                 coreTriangle += 4;
+                timer += 0.5f * Time.deltaTime;
             }
-            else if (gameBoard.checkEmpty(getNewTriangleIndices(1, -1)))
+            else if (gameBoard.checkEmpty(rightBelowTriangleIndices))
             {
                 coreTriangle -= (gameBoard.width * 4 - 4);
+                timer += 0.5f * Time.deltaTime;
             }
             else if (gameBoard.checkEmpty(getNewTriangleIndices(1, 1)))
             {
                 coreTriangle += (gameBoard.width * 4 + 4);
+                timer += 0.5f * Time.deltaTime;
             }
             else
             {
