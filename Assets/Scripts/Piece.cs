@@ -68,8 +68,9 @@ public class Piece : MonoBehaviour {
                 int oppositeBelowTriangleIndex = current - (gameBoard.getWidth() * 4 - 2);
                 if (!fallTriangleIndices.Contains(oppositeBelowTriangleIndex) && oppositeBelowTriangleIndex >= 0)
                 {
+                    Debug.Log(oppositeBelowTriangleIndex);
                     fallTriangleIndices.Insert(i, oppositeBelowTriangleIndex);
-                    ++i;
+                    //++i;
                 }
             }
             else if (current % 4 == 2)
@@ -77,8 +78,9 @@ public class Piece : MonoBehaviour {
                 int oppositeBelowTriangleIndex = current - 2;
                 if (!fallTriangleIndices.Contains(oppositeBelowTriangleIndex) && oppositeBelowTriangleIndex >= 0)
                 {
+                    Debug.Log(oppositeBelowTriangleIndex);
                     fallTriangleIndices.Insert(i, oppositeBelowTriangleIndex);
-                    ++i;
+                    //++i;
                 }
             }
         }
@@ -373,9 +375,7 @@ public class Piece : MonoBehaviour {
             {
                 return;
             }
-            gameBoard.emptyTriangles(trianglesIndices);
-            coreTriangle -= 4 * gameBoard.width;
-            updateTriangleIndices();
+            fallOnce();
             timer = dropTimeInterval;
         }
     }
@@ -412,7 +412,6 @@ public class Piece : MonoBehaviour {
                 return;
             }
         }
-        Debug.Log("Ghost drop called");
     }
 
     public void activate(bool toggle)

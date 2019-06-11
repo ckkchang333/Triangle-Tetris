@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class PieceQueue : MonoBehaviour {
 
+    public int pieceListIndex;
     public List<GameObject> pieces;
+    public List<GameObject> pieces1;
     //public List<GameObject> sprites;
     public List<GameObject> pieceQueue;
     //public List<GameObject> spriteQueue;
 
     void fillQueue()
     {
-        List<GameObject> pieceBucket = new List<GameObject>(pieces);
+        List<GameObject> pieceBucket = null;
+        if (pieceListIndex == 0)
+        {
+            pieceBucket = new List<GameObject>(pieces);
+        }
+        else if(pieceListIndex == 1)
+        {
+            pieceBucket = new List<GameObject>(pieces1);
+        }
         //List<GameObject> spriteBucket = new List<GameObject>(sprites);
         while (pieceBucket.Count > 0)
         {
