@@ -68,7 +68,7 @@ public class Piece : MonoBehaviour {
                 int oppositeBelowTriangleIndex = current - (gameBoard.getWidth() * 4 - 2);
                 if (!fallTriangleIndices.Contains(oppositeBelowTriangleIndex) && oppositeBelowTriangleIndex >= 0)
                 {
-                    Debug.Log(oppositeBelowTriangleIndex);
+                    //Debug.Log(oppositeBelowTriangleIndex);
                     fallTriangleIndices.Insert(i, oppositeBelowTriangleIndex);
                     //++i;
                 }
@@ -78,7 +78,7 @@ public class Piece : MonoBehaviour {
                 int oppositeBelowTriangleIndex = current - 2;
                 if (!fallTriangleIndices.Contains(oppositeBelowTriangleIndex) && oppositeBelowTriangleIndex >= 0)
                 {
-                    Debug.Log(oppositeBelowTriangleIndex);
+                    //Debug.Log(oppositeBelowTriangleIndex);
                     fallTriangleIndices.Insert(i, oppositeBelowTriangleIndex);
                     //++i;
                 }
@@ -394,19 +394,39 @@ public class Piece : MonoBehaviour {
     public void ghostDrop()
     {
         List<int> shadow = new List<int>(trianglesIndices);
-        for(int i = 0; i < gameBoard.getHeight(); ++i)
-        {
+        List<int> shadowHitbox = new List<int>(trianglesIndices);
 
-            for(int j = 0; j < trianglesIndices.Count; ++j)
+        for(int i = 0; i < shadowHitbox.Count; ++i)
+        {
+            shadowHitbox[i] -= gameBoard.getWidth() * 4;
+        }
+        for (int i = 0; i < shadow.Count; ++i)
+        {
+            if(shadow[i] % 4 == 0)
             {
-                shadow[j] -= 4 * gameBoard.getWidth();
+                shadowHitbox.Add(shadow[i] - gameBoard.getWidth() * 4 + 2);
             }
-            if (!gameBoard.checkEmpty(shadow))
+            else if (shadow[i] % 4 == 2)
             {
-                for (int j = 0; j < trianglesIndices.Count; ++j)
+                shadowHitbox.Add(shadow[i] - 2);
+            }
+        }
+
+        for (int i = 0; i < gameBoard.getHeight(); ++i)
+        {
+            if(gameBoard.checkEmpty(shadowHitbox))
+            {
+                for (int j = 0; j < shadowHitbox.Count; ++j)
                 {
-                    shadow[j] += 4 * gameBoard.getWidth();
+                    shadowHitbox[j] -= gameBoard.getWidth() * 4;
                 }
+                for (int j = 0; j < shadow.Count; ++j)
+                {
+                    shadow[j] -= gameBoard.getWidth() * 4;
+                }
+            }
+            else
+            {
                 trianglesIndices = shadow;
                 gameBoard.updateBoard(trianglesIndices, pieceColor);
                 return;

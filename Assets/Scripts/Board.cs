@@ -246,7 +246,6 @@ public class Board : MonoBehaviour {
 	void Update () {
         if(currentPiece == null && pieceQueue != null)
         {
-            Debug.Log("No active piece");
             GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().Dequeue();
             currentPiece = Instantiate(piecePrefab);
             currentPiece.GetComponent<Piece>().gameBoard = this;
