@@ -203,24 +203,115 @@ public class Piece : MonoBehaviour {
             float startTime = Time.realtimeSinceStartup;
             int additionalShift = 0;
             List<int> rotatedTriangleIndices =  getNewTriangleIndices(0, 0, rotateDelta);
+            bool rightSide = false;
+            if(getColumnIndex(trianglesIndices[0]) > gameBoard.getWidth() / 2)
+            {
+                rightSide = true;
+            }
             for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
             {
                 if (getColumnIndex(coreTriangle) > gameBoard.getWidth() / 2 && getColumnIndex(rotatedTriangleIndices[i]) < gameBoard.getWidth() / 2)
                 {
-                    for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                    if(rightSide)
                     {
-                        rotatedTriangleIndices[j] -= 4;
-                        additionalShift = -4;
+                        for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                        {
+                            rotatedTriangleIndices[j] -= 4;
+                        }
+
+                        if (trianglesIndices.Count >= 12)
+                        {
+                            additionalShift = -8;
+                        }
+                        else if (trianglesIndices.Count > 4)
+                        {
+                            additionalShift = -4;
+                        }
+                        else
+                        {
+                            additionalShift = -4;
+                        }
                     }
-                        break;
+                    else
+                    {
+                        for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                        {
+                            rotatedTriangleIndices[j] += 4;
+                        }
+
+                        if (trianglesIndices.Count >= 12)
+                        {
+                            additionalShift = 8;
+                        }
+                        else if (trianglesIndices.Count > 4)
+                        {
+                            additionalShift = 4;
+                        }
+                        else
+                        {
+                            additionalShift = 4;
+                        }
+                    }
+                    break;
                 }
                 else if (getColumnIndex(coreTriangle) < gameBoard.getWidth() / 2 && getColumnIndex(rotatedTriangleIndices[i]) > gameBoard.getWidth() / 2)
                 {
-                    for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                    if (rightSide)
                     {
-                        rotatedTriangleIndices[j] += 4;
-                        additionalShift = 4;
+                        for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                        {
+                            rotatedTriangleIndices[j] -= 4;
+                        }
+
+                        if (trianglesIndices.Count >= 12)
+                        {
+                            additionalShift = -8;
+                        }
+                        else if (trianglesIndices.Count > 4)
+                        {
+                            additionalShift = -4;
+                        }
+                        else
+                        {
+                            additionalShift = -4;
+                        }
                     }
+                    else
+                    {
+                        for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                        {
+                            rotatedTriangleIndices[j] += 4;
+                        }
+
+                        if (trianglesIndices.Count >= 12)
+                        {
+                            additionalShift = 8;
+                        }
+                        else if (trianglesIndices.Count > 4)
+                        {
+                            additionalShift = 4;
+                        }
+                        else
+                        {
+                            additionalShift = 4;
+                        }
+                    }
+                    //for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                    //{
+                    //    rotatedTriangleIndices[j] += 4;
+                    //}
+                    //if (trianglesIndices.Count >= 12)
+                    //{
+                    //    additionalShift = 8;
+                    //}
+                    //else if (trianglesIndices.Count > 4)
+                    //{
+                    //    additionalShift = 4;
+                    //}
+                    //else
+                    //{
+                    //    additionalShift = 8;
+                    //}
                     break;
                 }
             }

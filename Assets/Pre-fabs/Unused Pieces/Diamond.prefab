@@ -57,7 +57,7 @@ MonoBehaviour:
   trianglesIndices: 
   orientationsDeltas:
   - myList: 02000000030000000500000006000000e8030000eb030000ec030000ed030000
-  dropTimeInterval: 0.5
+  dropTimeInterval: 1
   pieceID: 0
   active: 1
   pieceSprite: {fileID: 1003289859447042, guid: 203246d88cbf8fc44a1e2a327e16be1b,

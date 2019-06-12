@@ -58,7 +58,7 @@ MonoBehaviour:
   orientationsDeltas:
   - myList: fcffffffffffffff000000000100000002000000030000000500000006000000
   - myList: 16fcffff15fcffff00000000010000000200000003000000e8030000e9030000
-  dropTimeInterval: 0.5
+  dropTimeInterval: 1
   pieceID: 3
   active: 1
   pieceSprite: {fileID: 1153761970521222, guid: e2d42187b81727e4e9e365788eb6060e,

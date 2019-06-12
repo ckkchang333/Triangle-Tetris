@@ -60,7 +60,7 @@ MonoBehaviour:
   - myList: 0100000002000000e8030000eb030000ed030000ee030000
   - myList: 0600000007000000ea030000eb030000ec030000ed030000
   - myList: 00000000030000000500000006000000ec030000ef030000
-  dropTimeInterval: 0.5
+  dropTimeInterval: 1
   pieceID: 6
   active: 1
   pieceSprite: {fileID: 1222251546570408, guid: d50548a5cad0a03428b39b3079bbbafa,

@@ -60,7 +60,8 @@ MonoBehaviour:
   - myList: 17fcffff16fcffff000000000200000003000000
   - myList: feffffffffffffff000000000100000003000000
   - myList: 18fcffff17fcffff16fcffff0000000003000000
-  dropTimeInterval: 0.5
+  dropTimeInterval: 1
   pieceID: 0
   active: 0
+  pieceSprite: {fileID: 0}
   pieceColor: {r: 1, g: 0, b: 0, a: 1}
