@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour {
 
@@ -28,8 +29,24 @@ public class Board : MonoBehaviour {
     [Header("External Components")]
     public GameObject pieceQueue;
     public GameObject pieceHolder;
+    public Text score;
+
+    public int rowsCleared = 0;
 
     public bool swapLock = false;
+
+
+
+    int getColumnIndex(int triangleIndex)
+    {
+        return (triangleIndex % (getWidth() * 4)) / 4;
+    }
+
+
+    int getRowIndex(int triangleIndex)
+    {
+        return triangleIndex / (getWidth() * 4);
+    }
 
     void generateBoard ()
     {
@@ -96,8 +113,54 @@ public class Board : MonoBehaviour {
             {
                 return false;
             }
+            if(getColumnIndex(triangleIndices[0]) < getWidth()/4)
+            {
+                if(getColumnIndex(triangleIndices[i]) > 3 * getWidth()/4)
+                {
+                    return false;
+                }
+            }
+            else if (getColumnIndex(triangleIndices[0]) > 3 * getWidth() / 4)
+            {
+                if (getColumnIndex(triangleIndices[i]) < getWidth() / 4)
+                {
+                    return false;
+                }
+            }
         }
         return true;
+    }
+
+    private void obilterateBoard()
+    {
+        for(int i = 0; i < this.getHeight(); ++i)
+        {
+            for(int j = 0; j < this.getWidth(); ++j)
+            {
+                Block blockScript = fetchBlockScriptByIndex(i * this.getWidth() * 4 + j * 4);
+                if(blockScript.permBottom)
+                {
+                    blockScript.permBottom = false;
+                    blockScript.filledBottom = false;
+                }
+                if (blockScript.permLeft)
+                {
+                    blockScript.permLeft = false;
+                    blockScript.filledLeft = false;
+                }
+                if (blockScript.permTop)
+                {
+                    blockScript.permTop = false;
+                    blockScript.filledTop = false;
+                }
+                if (blockScript.permRight)
+                {
+                    blockScript.permRight = false;
+                    blockScript.filledRight = false;
+                }
+                
+            }
+        }
     }
 
     private Block fetchBlockScriptByIndex(int TriangleIndex)
@@ -197,6 +260,8 @@ public class Board : MonoBehaviour {
                                 }
                             }
                         }
+                        rowsCleared += counter;
+                        score.text = "Rows Cleared: " + rowsCleared.ToString();
                         counter = 0;
                     }
                     fullRowFound = false;
@@ -256,6 +321,11 @@ public class Board : MonoBehaviour {
 
         }
 
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            obilterateBoard();
+        }
+
         if(Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock)
         {
             emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
@@ -266,6 +336,7 @@ public class Board : MonoBehaviour {
             if(heldPiece != null)
             {
                 currentPiece = Instantiate(heldPiece);
+                currentPiece.GetComponent<Piece>().resetPosition();
                 Destroy(heldPiece);
             }
             swapLock = true;

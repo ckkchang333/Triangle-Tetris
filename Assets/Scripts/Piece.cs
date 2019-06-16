@@ -100,6 +100,10 @@ public class Piece : MonoBehaviour {
     public void resetPosition()
     {
         coreTriangle = (gameBoard.getHeight() - 3) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
+        if(trianglesIndices.Count > 12)
+        {
+            coreTriangle -= gameBoard.getWidth() * 4;
+        }
     }
 
     List<int> getNewTriangleIndices(int newX, int newY, int newOrientationDelta = 0)
@@ -386,12 +390,12 @@ public class Piece : MonoBehaviour {
                 if(current % 4 == 1)
                 {
                     leftTriangleIndices.Add(current - 2);
-                    leftBelowTriangleIndices.Add(current - 2);
+                    //leftBelowTriangleIndices.Add(current - 2);
                 }
                 else if (current % 4 == 3)
                 {
                     leftTriangleIndices.Add(current - 2);
-                    leftBelowTriangleIndices.Add(current - 2);
+                    //leftBelowTriangleIndices.Add(current - 2);
                 }
             }
             if(gameBoard.checkEmpty(leftTriangleIndices))
@@ -434,12 +438,12 @@ public class Piece : MonoBehaviour {
                 if (current % 4 == 1)
                 {
                     rightTriangleIndices.Add(current + 2);
-                    rightBelowTriangleIndices.Add(current + 2);
+                    //rightBelowTriangleIndices.Add(current + 2);
                 }
                 else if (current % 4 == 3)
                 {
                     rightTriangleIndices.Add(current + 2);
-                    rightBelowTriangleIndices.Add(current + 2);
+                    //rightBelowTriangleIndices.Add(current + 2);
                 }
             }
             if (gameBoard.checkEmpty(rightTriangleIndices))
