@@ -319,10 +319,27 @@ public class Piece : MonoBehaviour {
                     break;
                 }
             }
-            if(gameBoard.checkEmpty(rotatedTriangleIndices))
+            for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
             {
+                Debug.Log("Row Index" + getRowIndex(rotatedTriangleIndices[i]));
+                if (getRowIndex(rotatedTriangleIndices[i]) >= gameBoard.getHeight())
+                {
+                    Debug.Log("Rotated Above the board, lowering");
+                    for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                    {
+                        rotatedTriangleIndices[j] -= gameBoard.getWidth() * 4;
+                    }
+                }
+            }
+            if (gameBoard.checkEmpty(rotatedTriangleIndices))
+            {
+                gameBoard.emptyTriangles(trianglesIndices);
                 orientationState += rotateDelta;
                 coreTriangle += additionalShift;
+                trianglesIndices = rotatedTriangleIndices;
+                timer += 0.5f * Time.deltaTime;
+                gameBoard.dropGhostPiece();
+                return;
             }
             else if(gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 0)))
             {
