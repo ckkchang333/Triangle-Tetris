@@ -29,12 +29,15 @@ public class Board : MonoBehaviour {
     [Header("External Components")]
     public GameObject pieceQueue;
     public GameObject pieceHolder;
-    public Text score;
+    public Text scoreText;
+    public Text gameOverText;
+
 
     public int rowsCleared = 0;
 
     public bool swapLock = false;
 
+    public bool gameOver = false;
 
 
     int getColumnIndex(int triangleIndex)
@@ -94,6 +97,21 @@ public class Board : MonoBehaviour {
             int quadIndex = (currentTriangleIndices[i] % (width * 4) % 4);
             currentBlockScript.setQuadFilled(quadIndex, true, pieceColor);
         }
+    }
+
+    public void setGameOver(bool toggle)
+    {
+        gameOver = toggle;
+        gameOverText.gameObject.SetActive(toggle);
+    }
+
+    public void resetGame()
+    {
+        rowsCleared = 0;
+        scoreText.text = "Rows Cleared: " + rowsCleared;
+        obilterateBoard();
+        setGameOver(false);
+        return;
     }
 
     public bool checkEmpty(List<int> triangleIndices)
@@ -165,10 +183,20 @@ public class Board : MonoBehaviour {
 
     private Block fetchBlockScriptByIndex(int TriangleIndex)
     {
-        int rowIndex = TriangleIndex / (width * 4);
+        int rowIndex = Mathf.FloorToInt(TriangleIndex / (width * 4));
         int columnIndex = Mathf.FloorToInt((TriangleIndex % (width * 4.0f) / 4.0f));
-        Block blockScript = this.transform.GetChild(rowIndex).GetChild(columnIndex).GetComponent<Block>();
-        return blockScript;
+        try
+        {
+            Block blockScript = this.transform.GetChild(rowIndex).GetChild(columnIndex).GetComponent<Block>();
+            return blockScript;
+        }
+        catch
+        {
+            Debug.Log("Triangle Index: " + TriangleIndex);
+            Debug.Log("Row Index: " + rowIndex);
+            Debug.Log("Column Index: " + columnIndex);
+            return null;
+        }
     }
 
     public void setPerm(List<int> triangleIndices)
@@ -261,7 +289,7 @@ public class Board : MonoBehaviour {
                             }
                         }
                         rowsCleared += counter;
-                        score.text = "Rows Cleared: " + rowsCleared.ToString();
+                        scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
                         counter = 0;
                     }
                     fullRowFound = false;
@@ -309,7 +337,7 @@ public class Board : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(currentPiece == null && pieceQueue != null)
+        if(currentPiece == null && pieceQueue != null && !gameOver)
         {
             GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().Dequeue();
             currentPiece = Instantiate(piecePrefab);
@@ -325,8 +353,12 @@ public class Board : MonoBehaviour {
         {
             obilterateBoard();
         }
+        if (Input.GetKeyDown(KeyCode.R) && gameOver)
+        {
+            resetGame();
+        }
 
-        if(Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock && !gameOver)
         {
             emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
             emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
@@ -344,7 +376,7 @@ public class Board : MonoBehaviour {
             //dropGhostPiece();
         }
 
-        if(Input.GetKeyDown(KeyCode.G))
+        if(Input.GetKeyDown(KeyCode.G) && !gameOver)
         {
             ghostOn = !ghostOn;
             if (ghostOn)

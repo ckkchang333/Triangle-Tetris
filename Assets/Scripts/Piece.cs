@@ -99,11 +99,16 @@ public class Piece : MonoBehaviour {
 
     public void resetPosition()
     {
-        coreTriangle = (gameBoard.getHeight() - 3) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
-        if(trianglesIndices.Count > 12)
+        coreTriangle = (gameBoard.getHeight() - 2) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
+        updateTriangleIndices();
+        if(!gameBoard.checkEmpty(trianglesIndices))
         {
-            coreTriangle -= gameBoard.getWidth() * 4;
+            gameBoard.setGameOver(true);
         }
+        //if(trianglesIndices.Count > 12)
+        //{
+        //    coreTriangle -= gameBoard.getWidth() * 4;
+        //}
     }
 
     List<int> getNewTriangleIndices(int newX, int newY, int newOrientationDelta = 0)
@@ -319,27 +324,22 @@ public class Piece : MonoBehaviour {
                     break;
                 }
             }
+            int downShift = 0;
             for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
             {
-                Debug.Log("Row Index" + getRowIndex(rotatedTriangleIndices[i]));
                 if (getRowIndex(rotatedTriangleIndices[i]) >= gameBoard.getHeight())
                 {
-                    Debug.Log("Rotated Above the board, lowering");
-                    for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                    for(int j = 0; j < rotatedTriangleIndices.Count; ++j)
                     {
-                        rotatedTriangleIndices[j] -= gameBoard.getWidth() * 4;
+                        rotatedTriangleIndices[j] -= 4 * gameBoard.getWidth();
                     }
+                    ++downShift;
                 }
             }
             if (gameBoard.checkEmpty(rotatedTriangleIndices))
             {
-                gameBoard.emptyTriangles(trianglesIndices);
                 orientationState += rotateDelta;
-                coreTriangle += additionalShift;
-                trianglesIndices = rotatedTriangleIndices;
-                timer += 0.5f * Time.deltaTime;
-                gameBoard.dropGhostPiece();
-                return;
+                coreTriangle += additionalShift - (downShift * gameBoard.getWidth() * 4);
             }
             else if(gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 0)))
             {
