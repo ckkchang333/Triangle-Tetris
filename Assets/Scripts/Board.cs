@@ -232,21 +232,15 @@ public class Board : MonoBehaviour {
         int counter = 0;
         for(int i  = 0; i < height; ++i)
         {
-            //Debug.Log("i/" + i);
             for(int j = 0; j < width; ++j)
             {
-                //Debug.Log("j/" + j);
-                //Debug.Log(i * width * 4 + j * 4);
                 Block blockScript =  fetchBlockScriptByIndex(i * width * 4 + j * 4);
-                //Debug.Log(blockScript.permBottom.ToString() + " " + blockScript.permLeft.ToString() + " " + blockScript.permTop.ToString() + " " + blockScript.permRight.ToString() + " ");
                 if (!blockScript.permBottom || !blockScript.permLeft || !blockScript.permTop || !blockScript.permRight)
                 {
                     if (fullRowFound)
                     {
                         if(i > 1)
                         {
-                            Debug.Log("Clearing beneath");
-                            Debug.Log("i - 1: " + (i - 2).ToString());
                             for (int l = 0; l < width; ++l)
                             {
                                 Block beneathBlockScript = fetchBlockScriptByIndex((i- 2) * width * 4 + l * 4);
@@ -360,17 +354,27 @@ public class Board : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock && !gameOver)
         {
+            Debug.Log("Swapping Start");
             emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
+            Debug.Log("A");
             emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
+            Debug.Log("B");
             currentPiece.GetComponent<Piece>().activate(false);
+            Debug.Log("C");
             GameObject heldPiece = pieceHolder.GetComponent<pieceHolder>().swap(currentPiece);
+            Debug.Log("D");
             currentPiece = null;
+            Debug.Log("Held Piece before");
             if(heldPiece != null)
             {
+                heldPiece.GetComponent<Piece>().resetPosition();
                 currentPiece = Instantiate(heldPiece);
+                Debug.Log("Switch Resetting position before");
                 currentPiece.GetComponent<Piece>().resetPosition();
+                Debug.Log("Switch Resetting position after");
                 Destroy(heldPiece);
             }
+            Debug.Log("Held Piece after");
             swapLock = true;
             //ghostPiece.GetComponent<Piece>().ghostDrop();
             //dropGhostPiece();

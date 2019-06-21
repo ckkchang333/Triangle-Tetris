@@ -99,12 +99,14 @@ public class Piece : MonoBehaviour {
 
     public void resetPosition()
     {
+        orientationState = 0;
         coreTriangle = (gameBoard.getHeight() - 2) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
         updateTriangleIndices();
         if(!gameBoard.checkEmpty(trianglesIndices))
         {
             gameBoard.setGameOver(true);
         }
+        Debug.Log(orientationState);
         //if(trianglesIndices.Count > 12)
         //{
         //    coreTriangle -= gameBoard.getWidth() * 4;
@@ -573,8 +575,9 @@ public class Piece : MonoBehaviour {
 
     
 	// Use this for initialization
-	void Start () {
-        if(active)
+	void Start ()
+    {
+        if (active)
         {
             timer = dropTimeInterval;
             for (int i = 0; i < orientationsDeltas.Count; ++i)
