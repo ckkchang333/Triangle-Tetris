@@ -237,6 +237,9 @@ public class Board : MonoBehaviour {
             for(int j = 0; j < width; ++j)
             {
                 Block blockScript =  fetchBlockScriptByIndex(i * width * 4 + j * 4);
+                Debug.Log("i: " + i);
+                Debug.Log("j: " + j);
+                Debug.Log("Result: " + i * width * 4 + j * 4);
                 if (!blockScript.permBottom || !blockScript.permLeft || !blockScript.permTop || !blockScript.permRight)
                 {
                     if (fullRowFound)
