@@ -38,6 +38,7 @@ public class Board : MonoBehaviour {
     public bool swapLock = false;
 
     public bool gameOver = false;
+    private float pieceCurrentLowerTimer = 1.0f;
 
 
     int getColumnIndex(int triangleIndex)
@@ -111,6 +112,7 @@ public class Board : MonoBehaviour {
         scoreText.text = "Rows Cleared: " + rowsCleared;
         obilterateBoard();
         setGameOver(false);
+        pieceCurrentLowerTimer = 1.0f;
         return;
     }
 
@@ -192,9 +194,9 @@ public class Board : MonoBehaviour {
         }
         catch
         {
-            Debug.Log("Triangle Index: " + TriangleIndex);
-            Debug.Log("Row Index: " + rowIndex);
-            Debug.Log("Column Index: " + columnIndex);
+            //Debug.Log("Triangle Index: " + TriangleIndex);
+            //Debug.Log("Row Index: " + rowIndex);
+            //Debug.Log("Column Index: " + columnIndex);
             return null;
         }
     }
@@ -246,7 +248,6 @@ public class Board : MonoBehaviour {
                                 Block beneathBlockScript = fetchBlockScriptByIndex((i- 2) * width * 4 + l * 4);
                                 if(beneathBlockScript.permTop && !beneathBlockScript.permBottom)
                                 {
-                                    Debug.Log("l: " + l.ToString());
                                     beneathBlockScript.filledBottom = false;
                                     beneathBlockScript.filledLeft = false;
                                     beneathBlockScript.filledTop = false;
@@ -284,6 +285,7 @@ public class Board : MonoBehaviour {
                         }
                         rowsCleared += counter;
                         scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
+                        pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared;
                         counter = 0;
                     }
                     fullRowFound = false;
@@ -318,6 +320,11 @@ public class Board : MonoBehaviour {
             ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
             ghostPiece.GetComponent<Piece>().ghostDrop();
         }
+    }
+
+    public float getPieceLowerTimer()
+    {
+        return pieceCurrentLowerTimer;
     }
     
     // Use this for initialization
@@ -354,30 +361,19 @@ public class Board : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock && !gameOver)
         {
-            Debug.Log("Swapping Start");
             emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
-            Debug.Log("A");
             emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
-            Debug.Log("B");
             currentPiece.GetComponent<Piece>().activate(false);
-            Debug.Log("C");
             GameObject heldPiece = pieceHolder.GetComponent<pieceHolder>().swap(currentPiece);
-            Debug.Log("D");
             currentPiece = null;
-            Debug.Log("Held Piece before");
             if(heldPiece != null)
             {
                 heldPiece.GetComponent<Piece>().resetPosition();
                 currentPiece = Instantiate(heldPiece);
-                Debug.Log("Switch Resetting position before");
                 currentPiece.GetComponent<Piece>().resetPosition();
-                Debug.Log("Switch Resetting position after");
                 Destroy(heldPiece);
             }
-            Debug.Log("Held Piece after");
             swapLock = true;
-            //ghostPiece.GetComponent<Piece>().ghostDrop();
-            //dropGhostPiece();
         }
 
         if(Input.GetKeyDown(KeyCode.G) && !gameOver)

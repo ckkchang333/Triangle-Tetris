@@ -106,7 +106,6 @@ public class Piece : MonoBehaviour {
         {
             gameBoard.setGameOver(true);
         }
-        Debug.Log(orientationState);
         //if(trianglesIndices.Count > 12)
         //{
         //    coreTriangle -= gameBoard.getWidth() * 4;
@@ -579,6 +578,7 @@ public class Piece : MonoBehaviour {
     {
         if (active)
         {
+            dropTimeInterval = gameBoard.getPieceLowerTimer();
             timer = dropTimeInterval;
             for (int i = 0; i < orientationsDeltas.Count; ++i)
             {
@@ -592,6 +592,7 @@ public class Piece : MonoBehaviour {
                 }
             }
             resetPosition();
+
             updateTriangleIndices();
             gameBoard.dropGhostPiece();
             gameBoard.updateBoard(trianglesIndices, pieceColor);
