@@ -22,6 +22,18 @@ public class pieceHolder : MonoBehaviour {
         return outgoing;
     }
 
+    public void empty()
+    {
+        if(heldPiece != null)
+        {
+            Destroy(heldPiece);
+        }
+        if(currentSprite != null)
+        {
+            Destroy(currentSprite);
+        }
+    }
+
 	// Use this for initialization
 	void Start () {
 		

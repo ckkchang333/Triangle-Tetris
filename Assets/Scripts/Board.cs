@@ -104,6 +104,7 @@ public class Board : MonoBehaviour {
     {
         gameOver = toggle;
         gameOverText.gameObject.SetActive(toggle);
+        currentPiece.GetComponent<Piece>().activate(false);
     }
 
     public void resetGame()
@@ -112,6 +113,7 @@ public class Board : MonoBehaviour {
         scoreText.text = "Rows Cleared: " + rowsCleared;
         obilterateBoard();
         setGameOver(false);
+        pieceHolder.GetComponent<pieceHolder>().empty();
         pieceCurrentLowerTimer = 1.0f;
         return;
     }
@@ -237,9 +239,6 @@ public class Board : MonoBehaviour {
             for(int j = 0; j < width; ++j)
             {
                 Block blockScript =  fetchBlockScriptByIndex(i * width * 4 + j * 4);
-                Debug.Log("i: " + i);
-                Debug.Log("j: " + j);
-                Debug.Log("Result: " + i * width * 4 + j * 4);
                 if (!blockScript.permBottom || !blockScript.permLeft || !blockScript.permTop || !blockScript.permRight)
                 {
                     if (fullRowFound)
