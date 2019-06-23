@@ -576,7 +576,7 @@ public class Piece : MonoBehaviour {
         }
     }
 
-    public void activate(bool toggle)
+    public void setActive(bool toggle)
     {
         active = toggle;
     }
@@ -641,7 +641,6 @@ public class Piece : MonoBehaviour {
 
     private void OnDestroy()
     {
-
         gameBoard.clearFilledRows();
     }
 }

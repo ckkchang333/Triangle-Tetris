@@ -31,6 +31,8 @@ public class Board : MonoBehaviour {
     public GameObject pieceHolder;
     public Text scoreText;
     public Text gameOverText;
+    public Text startText;
+    public Text pausedText;
 
 
     public int rowsCleared = 0;
@@ -39,6 +41,10 @@ public class Board : MonoBehaviour {
 
     public bool gameOver = false;
     private float pieceCurrentLowerTimer = 1.0f;
+
+    private bool active = false;
+
+    private bool paused = false;
 
 
     int getColumnIndex(int triangleIndex)
@@ -104,7 +110,7 @@ public class Board : MonoBehaviour {
     {
         gameOver = toggle;
         gameOverText.gameObject.SetActive(toggle);
-        currentPiece.GetComponent<Piece>().activate(false);
+        currentPiece.GetComponent<Piece>().setActive(false);
     }
 
     public void resetGame()
@@ -229,6 +235,16 @@ public class Board : MonoBehaviour {
         swapLock = false;
     }
 
+
+
+    void pause()
+    {
+        paused = !paused;
+        currentPiece.GetComponent<Piece>().setActive(!paused);
+        pausedText.gameObject.SetActive(paused);
+
+    }
+
     public void clearFilledRows()
     {
         bool fullRowFound = false;
@@ -328,6 +344,17 @@ public class Board : MonoBehaviour {
     {
         return pieceCurrentLowerTimer;
     }
+
+    public void setActive(bool toggle)
+    {
+        active = toggle;
+    }
+
+    public void startGame()
+    {
+        setActive(true);
+        startText.gameObject.SetActive(false);
+    }
     
     // Use this for initialization
     void Start () {
@@ -340,54 +367,66 @@ public class Board : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(currentPiece == null && pieceQueue != null && !gameOver)
+        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
-            GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().Dequeue();
-            currentPiece = Instantiate(piecePrefab);
-            currentPiece.GetComponent<Piece>().gameBoard = this;
-            ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>();
-            ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
-            //ghostPiece.GetComponent<Piece>().ghostDrop();
-            //dropGhostPiece();
-
+            startGame();
         }
+        if(active)
+        {
 
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            obilterateBoard();
-        }
-        if (Input.GetKeyDown(KeyCode.R) && gameOver)
-        {
-            resetGame();
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock && !gameOver)
-        {
-            emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
-            emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
-            currentPiece.GetComponent<Piece>().activate(false);
-            GameObject heldPiece = pieceHolder.GetComponent<pieceHolder>().swap(currentPiece);
-            currentPiece = null;
-            if(heldPiece != null)
+            if (currentPiece == null && pieceQueue != null && !gameOver)
             {
-                heldPiece.GetComponent<Piece>().resetPosition();
-                currentPiece = Instantiate(heldPiece);
-                currentPiece.GetComponent<Piece>().resetPosition();
-                Destroy(heldPiece);
+                GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().Dequeue();
+                currentPiece = Instantiate(piecePrefab);
+                currentPiece.GetComponent<Piece>().gameBoard = this;
+                ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>();
+                ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
+                //ghostPiece.GetComponent<Piece>().ghostDrop();
+                //dropGhostPiece();
+
             }
-            swapLock = true;
-        }
 
-        if(Input.GetKeyDown(KeyCode.G) && !gameOver)
-        {
-            ghostOn = !ghostOn;
-            if (ghostOn)
+            if (Input.GetKeyDown(KeyCode.O))
             {
-                dropGhostPiece();
+                obilterateBoard();
             }
-            else
+            if (Input.GetKeyDown(KeyCode.R) && gameOver)
             {
+                resetGame();
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock && !gameOver)
+            {
+                emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
                 emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
+                currentPiece.GetComponent<Piece>().setActive(false);
+                GameObject heldPiece = pieceHolder.GetComponent<pieceHolder>().swap(currentPiece);
+                currentPiece = null;
+                if (heldPiece != null)
+                {
+                    heldPiece.GetComponent<Piece>().resetPosition();
+                    currentPiece = Instantiate(heldPiece);
+                    currentPiece.GetComponent<Piece>().resetPosition();
+                    Destroy(heldPiece);
+                }
+                swapLock = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.G) && !gameOver)
+            {
+                ghostOn = !ghostOn;
+                if (ghostOn)
+                {
+                    dropGhostPiece();
+                }
+                else
+                {
+                    emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.P) && !gameOver)
+            {
+                pause();
             }
         }
 	}
