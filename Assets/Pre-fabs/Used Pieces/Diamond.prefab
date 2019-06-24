@@ -9,60 +9,57 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1429843683270340}
+  m_RootGameObject: {fileID: 1539387568034876}
   m_IsPrefabParent: 1
---- !u!1 &1429843683270340
+--- !u!1 &1539387568034876
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4910660880992082}
-  - component: {fileID: 114977858066082490}
+  - component: {fileID: 4554355318986410}
+  - component: {fileID: 114061799954585614}
   m_Layer: 0
-  m_Name: Triangle 2x1
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4910660880992082
+--- !u!4 &4554355318986410
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1429843683270340}
+  m_GameObject: {fileID: 1539387568034876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3259468, y: 3.705533, z: -10.089548}
+  m_LocalPosition: {x: -12.461186, y: -2.5576506, z: -10.089548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114977858066082490
+--- !u!114 &114061799954585614
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1429843683270340}
+  m_GameObject: {fileID: 1539387568034876}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b53a86c6a311af74198207885c6dc37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameBoard: {fileID: 0}
-  coreTriangle: 0
+  coreTriangle: 500
   orientationState: 0
   trianglesIndices: 
   orientationsDeltas:
-  - myList: 02000000030000000500000006000000
-  - myList: 0200000003000000e8030000eb030000
-  - myList: e8030000eb030000ec030000ed030000
-  - myList: 0500000006000000ec030000ed030000
+  - myList: 02000000030000000500000006000000e8030000eb030000ec030000ed030000
   dropTimeInterval: 1
   pieceID: 0
   active: 1
-  pieceSprite: {fileID: 1431641362449754, guid: 0501d8e6e9c06f845abccfb9f2a1e515,
+  pieceSprite: {fileID: 1003289859447042, guid: 203246d88cbf8fc44a1e2a327e16be1b,
     type: 2}
-  pieceColor: {r: 0, g: 0.9411765, b: 1, a: 1}
+  pieceColor: {r: 1, g: 1, b: 0, a: 1}

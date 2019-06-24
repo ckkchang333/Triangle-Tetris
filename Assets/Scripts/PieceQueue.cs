@@ -11,7 +11,7 @@ public class PieceQueue : MonoBehaviour {
     public List<GameObject> pieceQueue;
     //public List<GameObject> spriteQueue;
 
-    void fillQueue()
+    public void fillQueue()
     {
         List<GameObject> pieceBucket = null;
         if (pieceListIndex == 0)
@@ -52,7 +52,7 @@ public class PieceQueue : MonoBehaviour {
         }
     }
 
-    public GameObject Dequeue()
+    public GameObject dequeue()
     {
         GameObject frontPiece = pieceQueue[0];
         pieceQueue.RemoveAt(0);
@@ -66,9 +66,13 @@ public class PieceQueue : MonoBehaviour {
 
     }
 
+    public void emptyQueue()
+    {
+        pieceQueue.Clear();
+    }
+
 	// Use this for initialization
 	void Start () {
-        fillQueue();
     }
 	
 	// Update is called once per frame

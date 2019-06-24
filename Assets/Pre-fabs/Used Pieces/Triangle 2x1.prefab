@@ -9,43 +9,43 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1089256388093306}
+  m_RootGameObject: {fileID: 1429843683270340}
   m_IsPrefabParent: 1
---- !u!1 &1089256388093306
+--- !u!1 &1429843683270340
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4396973389651612}
-  - component: {fileID: 114646591365946388}
+  - component: {fileID: 4910660880992082}
+  - component: {fileID: 114977858066082490}
   m_Layer: 0
-  m_Name: Right Flat-Sharp Quad
+  m_Name: Triangle 2x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4396973389651612
+--- !u!4 &4910660880992082
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1089256388093306}
+  m_GameObject: {fileID: 1429843683270340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.5158825, y: 8.245598, z: -10.089548}
+  m_LocalPosition: {x: -3.3259468, y: 3.705533, z: -10.089548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114646591365946388
+--- !u!114 &114977858066082490
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1089256388093306}
+  m_GameObject: {fileID: 1429843683270340}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b53a86c6a311af74198207885c6dc37b, type: 3}
@@ -56,13 +56,13 @@ MonoBehaviour:
   orientationState: 0
   trianglesIndices: 
   orientationsDeltas:
-  - myList: 18fcffff17fcffff16fcffff15fcffff00000000010000000200000003000000e8030000eb030000
-  - myList: fcfffffffdfffffffeffffffffffffff000000000100000002000000030000000400000005000000
-  - myList: 17fcffff16fcffff00000000010000000200000003000000e8030000e9030000ea030000eb030000
-  - myList: feffffffffffffff0000000001000000020000000300000004000000050000000600000007000000
+  - myList: 02000000030000000500000006000000
+  - myList: 0200000003000000e8030000eb030000
+  - myList: e8030000eb030000ec030000ed030000
+  - myList: 0500000006000000ec030000ed030000
   dropTimeInterval: 1
-  pieceID: 1
+  pieceID: 0
   active: 1
-  pieceSprite: {fileID: 1182888743893818, guid: b923d755c0dea1948ba55685e9cc6b66,
+  pieceSprite: {fileID: 1431641362449754, guid: 0501d8e6e9c06f845abccfb9f2a1e515,
     type: 2}
-  pieceColor: {r: 1, g: 0.9538098, b: 0, a: 1}
+  pieceColor: {r: 0, g: 1, b: 0, a: 1}

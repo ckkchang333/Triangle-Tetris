@@ -354,6 +354,8 @@ public class Board : MonoBehaviour {
     {
         setActive(true);
         startText.gameObject.SetActive(false);
+        pieceQueue.GetComponent<PieceQueue>().emptyQueue();
+        pieceQueue.GetComponent<PieceQueue>().fillQueue();
     }
     
     // Use this for initialization
@@ -367,7 +369,7 @@ public class Board : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+        if(Input.GetKeyDown(KeyCode.Return))
         {
             startGame();
         }
@@ -376,7 +378,7 @@ public class Board : MonoBehaviour {
 
             if (currentPiece == null && pieceQueue != null && !gameOver)
             {
-                GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().Dequeue();
+                GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().dequeue();
                 currentPiece = Instantiate(piecePrefab);
                 currentPiece.GetComponent<Piece>().gameBoard = this;
                 ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>();

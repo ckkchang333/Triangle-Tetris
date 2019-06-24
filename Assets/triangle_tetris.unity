@@ -675,8 +675,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 353.00006, y: -191}
-  m_SizeDelta: {x: 383.79, y: 173.1}
+  m_AnchoredPosition: {x: 325, y: -175.7}
+  m_SizeDelta: {x: 383.8, y: 203.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488270605
 MonoBehaviour:
@@ -710,9 +710,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Press "1" to Start
-
-'
+  m_Text: "Press \"\u23CE\" to Start\n"
 --- !u!222 &488270606
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1125,14 +1123,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 10
-  height: 16
-  originX: -4
+  height: 24
+  originX: -3
   originY: -5.25
   ghostOn: 1
   grid: {fileID: 1983330001089048, guid: 2683c9724d0e6464391536046e63a183, type: 2}
   blockRow: {fileID: 1649276682423248, guid: bb9a33d09041f9a4c97bc65c62cc2ca3, type: 2}
-  gridWidth: 0.75
-  gridHeight: 0.75
+  gridWidth: 0.5
+  gridHeight: 0.5
   gridSideThickness: 0.02
   gridCrossingThickness: 0.02
   piecePrefab: {fileID: 1827877657191322, guid: 1868b6b2dd4458c40a1543e7b679b4ae,
@@ -1816,7 +1814,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
+  m_BackGroundColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

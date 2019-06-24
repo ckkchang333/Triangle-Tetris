@@ -344,31 +344,26 @@ public class Piece : MonoBehaviour {
             }
             else if(gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 0)))
             {
-                Debug.Log("A");
                 orientationState += rotateDelta;
                 coreTriangle += (-4 + additionalShift);
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 0)))
             {
-                Debug.Log("B");
                 orientationState += rotateDelta;
                 coreTriangle += (4 + additionalShift);
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -1)))
             {
-                Debug.Log("C");
                 orientationState += rotateDelta;
                 coreTriangle += (-4 * gameBoard.getWidth() + additionalShift);
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -1)))
             {
-                Debug.Log("D");
                 orientationState += rotateDelta;
                 coreTriangle += (-4 * gameBoard.getWidth() - 4 + additionalShift);
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -1)))
             {
-                Debug.Log("E");
                 orientationState += rotateDelta;
                 coreTriangle += (-4 * gameBoard.getWidth() + 4 + additionalShift);
             }
