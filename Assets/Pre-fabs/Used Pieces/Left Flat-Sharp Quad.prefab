@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1606564547704480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.34559, y: 5.0062633, z: -10.089548}
+  m_LocalPosition: {x: -2.961997, y: -2.7373428, z: -10.089548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,10 +56,10 @@ MonoBehaviour:
   orientationState: 0
   trianglesIndices: 
   orientationsDeltas:
+  - myList: fcffffffffffffff0000000001000000020000000300000004000000050000000600000007000000
   - myList: 18fcffff17fcffff16fcffff15fcffff00000000010000000200000003000000e8030000e9030000
   - myList: fcfffffffdfffffffeffffffffffffff000000000100000002000000030000000500000006000000
   - myList: 16fcffff15fcffff00000000010000000200000003000000e8030000e9030000ea030000eb030000
-  - myList: fcffffffffffffff0000000001000000020000000300000004000000050000000600000007000000
   dropTimeInterval: 1
   pieceID: 3
   active: 1
