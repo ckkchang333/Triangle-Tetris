@@ -102,14 +102,21 @@ public class Piece : MonoBehaviour {
         orientationState = 0;
         coreTriangle = (gameBoard.getHeight() - 2) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
         updateTriangleIndices();
+        for(int i = 0; i < trianglesIndices.Count; ++i)
+        {
+            if(trianglesIndices[i] >= (gameBoard.getHeight() - 1) * 4 * gameBoard.getWidth())
+            {
+                break;
+            }
+            if(i == trianglesIndices.Count - 1)
+            {
+                coreTriangle += gameBoard.getWidth() * 4;
+            }
+        }
         if(!gameBoard.checkEmpty(trianglesIndices))
         {
             gameBoard.setGameOver(true);
         }
-        //if(trianglesIndices.Count > 12)
-        //{
-        //    coreTriangle -= gameBoard.getWidth() * 4;
-        //}
     }
 
     List<int> getNewTriangleIndices(int newX, int newY, int newOrientationDelta = 0)
