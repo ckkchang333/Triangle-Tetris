@@ -100,10 +100,11 @@ public class Piece : MonoBehaviour {
 
     public void resetPosition()
     {
-        if(!letter)
+        if (!letter)
         {
             orientationState = 0;
             coreTriangle = (gameBoard.getHeight() - 2) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
+            updateTriangleIndices();
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
                 if (trianglesIndices[i] >= (gameBoard.getHeight() - 1) * 4 * gameBoard.getWidth())
@@ -114,13 +115,13 @@ public class Piece : MonoBehaviour {
                 {
                     coreTriangle += gameBoard.getWidth() * 4;
                 }
+                updateTriangleIndices();
             }
         }
         else
         {
             coreTriangle = (gameBoard.getHeight() - 4) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
         }
-        updateTriangleIndices();
         if (!gameBoard.checkEmpty(trianglesIndices))
         {
             gameBoard.setGameOver(true);

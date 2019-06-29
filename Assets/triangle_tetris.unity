@@ -480,7 +480,7 @@ Prefab:
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
       propertyPath: pieceListIndex
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
@@ -557,7 +557,7 @@ Prefab:
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
       propertyPath: randomize
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
