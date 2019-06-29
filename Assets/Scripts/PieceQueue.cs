@@ -2,34 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class ListWrapperGameObject
+{
+
+    public List<GameObject> myList;
+}
+
+
 public class PieceQueue : MonoBehaviour {
 
     public int pieceListIndex;
+    public bool randomize;
+    public List<ListWrapperGameObject> pieceLists;
     public List<GameObject> pieces;
     public List<GameObject> pieces1;
-    //public List<GameObject> sprites;
     public List<GameObject> pieceQueue;
-    //public List<GameObject> spriteQueue;
 
     public void fillQueue()
     {
         List<GameObject> pieceBucket = null;
-        if (pieceListIndex == 0)
-        {
-            pieceBucket = new List<GameObject>(pieces);
-        }
-        else if(pieceListIndex == 1)
-        {
-            pieceBucket = new List<GameObject>(pieces1);
-        }
+        //if (pieceListIndex == 0)
+        //{
+        //    pieceBucket = new List<GameObject>(pieceLists[0].myList);
+        //}
+        //else if(pieceListIndex == 1)
+        //{
+        //    pieceBucket = new List<GameObject>(pieces1);
+        //}
+        pieceBucket = new List<GameObject>(pieceLists[pieceListIndex].myList);
         //List<GameObject> spriteBucket = new List<GameObject>(sprites);
-        while (pieceBucket.Count > 0)
+        if(randomize)
         {
-            int pieceIndex = Random.Range(0, pieceBucket.Count);
-            pieceQueue.Add(pieceBucket[pieceIndex]);
-            //spriteQueue.Add(spriteBucket[pieceIndex]);
-            pieceBucket.RemoveAt(pieceIndex);
-            //spriteBucket.RemoveAt(pieceIndex);
+            while (pieceBucket.Count > 0)
+            {
+                int pieceIndex = Random.Range(0, pieceBucket.Count);
+                pieceQueue.Add(pieceBucket[pieceIndex]);
+                pieceBucket.RemoveAt(pieceIndex);
+            }
+        }
+        else
+        {
+            while (pieceBucket.Count > 0)
+            {
+                pieceQueue.Add(pieceBucket[0]);
+                pieceBucket.RemoveAt(0);
+            }
         }
         updateUI();
 

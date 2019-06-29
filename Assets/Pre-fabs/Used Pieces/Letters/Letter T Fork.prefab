@@ -9,43 +9,43 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1070898134105066}
+  m_RootGameObject: {fileID: 1718741252163442}
   m_IsPrefabParent: 1
---- !u!1 &1070898134105066
+--- !u!1 &1718741252163442
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4008974892109506}
-  - component: {fileID: 114532317314503966}
+  - component: {fileID: 4481794788636608}
+  - component: {fileID: 114845951119883550}
   m_Layer: 0
-  m_Name: Letter N
+  m_Name: Letter T Fork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4008974892109506
+--- !u!4 &4481794788636608
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1070898134105066}
+  m_GameObject: {fileID: 1718741252163442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.236925, y: -3.1055636, z: -10.089548}
+  m_LocalPosition: {x: -2.3381755, y: -2.8139532, z: -10.089548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114532317314503966
+--- !u!114 &114845951119883550
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1070898134105066}
+  m_GameObject: {fileID: 1718741252163442}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b53a86c6a311af74198207885c6dc37b, type: 3}
@@ -56,9 +56,11 @@ MonoBehaviour:
   orientationState: 0
   trianglesIndices: 
   orientationsDeltas:
-  - myList: 0100000002000000090000000a000000e8030000e9030000ea030000eb030000ee030000ef030000f0030000f1030000f2030000f3030000d0070000d1070000d2070000d3070000d4070000d5070000d8070000d9070000da070000db070000b80b0000bb0b0000c00b0000c30b0000
+  - myList: 0500000006000000ec030000ed030000ee030000ef030000d4070000d5070000d6070000d7070000b80b0000ba0b0000bb0b0000bc0b0000bd0b0000be0b0000bf0b0000c00b0000c10b0000c20b0000
   dropTimeInterval: 0.5
   pieceID: 0
   active: 1
-  pieceSprite: {fileID: 0}
-  pieceColor: {r: 1, g: 1, b: 0, a: 1}
+  letter: 1
+  pieceSprite: {fileID: 1388535435869930, guid: bf442c147e9b8754a94b295d382035c0,
+    type: 2}
+  pieceColor: {r: 1, g: 0, b: 0, a: 1}

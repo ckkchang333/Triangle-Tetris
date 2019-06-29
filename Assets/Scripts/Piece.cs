@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class ListWrapper
+public class ListWrapperInt
 {
 
     public List<int> myList;
@@ -18,11 +18,12 @@ public class Piece : MonoBehaviour {
     public int coreTriangle;
     public int orientationState;
     public List<int> trianglesIndices;
-    public List<ListWrapper> orientationsDeltas;
+    public List<ListWrapperInt> orientationsDeltas;
     public float dropTimeInterval;
     private float timer;
     public int pieceID;
     public bool active;
+    public bool letter;
 
 
 
@@ -99,21 +100,28 @@ public class Piece : MonoBehaviour {
 
     public void resetPosition()
     {
-        orientationState = 0;
-        coreTriangle = (gameBoard.getHeight() - 2) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
-        updateTriangleIndices();
-        for(int i = 0; i < trianglesIndices.Count; ++i)
+        if(!letter)
         {
-            if(trianglesIndices[i] >= (gameBoard.getHeight() - 1) * 4 * gameBoard.getWidth())
+            orientationState = 0;
+            coreTriangle = (gameBoard.getHeight() - 2) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
+            for (int i = 0; i < trianglesIndices.Count; ++i)
             {
-                break;
-            }
-            if(i == trianglesIndices.Count - 1)
-            {
-                coreTriangle += gameBoard.getWidth() * 4;
+                if (trianglesIndices[i] >= (gameBoard.getHeight() - 1) * 4 * gameBoard.getWidth())
+                {
+                    break;
+                }
+                if (i == trianglesIndices.Count - 1)
+                {
+                    coreTriangle += gameBoard.getWidth() * 4;
+                }
             }
         }
-        if(!gameBoard.checkEmpty(trianglesIndices))
+        else
+        {
+            coreTriangle = (gameBoard.getHeight() - 4) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
+        }
+        updateTriangleIndices();
+        if (!gameBoard.checkEmpty(trianglesIndices))
         {
             gameBoard.setGameOver(true);
         }

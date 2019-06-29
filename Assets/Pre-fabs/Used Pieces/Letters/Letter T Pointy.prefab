@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1837983016142526}
+  m_IsPrefabParent: 1
+--- !u!1 &1837983016142526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4405578883109520}
+  - component: {fileID: 114726333642165066}
+  m_Layer: 0
+  m_Name: Letter T Pointy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4405578883109520
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837983016142526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.484755, y: -0.1697304, z: -10.089548}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114726333642165066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837983016142526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53a86c6a311af74198207885c6dc37b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameBoard: {fileID: 0}
+  coreTriangle: 0
+  orientationState: 0
+  trianglesIndices: 
+  orientationsDeltas:
+  - myList: 0500000006000000ec030000ed030000ee030000ef030000d4070000d5070000d6070000d7070000b80b0000bb0b0000bc0b0000bd0b0000be0b0000bf0b0000c00b0000c10b0000
+  dropTimeInterval: 0.5
+  pieceID: 0
+  active: 1
+  letter: 1
+  pieceSprite: {fileID: 1777241167118560, guid: 68b98704240089141b52f8731b5a78ea,
+    type: 2}
+  pieceColor: {r: 1, g: 0, b: 0, a: 1}
