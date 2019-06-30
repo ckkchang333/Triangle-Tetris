@@ -245,7 +245,7 @@ public class Piece : MonoBehaviour {
                             rotatedTriangleIndices[j] -= 4;
                         }
 
-                        if (trianglesIndices.Count >= 12)
+                        if (trianglesIndices.Count >= 12 && !letter)
                         {
                             additionalShift = -8;
                         }
@@ -265,7 +265,7 @@ public class Piece : MonoBehaviour {
                             rotatedTriangleIndices[j] += 4;
                         }
 
-                        if (trianglesIndices.Count >= 12)
+                        if (trianglesIndices.Count >= 12 && !letter)
                         {
                             additionalShift = 8;
                         }
@@ -289,7 +289,7 @@ public class Piece : MonoBehaviour {
                             rotatedTriangleIndices[j] -= 4;
                         }
 
-                        if (trianglesIndices.Count >= 12)
+                        if (trianglesIndices.Count >= 12 && !letter)
                         {
                             additionalShift = -8;
                         }
@@ -309,7 +309,7 @@ public class Piece : MonoBehaviour {
                             rotatedTriangleIndices[j] += 4;
                         }
 
-                        if (trianglesIndices.Count >= 12)
+                        if (trianglesIndices.Count >= 12 && !letter)
                         {
                             additionalShift = 8;
                         }
