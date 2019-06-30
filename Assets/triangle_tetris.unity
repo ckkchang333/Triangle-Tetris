@@ -1288,7 +1288,7 @@ MonoBehaviour:
   height: 24
   originX: -3
   originY: -5.25
-  ghostOn: 1
+  ghostOn: 0
   grid: {fileID: 1983330001089048, guid: 2683c9724d0e6464391536046e63a183, type: 2}
   blockRow: {fileID: 1649276682423248, guid: bb9a33d09041f9a4c97bc65c62cc2ca3, type: 2}
   gridWidth: 0.5
@@ -1305,6 +1305,12 @@ MonoBehaviour:
   gameOverText: {fileID: 547606744}
   startText: {fileID: 488270605}
   pausedText: {fileID: 1249727345}
+  titlePieces:
+  - {fileID: 1837983016142526, guid: 9c583f1efa12fdc44908e14ab71c4131, type: 2}
+  - {fileID: 1684101551022400, guid: de62a10ce5a8d0d4aa9a224710fcaacf, type: 2}
+  - {fileID: 1070898134105066, guid: 3e1aab2077133d64e98aaf94123ffc6f, type: 2}
+  - {fileID: 1848876100841410, guid: a5fc436b82ae7364486184e384f1c374, type: 2}
+  - {fileID: 1865004035722720, guid: 1eed9588814352d4582b3f5f878e86e8, type: 2}
   rowsCleared: 0
   swapLock: 0
   gameOver: 0

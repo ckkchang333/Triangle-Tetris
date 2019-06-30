@@ -610,7 +610,10 @@ public class Piece : MonoBehaviour {
     {
         if (active)
         {
-            dropTimeInterval = gameBoard.getPieceLowerTimer();
+            if(!letter)
+            {
+                dropTimeInterval = gameBoard.getPieceLowerTimer();
+            }
             timer = dropTimeInterval;
             for (int i = 0; i < orientationsDeltas.Count; ++i)
             {
@@ -623,7 +626,10 @@ public class Piece : MonoBehaviour {
                     }
                 }
             }
-            resetPosition();
+            if (!letter)
+            {
+                resetPosition();
+            }
 
             updateTriangleIndices();
             gameBoard.dropGhostPiece();

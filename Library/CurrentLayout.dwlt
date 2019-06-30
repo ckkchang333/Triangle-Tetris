@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 521}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -43,7 +43,7 @@ MonoBehaviour:
     y: 0
     width: 1638
     height: 839
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 521}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -106,10 +106,10 @@ MonoBehaviour:
     y: 30
     width: 1638
     height: 789
-  m_MinSize: {x: 683, y: 492}
-  m_MaxSize: {x: 14004, y: 14042}
+  m_MinSize: {x: 683, y: 471}
+  m_MaxSize: {x: 14002, y: 14021}
   vertical: 0
-  controlID: 4677
+  controlID: 20098
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -130,10 +130,10 @@ MonoBehaviour:
     y: 0
     width: 1284
     height: 789
-  m_MinSize: {x: 406, y: 492}
-  m_MaxSize: {x: 10002, y: 14042}
+  m_MinSize: {x: 406, y: 471}
+  m_MaxSize: {x: 10000, y: 14021}
   vertical: 1
-  controlID: 4678
+  controlID: 20256
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 4679
+  controlID: 20236
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -319,7 +319,7 @@ MonoBehaviour:
       y: 17
       width: 1638
       height: 751
-    m_Scale: {x: 0.97786456, y: 0.97786456}
+    m_Scale: {x: 0.88529277, y: 0.8852927}
     m_Translation: {x: 819, y: 375.5}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -327,10 +327,10 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -837.5393
-      y: -384
-      width: 1675.0786
-      height: 768
+      x: -925.1177
+      y: -424.1535
+      width: 1850.2354
+      height: 848.307
     m_MinimalGUI: 1
   m_defaultScale: 0.97786456
   m_TargetTexture: {fileID: 0}
@@ -366,9 +366,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 942d0000
-    m_LastClickedID: 11668
-    m_ExpandedIDs: f0fbffff00000000b82d0000
+    m_SelectedIDs: 642c0000442c00002c2a00001a2d0000a02b00005e290000a62a0000442d00006c2b0000ea2c0000
+    m_LastClickedID: 0
+    m_ExpandedIDs: fc91efff2a92efffc894efffe8d3f2ff16d4f2ff60d4f2ffb4d6f2ffa825f3ffd625f3ff7428f3ff9aa6f7ffe2fbffff00000000b22d0000b82d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -423,9 +423,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.15519816, y: 1.4208006, z: -0.18498969}
+    m_Target: {x: 1.2999573, y: -3.282698, z: -0.028126972}
     speed: 2
-    m_Value: {x: -0.15519816, y: 1.4208006, z: -0.18498969}
+    m_Value: {x: 1.2999573, y: -3.282698, z: -0.028126972}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -457,9 +457,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 22.185308
+    m_Target: 6.3351192
     speed: 2
-    m_Value: 22.185308
+    m_Value: 6.3351192
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -575,19 +575,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Pre-fabs/Used Pieces
+    - Assets/Pre-fabs/Used Pieces/Letters
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Pre-fabs/Used Pieces
+  - Assets/Pre-fabs/Used Pieces/Letters
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Unity Projects\Triangle Tetris
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 2c2d0000
-    m_LastClickedID: 11564
+    m_SelectedIDs: 262a0000
+    m_LastClickedID: 10790
     m_ExpandedIDs: 0000000054290000662a0000042d00002c2d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_AnimEditor: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 11668
+  m_LastSelectedObjectID: 11698
 --- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52

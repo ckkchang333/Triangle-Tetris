@@ -33,6 +33,7 @@ public class Board : MonoBehaviour {
     public Text gameOverText;
     public Text startText;
     public Text pausedText;
+    public List<GameObject> titlePieces;
 
 
     public int rowsCleared = 0;
@@ -45,6 +46,7 @@ public class Board : MonoBehaviour {
     private bool active = false;
 
     private bool paused = false;
+    private int titleIndex = 4;
 
 
     int getColumnIndex(int triangleIndex)
@@ -266,6 +268,7 @@ public class Board : MonoBehaviour {
                                 Block beneathBlockScript = fetchBlockScriptByIndex((i- 2) * width * 4 + l * 4);
                                 if(beneathBlockScript.permTop && !beneathBlockScript.permBottom)
                                 {
+                                    Debug.Log("Here");
                                     beneathBlockScript.filledBottom = false;
                                     beneathBlockScript.filledLeft = false;
                                     beneathBlockScript.filledTop = false;
@@ -281,6 +284,7 @@ public class Board : MonoBehaviour {
                         {
                             for(int l = 0; l < width; ++l)
                             {
+                                Debug.Log("There");
                                 Block upperBlockScript = fetchBlockScriptByIndex(k * width * 4 + l * 4);
                                 Block lowerBlockScript = fetchBlockScriptByIndex((k - counter) * width * 4 + l * 4);
                                 lowerBlockScript.permBottom = upperBlockScript.permBottom;
@@ -371,6 +375,8 @@ public class Board : MonoBehaviour {
 	void Update () {
         if(Input.GetKeyDown(KeyCode.Return))
         {
+            obilterateBoard();
+            currentPiece = null;
             startGame();
         }
         if(active)
@@ -431,7 +437,24 @@ public class Board : MonoBehaviour {
                 pause();
             }
         }
-	}
+        else
+        {
+            if (titleIndex >= 0 && currentPiece == null)
+            {
+                currentPiece = Instantiate(titlePieces[titleIndex]);
+                if (titleIndex == 0)
+                {
+                    currentPiece.GetComponent<Piece>().coreTriangle = (getHeight() - 5) * getWidth() * 4 + titleIndex * 4;
+                }
+                else
+                {
+                    currentPiece.GetComponent<Piece>().coreTriangle = (getHeight() - 5) * getWidth() * 4 + (2 * titleIndex - 1) * 4;
+                }
+                currentPiece.GetComponent<Piece>().gameBoard = this;
+                --titleIndex;
+            }
+        }
+    }
 
 
 }
