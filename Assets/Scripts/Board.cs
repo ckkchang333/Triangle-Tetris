@@ -34,6 +34,8 @@ public class Board : MonoBehaviour {
     public Text startText;
     public Text pausedText;
     public List<GameObject> titlePieces;
+    public GameObject uiObject;
+    private UI uiController;
 
 
     public int rowsCleared = 0;
@@ -46,7 +48,7 @@ public class Board : MonoBehaviour {
     private bool active = false;
 
     private bool paused = false;
-    private int titleIndex = 4;
+    private int titleLetterIndex = 4;
 
 
     int getColumnIndex(int triangleIndex)
@@ -364,6 +366,7 @@ public class Board : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
+        uiController = uiObject.GetComponent<UI>();
         generateBoard();
         //generatePiece();
         ghostPiece = Instantiate(ghostPiece);
@@ -439,19 +442,23 @@ public class Board : MonoBehaviour {
         }
         else
         {
-            if (titleIndex >= 0 && currentPiece == null)
+            if (titleLetterIndex >= 0 && currentPiece == null)
             {
-                currentPiece = Instantiate(titlePieces[titleIndex]);
-                if (titleIndex == 0)
+                currentPiece = Instantiate(titlePieces[titleLetterIndex]);
+                if (titleLetterIndex == 0)
                 {
-                    currentPiece.GetComponent<Piece>().coreTriangle = (getHeight() - 5) * getWidth() * 4 + titleIndex * 4;
+                    currentPiece.GetComponent<Piece>().coreTriangle = (getHeight() - 5) * getWidth() * 4 + titleLetterIndex * 4;
                 }
                 else
                 {
-                    currentPiece.GetComponent<Piece>().coreTriangle = (getHeight() - 5) * getWidth() * 4 + (2 * titleIndex - 1) * 4;
+                    currentPiece.GetComponent<Piece>().coreTriangle = (getHeight() - 5) * getWidth() * 4 + (2 * titleLetterIndex - 1) * 4;
                 }
                 currentPiece.GetComponent<Piece>().gameBoard = this;
-                --titleIndex;
+                --titleLetterIndex;
+            }
+            else if(titleLetterIndex == -1 && currentPiece == null)
+            {
+                uiController.setActive(true, 0);
             }
         }
     }

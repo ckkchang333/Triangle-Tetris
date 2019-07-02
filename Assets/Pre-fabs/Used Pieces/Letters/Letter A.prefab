@@ -66,4 +66,4 @@ MonoBehaviour:
   letter: 1
   pieceSprite: {fileID: 1745368416443826, guid: b79ef23dd6e392a4fa8bf83a72bb3f22,
     type: 2}
-  pieceColor: {r: 1, g: 0.4, b: 0, a: 1}
+  pieceColor: {r: 0.9811321, g: 0.5562834, b: 0.27305093, a: 1}
