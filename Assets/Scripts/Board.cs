@@ -364,6 +364,7 @@ public class Board : MonoBehaviour {
         ghostOn = true;
         obilterateBoard();
         pieceQueue.SetActive(true);
+        pieceHolder.SetActive(true);
         pieceQueue.GetComponent<PieceQueue>().emptyQueue();
         pieceQueue.GetComponent<PieceQueue>().fillQueue();
     }
