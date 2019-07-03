@@ -103,7 +103,7 @@ public class Piece : MonoBehaviour {
         if (!letter)
         {
             orientationState = 0;
-            coreTriangle = (gameBoard.getHeight() - 2) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2) * 4;
+            coreTriangle = (gameBoard.getHeight() - 2) * (gameBoard.getWidth() * 4) + (gameBoard.getWidth() / 2 - (trianglesIndices.Count > 8 ? 2 : 1)) * 4;
             updateTriangleIndices();
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {

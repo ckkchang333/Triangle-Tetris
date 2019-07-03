@@ -46,6 +46,7 @@ public class Board : MonoBehaviour {
     private float pieceCurrentLowerTimer = 1.0f;
 
     private bool active = false;
+    private bool titleActive = true;
 
     private bool paused = false;
     private int titleLetterIndex = 4;
@@ -286,7 +287,7 @@ public class Board : MonoBehaviour {
                         {
                             for(int l = 0; l < width; ++l)
                             {
-                                Debug.Log("There");
+                                //Debug.Log("There");
                                 Block upperBlockScript = fetchBlockScriptByIndex(k * width * 4 + l * 4);
                                 Block lowerBlockScript = fetchBlockScriptByIndex((k - counter) * width * 4 + l * 4);
                                 lowerBlockScript.permBottom = upperBlockScript.permBottom;
@@ -351,15 +352,18 @@ public class Board : MonoBehaviour {
         return pieceCurrentLowerTimer;
     }
 
-    public void setActive(bool toggle)
+    public void toggleActive(bool toggle)
     {
         active = toggle;
     }
 
     public void startGame()
     {
-        setActive(true);
-        startText.gameObject.SetActive(false);
+        toggleActive(true);
+        //startText.gameObject.SetActive(false);
+        ghostOn = true;
+        obilterateBoard();
+        pieceQueue.SetActive(true);
         pieceQueue.GetComponent<PieceQueue>().emptyQueue();
         pieceQueue.GetComponent<PieceQueue>().fillQueue();
     }
@@ -440,7 +444,7 @@ public class Board : MonoBehaviour {
                 pause();
             }
         }
-        else
+        else if(titleActive)
         {
             if (titleLetterIndex >= 0 && currentPiece == null)
             {
@@ -458,7 +462,9 @@ public class Board : MonoBehaviour {
             }
             else if(titleLetterIndex == -1 && currentPiece == null)
             {
-                uiController.setActive(true, 0);
+
+                uiController.toggleActive(true, 0);
+                titleActive = false;
             }
         }
     }

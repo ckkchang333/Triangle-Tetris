@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/triangle_tetris.unity
+- path: Assets/Scenes/triangle_tetris.unity
   isLoaded: 1
   isActive: 1
