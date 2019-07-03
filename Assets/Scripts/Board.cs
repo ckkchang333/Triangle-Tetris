@@ -126,6 +126,14 @@ public class Board : MonoBehaviour {
         setGameOver(false);
         pieceHolder.GetComponent<pieceHolder>().empty();
         pieceCurrentLowerTimer = 1.0f;
+        if (currentPiece != null)
+        {
+            currentPiece.GetComponent<Piece>().active = false;
+            emptyTriangles(currentPiece.GetComponent<Piece>().trianglesIndices);
+            emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
+            Destroy(currentPiece);
+
+        }
         return;
     }
 
@@ -175,21 +183,25 @@ public class Board : MonoBehaviour {
                 {
                     blockScript.permBottom = false;
                     blockScript.filledBottom = false;
+                    Debug.Log("A");
                 }
                 if (blockScript.permLeft)
                 {
                     blockScript.permLeft = false;
                     blockScript.filledLeft = false;
+                    Debug.Log("B");
                 }
                 if (blockScript.permTop)
                 {
                     blockScript.permTop = false;
                     blockScript.filledTop = false;
+                    Debug.Log("C");
                 }
                 if (blockScript.permRight)
                 {
                     blockScript.permRight = false;
                     blockScript.filledRight = false;
+                    Debug.Log("D");
                 }
                 
             }
@@ -246,7 +258,7 @@ public class Board : MonoBehaviour {
     {
         paused = !paused;
         currentPiece.GetComponent<Piece>().setActive(!paused);
-        pausedText.gameObject.SetActive(paused);
+        //pausedText.gameObject.SetActive(paused);
 
     }
 
@@ -359,8 +371,18 @@ public class Board : MonoBehaviour {
 
     public void startGame()
     {
+        Destroy(currentPiece);
+        obilterateBoard();
         toggleActive(true);
         //startText.gameObject.SetActive(false);
+        if(currentPiece != null)
+        {
+            currentPiece.GetComponent<Piece>().active = false;
+            emptyTriangles(currentPiece.GetComponent<Piece>().trianglesIndices);
+            emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
+            Destroy(currentPiece);
+
+        }
         ghostOn = true;
         obilterateBoard();
         pieceQueue.SetActive(true);

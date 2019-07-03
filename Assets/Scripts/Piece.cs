@@ -24,6 +24,7 @@ public class Piece : MonoBehaviour {
     public int pieceID;
     public bool active;
     public bool letter;
+    public bool obilteration;
 
 
 
