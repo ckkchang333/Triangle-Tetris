@@ -14,7 +14,7 @@ public class pieceHolder : MonoBehaviour {
         if(outgoing != null)
         {
             outgoing.GetComponent<Piece>().resetPosition();
-            outgoing.GetComponent<Piece>().setActive(true);
+            outgoing.GetComponent<Piece>().toggleActive(true);
         }
         heldPiece = incoming;
         Destroy(currentSprite);

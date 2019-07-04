@@ -51,6 +51,8 @@ public class Board : MonoBehaviour {
     private bool paused = false;
     private int titleLetterIndex = 4;
 
+    private int currentHighScore = 0;
+
 
     int getColumnIndex(int triangleIndex)
     {
@@ -113,9 +115,17 @@ public class Board : MonoBehaviour {
 
     public void setGameOver(bool toggle)
     {
+        currentPiece.GetComponent<Piece>().toggleActive(false);
+        bool newHighScore = rowsCleared > currentHighScore;
+        if (newHighScore)
+        {
+            currentHighScore = rowsCleared;
+        }
+        uiController.endGameUI(newHighScore, currentHighScore);
+        pieceQueue.SetActive(!toggle);
+        pieceHolder.GetComponent<pieceHolder>().empty();
+        pieceHolder.SetActive(!toggle);
         gameOver = toggle;
-        gameOverText.gameObject.SetActive(toggle);
-        currentPiece.GetComponent<Piece>().setActive(false);
     }
 
     public void resetGame()
@@ -183,25 +193,21 @@ public class Board : MonoBehaviour {
                 {
                     blockScript.permBottom = false;
                     blockScript.filledBottom = false;
-                    Debug.Log("A");
                 }
                 if (blockScript.permLeft)
                 {
                     blockScript.permLeft = false;
                     blockScript.filledLeft = false;
-                    Debug.Log("B");
                 }
                 if (blockScript.permTop)
                 {
                     blockScript.permTop = false;
                     blockScript.filledTop = false;
-                    Debug.Log("C");
                 }
                 if (blockScript.permRight)
                 {
                     blockScript.permRight = false;
                     blockScript.filledRight = false;
-                    Debug.Log("D");
                 }
                 
             }
@@ -257,7 +263,7 @@ public class Board : MonoBehaviour {
     void pause()
     {
         paused = !paused;
-        currentPiece.GetComponent<Piece>().setActive(!paused);
+        currentPiece.GetComponent<Piece>().toggleActive(!paused);
         //pausedText.gameObject.SetActive(paused);
 
     }
@@ -283,7 +289,6 @@ public class Board : MonoBehaviour {
                                 Block beneathBlockScript = fetchBlockScriptByIndex((i- 2) * width * 4 + l * 4);
                                 if(beneathBlockScript.permTop && !beneathBlockScript.permBottom)
                                 {
-                                    Debug.Log("Here");
                                     beneathBlockScript.filledBottom = false;
                                     beneathBlockScript.filledLeft = false;
                                     beneathBlockScript.filledTop = false;
@@ -322,7 +327,7 @@ public class Board : MonoBehaviour {
                         }
                         rowsCleared += counter;
                         scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
-                        pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared;
+                        //pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared;
                         counter = 0;
                     }
                     fullRowFound = false;
@@ -374,6 +379,7 @@ public class Board : MonoBehaviour {
         Destroy(currentPiece);
         obilterateBoard();
         toggleActive(true);
+        gameOver = false;
         //startText.gameObject.SetActive(false);
         if(currentPiece != null)
         {
@@ -389,6 +395,8 @@ public class Board : MonoBehaviour {
         pieceHolder.SetActive(true);
         pieceQueue.GetComponent<PieceQueue>().emptyQueue();
         pieceQueue.GetComponent<PieceQueue>().fillQueue();
+        pieceHolder.GetComponent<pieceHolder>().empty();
+        rowsCleared = 0;
     }
     
     // Use this for initialization
@@ -437,7 +445,7 @@ public class Board : MonoBehaviour {
             {
                 emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
                 emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
-                currentPiece.GetComponent<Piece>().setActive(false);
+                currentPiece.GetComponent<Piece>().toggleActive(false);
                 GameObject heldPiece = pieceHolder.GetComponent<pieceHolder>().swap(currentPiece);
                 currentPiece = null;
                 if (heldPiece != null)

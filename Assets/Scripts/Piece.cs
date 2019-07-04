@@ -588,7 +588,7 @@ public class Piece : MonoBehaviour {
         }
     }
 
-    public void setActive(bool toggle)
+    public void toggleActive(bool toggle)
     {
         active = toggle;
     }

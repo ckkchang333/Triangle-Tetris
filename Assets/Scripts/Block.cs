@@ -45,22 +45,34 @@ public class Block : MonoBehaviour {
         if (index == 0)
         {
             filledBottom = fill;
-            this.transform.Find("triangles").Find("triangleBottom").GetComponent<SpriteRenderer>().color = newColor;
+            if(newColor != Color.clear)
+            {
+                this.transform.Find("triangles").Find("triangleBottom").GetComponent<SpriteRenderer>().color = newColor;
+            }
         }
         if (index == 1)
         {
             filledLeft = fill;
-            this.transform.Find("triangles").Find("triangleLeft").GetComponent<SpriteRenderer>().color = newColor;
+            if (newColor != Color.clear)
+            {
+                this.transform.Find("triangles").Find("triangleLeft").GetComponent<SpriteRenderer>().color = newColor;
+            }
         }
         if (index == 2)
         {
             filledTop = fill;
-            this.transform.Find("triangles").Find("triangleTop").GetComponent<SpriteRenderer>().color = newColor;
+            if (newColor != Color.clear)
+            {
+                this.transform.Find("triangles").Find("triangleTop").GetComponent<SpriteRenderer>().color = newColor;
+            }
         }
         if (index == 3)
         {
             filledRight = fill;
-            this.transform.Find("triangles").Find("triangleRight").GetComponent<SpriteRenderer>().color = newColor;
+            if (newColor != Color.clear)
+            {
+                this.transform.Find("triangles").Find("triangleRight").GetComponent<SpriteRenderer>().color = newColor;
+            }
         }
     }
 

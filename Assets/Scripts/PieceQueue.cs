@@ -67,7 +67,7 @@ public class PieceQueue : MonoBehaviour {
             sprite.transform.parent = this.transform;
             if(i == 0)
             {
-                sprite.GetComponent<Transform>().localScale = new Vector3(0.75f, 0.75f, 1.0f);
+                sprite.GetComponent<Transform>().localScale = new Vector3(0.45f, 0.45f, 1.0f);
             }
         }
     }
