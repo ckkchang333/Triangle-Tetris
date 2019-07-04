@@ -68,12 +68,6 @@
     <Compile Include="Assets\Scripts\SceneManager.cs" />
     <Compile Include="Assets\Scripts\Sprite.cs" />
     <Compile Include="Assets\Scripts\UI.cs" />
-    <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/Unity Projects/Triangle Tetris/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Unity Projects/Triangle Tetris/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>

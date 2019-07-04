@@ -63,7 +63,7 @@ public class UI : MonoBehaviour {
         if(newHighScoreFlag)
         {
             newHighScoreText.SetActive(true);
-            Debug.Log(newHighScore);
+            //Debug.Log(newHighScore);
             highScoreText.GetComponent<Text>().text = "High Score: " + newHighScore;
             highScoreText.SetActive(true);
         }
@@ -181,6 +181,7 @@ public class UI : MonoBehaviour {
                         selectorSprite.SetActive(false);
                         gameOverText.SetActive(false);
                         newHighScoreText.SetActive(false);
+                        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
                         gameBoard.GetComponent<Board>().startGame();
                         scoreText.SetActive(true);
                         uiIndex = -1;

@@ -4,6 +4,7 @@ D:/Unity Projects/Triangle Tetris/Triangle Tetris.exe
 SceneListBegin?
 Assets/Scenes/triangle_tetris.unity
 SceneListEnd?
+74342b7279e62a4091dd8a9f8c07ad91 Assembly-CSharp.dll:.Animation
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cf455f7a806648c6ed4c7d3e3f8a0e03 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 13bdb7c23815c33a33b37b0ba8dd39be UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -153,4 +154,3 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 bef72bcb1bcb19efa1754b12cd8b62bf Assembly-CSharp.dll:.Board
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 080737a7dec600135e8f76d7f33e7caa Assembly-CSharp.dll:.Block
-74342b7279e62a4091dd8a9f8c07ad91 Assembly-CSharp.dll:.Animation
