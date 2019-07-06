@@ -7,6 +7,7 @@ public class UI : MonoBehaviour {
 
     [Header("Main Menu")]
     public GameObject mainMenuText;
+    public GameObject authorText;
     public int mainMenuIndex = 0;
     public int mainMenuMaxIndex = 2;
     public float displace;
@@ -151,6 +152,7 @@ public class UI : MonoBehaviour {
                 {
                     mainMenuText.SetActive(true);
                     selectorSprite.SetActive(true);
+                    authorText.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         rotateSelector(true);
@@ -181,6 +183,7 @@ public class UI : MonoBehaviour {
                         selectorSprite.SetActive(false);
                         gameOverText.SetActive(false);
                         newHighScoreText.SetActive(false);
+                        authorText.SetActive(false);
                         scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
                         gameBoard.GetComponent<Board>().startGame();
                         scoreText.SetActive(true);
