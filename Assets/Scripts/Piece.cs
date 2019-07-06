@@ -25,6 +25,7 @@ public class Piece : MonoBehaviour {
     public bool active;
     public bool letter;
     public bool obilteration;
+    public bool printRotateDebug;
 
 
 
@@ -237,18 +238,27 @@ public class Piece : MonoBehaviour {
             }
             for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
             {
-                if (getColumnIndex(coreTriangle) > gameBoard.getWidth() / 4 && getColumnIndex(rotatedTriangleIndices[i]) < gameBoard.getWidth() / 4)
+                if (getColumnIndex(coreTriangle) > 3 * (gameBoard.getWidth() / 4) && getColumnIndex(rotatedTriangleIndices[i]) < gameBoard.getWidth() / 4)
                 {
-                    if(rightSide)
+                    //Debug.Log("Cross Detected A");
+                    if (rightSide)
                     {
 
                         if (trianglesIndices.Count >= 12 && !letter)
                         {
+                            //Debug.Log("Shifting Left");
                             for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
                             {
-                                rotatedTriangleIndices[j] -= 8;
+                                if(getColumnIndex(rotatedTriangleIndices[j]) < gameBoard.getWidth()/2)
+                                {
+                                    for(int k = 0; k < rotatedTriangleIndices.Count; ++k)
+                                    {
+                                        rotatedTriangleIndices[k] -= 4;
+                                    }
+                                    additionalShift -= 4;
+                                    j = 0;
+                                }
                             }
-                            additionalShift = -8;
                         }
                         else if (trianglesIndices.Count < 12)
                         {
@@ -264,54 +274,102 @@ public class Piece : MonoBehaviour {
 
                         if (trianglesIndices.Count >= 12 && !letter)
                         {
+                            //Debug.Log("Shifting Right");
                             for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
                             {
-                                rotatedTriangleIndices[j] += 8;
+                                if(getColumnIndex(rotatedTriangleIndices[j]) > gameBoard.getWidth() / 2)
+                                {
+                                    for(int k = 0; k < rotatedTriangleIndices.Count; ++k)
+                                    {
+                                        rotatedTriangleIndices[k] += 4;
+                                    }
+                                    additionalShift += 4;
+                                    --j;
+                                }
                             }
-                            additionalShift = 8;
                         }
                         else if (trianglesIndices.Count < 4)
                         {
                             for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
                             {
+                                //Debug.Log("Before");
+                                //Debug.Log(rotatedTriangleIndices[j]);
                                 rotatedTriangleIndices[j] += 4;
+                                //Debug.Log("After");
+                                //Debug.Log(rotatedTriangleIndices[j]);
                             }
                             additionalShift = 4;
                         }
                     }
-                    break;
+                    //break;
                 }
-                else if (getColumnIndex(coreTriangle) < gameBoard.getWidth() / 4 && getColumnIndex(rotatedTriangleIndices[i]) > gameBoard.getWidth() / 4)
+                else if (getColumnIndex(coreTriangle) < gameBoard.getWidth() / 4 && getColumnIndex(rotatedTriangleIndices[i]) > 3 * (gameBoard.getWidth() / 4))
                 {
+                    //Debug.Log("Cross Detected B");
                     if (rightSide)
                     {
-                        for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
-                        {
-                            rotatedTriangleIndices[j] -= 4;
-                        }
 
                         if (trianglesIndices.Count >= 12 && !letter)
                         {
-                            additionalShift = -8;
+                            for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                            {
+                                if(getColumnIndex(rotatedTriangleIndices[j]) < gameBoard.getWidth() / 2)
+                                {
+                                    for(int k = 0; k < rotatedTriangleIndices.Count; ++k)
+                                    {
+                                        rotatedTriangleIndices[k] -= 4;
+                                    }
+                                    additionalShift -= 4;
+                                    --j;
+                                }
+                            }
                         }
                         else if (trianglesIndices.Count > 4)
                         {
+                            for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                            {
+                                //Debug.Log("Before");
+                                //Debug.Log(rotatedTriangleIndices[j]);
+                                rotatedTriangleIndices[j] -= 4;
+                                //Debug.Log("After");
+                                //Debug.Log(rotatedTriangleIndices[j]);
+                            }
                             additionalShift = -4;
                         }
                     }
                     else
                     {
-                        for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
-                        {
-                            rotatedTriangleIndices[j] += 4;
-                        }
-
                         if (trianglesIndices.Count >= 12 && !letter)
                         {
-                            additionalShift = 8;
+                            //Debug.Log("Large");
+                            for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                            {
+                                if(getColumnIndex(rotatedTriangleIndices[j]) > gameBoard.getWidth()/2)
+                                {
+                                    //Debug.Log("Shifting Right");
+                                    for (int k = 0; k < rotatedTriangleIndices.Count; ++k)
+                                    {
+                                        //Debug.Log("Before");
+                                        //Debug.Log(rotatedTriangleIndices[k]);
+                                        rotatedTriangleIndices[k] += 4;
+                                        //Debug.Log("After");
+                                        //Debug.Log(rotatedTriangleIndices[k]);
+                                    }
+                                    additionalShift += 4;
+                                    --j;
+                                }
+                            }
                         }
                         else if (trianglesIndices.Count > 4)
                         {
+                            for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+                            {
+                                //Debug.Log("Before");
+                                //Debug.Log(rotatedTriangleIndices[j]);
+                                rotatedTriangleIndices[j] += 4;
+                                //Debug.Log("After");
+                                //Debug.Log(rotatedTriangleIndices[j]);
+                            }
                             additionalShift = 4;
                         }
                     }
@@ -331,13 +389,21 @@ public class Piece : MonoBehaviour {
                     //{
                     //    additionalShift = 8;
                     //}
-                    break;
+                    //break;
+                }
+            }
+            if (printRotateDebug)
+            {
+                Debug.Log("Pre Downward Shift");
+                for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
+                {
+                    Debug.Log(rotatedTriangleIndices[i]);
                 }
             }
             int downShift = 0;
             for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
             {
-                rotatedTriangleIndices[i] += additionalShift;
+                //rotatedTriangleIndices[i] += additionalShift;
                 if (getRowIndex(rotatedTriangleIndices[i]) >= gameBoard.getHeight())
                 {
                     for(int j = 0; j < rotatedTriangleIndices.Count; ++j)
@@ -347,15 +413,29 @@ public class Piece : MonoBehaviour {
                     ++downShift;
                 }
             }
+            if(printRotateDebug)
+            {
+                Debug.Log("Pre Proximity Check Rotated Triangle indices");
+                for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
+                {
+                    Debug.Log(rotatedTriangleIndices[i]);
+                }
+            }
             if (gameBoard.checkEmpty(rotatedTriangleIndices))
             {
                 orientationState += rotateDelta;
                 coreTriangle += additionalShift - (downShift * gameBoard.getWidth() * 4);
-                Debug.Log(downShift);
-                Debug.Log("A");
-                for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
+                if(printRotateDebug)
                 {
-                    Debug.Log(rotatedTriangleIndices[i]);
+                    Debug.Log(downShift);
+                    Debug.Log("A");
+                    Debug.Log(downShift);
+                    Debug.Log(additionalShift);
+                    Debug.Log(coreTriangle);
+                    for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
+                    {
+                        Debug.Log(rotatedTriangleIndices[i]);
+                    }
                 }
             }
             else if(gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 0)))
@@ -363,18 +443,38 @@ public class Piece : MonoBehaviour {
                 orientationState += rotateDelta;
                 coreTriangle += (-4 + additionalShift);
                 //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
-                Debug.Log("B");
-                //for (int i = 0; i < check.Count; ++i)
-                //{
-                //    Debug.Log(check[i]);
-                //}
+                if(printRotateDebug)
+                {
+                    Debug.Log("B");
+                    Debug.Log(downShift);
+                    Debug.Log(additionalShift);
+                    Debug.Log(coreTriangle);
+                    Debug.Log("Printing Shifted");
+                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
+                    for (int i = 0; i < shiftedIndices.Count; ++i)
+                    {
+                        Debug.Log(shiftedIndices[i] + additionalShift);
+                    }
+                }
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 0)))
             {
                 orientationState += rotateDelta;
                 coreTriangle += (4 + additionalShift);
                 //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 1, 0);
-                Debug.Log("C");
+                if(printRotateDebug)
+                {
+                    Debug.Log("C");
+                    Debug.Log(downShift);
+                    Debug.Log(additionalShift);
+                    Debug.Log(coreTriangle);
+                    Debug.Log("Printing Shifted");
+                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, 0);
+                    for (int i = 0; i < shiftedIndices.Count; ++i)
+                    {
+                        Debug.Log(shiftedIndices[i] + additionalShift);
+                    }
+                }
                 //for (int i = 0; i < check.Count; ++i)
                 //{
                 //    Debug.Log(check[i]);
@@ -385,7 +485,19 @@ public class Piece : MonoBehaviour {
                 orientationState += rotateDelta;
                 coreTriangle += (-4 * gameBoard.getWidth() + additionalShift);
                 //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 0, -1);
-                Debug.Log("D");
+                if(printRotateDebug)
+                {
+                    Debug.Log("D");
+                    Debug.Log(downShift);
+                    Debug.Log(additionalShift);
+                    Debug.Log(coreTriangle);
+                    Debug.Log("Printing Shifted");
+                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -1);
+                    for (int i = 0; i < shiftedIndices.Count; ++i)
+                    {
+                        Debug.Log(shiftedIndices[i] + additionalShift);
+                    }
+                }
                 //for (int i = 0; i < check.Count; ++i)
                 //{
                 //    Debug.Log(check[i]);
@@ -396,7 +508,19 @@ public class Piece : MonoBehaviour {
                 orientationState += rotateDelta;
                 coreTriangle += (-4 * gameBoard.getWidth() - 4 + additionalShift);
                 //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, -1);
-                Debug.Log("E");
+                if(printRotateDebug)
+                {
+                    Debug.Log("E");
+                    Debug.Log(downShift);
+                    Debug.Log(additionalShift);
+                    Debug.Log(coreTriangle);
+                    Debug.Log("Printing Shifted");
+                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, -1);
+                    for (int i = 0; i < shiftedIndices.Count; ++i)
+                    {
+                        Debug.Log(shiftedIndices[i] + additionalShift);
+                    }
+                }
                 //for (int i = 0; i < check.Count; ++i)
                 //{
                 //    Debug.Log(check[i]);
@@ -406,42 +530,135 @@ public class Piece : MonoBehaviour {
             {
                 orientationState += rotateDelta;
                 coreTriangle += (-4 * gameBoard.getWidth() + 4 + additionalShift);
-                Debug.Log("F");
-                //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 1, -1);
-                //for (int i = 0; i < check.Count; ++i)
-                //{
-                //    Debug.Log(check[i]);
-                //}
+                if(printRotateDebug)
+                {
+                    Debug.Log("F");
+                    Debug.Log(downShift);
+                    Debug.Log(additionalShift);
+                    Debug.Log(coreTriangle);
+                    Debug.Log("Printing Shifted");
+                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -1);
+                    for (int i = 0; i < shiftedIndices.Count; ++i)
+                    {
+                        Debug.Log(shiftedIndices[i] + additionalShift);
+                    }
+                }
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -2)))
             {
-                Debug.Log("G");
+                if (printRotateDebug)
+                {
+                    Debug.Log("G");
+                    Debug.Log(downShift);
+                    Debug.Log(additionalShift);
+                    Debug.Log(coreTriangle);
+                    Debug.Log("Printing Shifted");
+                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -2);
+                    for (int i = 0; i < shiftedIndices.Count; ++i)
+                    {
+                        Debug.Log(shiftedIndices[i] + additionalShift);
+                    }
+                }
                 orientationState += rotateDelta;
                 coreTriangle += (-8 * gameBoard.getWidth() + additionalShift);
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -2)))
             {
-                Debug.Log("H");
+                if(printRotateDebug)
+                {
+                    Debug.Log("H");
+                    Debug.Log("downShift: " + downShift);
+                    Debug.Log("additionalShift: " + additionalShift);
+                    Debug.Log("coreTriangle: " + coreTriangle);
+                    Debug.Log("Printing Shifted");
+                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, -2);
+                    for (int i = 0; i < shiftedIndices.Count; ++i)
+                    {
+                        Debug.Log(shiftedIndices[i] + additionalShift);
+                    }
+                }
                 orientationState += rotateDelta;
                 coreTriangle += (-8 * gameBoard.getWidth() - 4 + additionalShift);
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -2)))
             {
-                Debug.Log("I");
-                Debug.Log(downShift);
-                Debug.Log(additionalShift);
-                Debug.Log(coreTriangle);
-                Debug.Log("Printing Shifted");
-                List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -2);
-                for (int i = 0; i < shiftedIndices.Count; ++i)
+                if(printRotateDebug)
                 {
-                    Debug.Log(shiftedIndices[i] + additionalShift);
+                    Debug.Log("I");
+                    Debug.Log(downShift);
+                    Debug.Log(additionalShift);
+                    Debug.Log(coreTriangle);
+                    Debug.Log("Printing Shifted");
+                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -2);
+                    for (int i = 0; i < shiftedIndices.Count; ++i)
+                    {
+                        Debug.Log(shiftedIndices[i] + additionalShift);
+                    }
                 }
                 orientationState += rotateDelta;
                 coreTriangle += (-8 * gameBoard.getWidth() + 4 + additionalShift);
             }
+            else if(rotatedTriangleIndices.Count > 12)
+            {
+                if(gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -3)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-12 * gameBoard.getWidth() + additionalShift);
+                    if(printRotateDebug)
+                    {
+                        Debug.Log("J");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -2, -2)))
+                {
+                    if(printRotateDebug)
+                    {
+                        Debug.Log("K");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -2, -2);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    orientationState += rotateDelta;
+                    coreTriangle += (-8 * gameBoard.getWidth() + additionalShift);
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 2, -2)))
+                {
+                    if(printRotateDebug)
+                    {
+                        Debug.Log("L");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 2, -2);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    orientationState += rotateDelta;
+                    coreTriangle += (-8 * gameBoard.getWidth() + 8 + additionalShift);
+                }
+            }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, 1)))
             {
+                //Debug.Log("M");
                 orientationState += rotateDelta;
                 coreTriangle += (4 * gameBoard.getWidth() + additionalShift);
                 //Debug.Log("G");
@@ -453,6 +670,7 @@ public class Piece : MonoBehaviour {
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 1)))
             {
+                //Debug.Log("N");
                 orientationState += rotateDelta;
                 coreTriangle += (4 * gameBoard.getWidth() - 4 + additionalShift);
                 //Debug.Log("H");
@@ -464,6 +682,7 @@ public class Piece : MonoBehaviour {
             }
             else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 1)))
             {
+                //Debug.Log("O");
                 orientationState += rotateDelta;
                 coreTriangle += (4 * gameBoard.getWidth() + 4 + additionalShift);
                 //Debug.Log("I");
