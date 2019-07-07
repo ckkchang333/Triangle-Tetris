@@ -63,6 +63,9 @@ MonoBehaviour:
   dropTimeInterval: 1
   pieceID: 3
   active: 1
+  letter: 0
+  obilteration: 0
+  printRotateDebug: 0
   pieceSprite: {fileID: 1470927341204420, guid: c9941c98960331b4ca2fd9c0dfe771e1,
     type: 2}
-  pieceColor: {r: 0.4811321, g: 0.31886795, b: 0, a: 1}
+  pieceColor: {r: 0, g: 1, b: 1, a: 1}
