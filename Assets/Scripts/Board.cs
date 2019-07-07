@@ -403,6 +403,7 @@ public class Board : MonoBehaviour {
         pieceQueue.GetComponent<PieceQueue>().fillQueue();
         pieceHolder.GetComponent<pieceHolder>().empty();
         rowsCleared = 0;
+        paused = false;
     }
     
     // Use this for initialization

@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-D:/Unity Projects/Triangle Tetris/Triangle Tetris.exe
+D:/game prototypes/tangi_build/tangi_build.exe
 SceneListBegin?
 Assets/Scenes/triangle_tetris.unity
 SceneListEnd?

@@ -635,7 +635,7 @@ public class Piece : MonoBehaviour {
                         }
                     }
                     orientationState += rotateDelta;
-                    coreTriangle += (-8 * gameBoard.getWidth() + additionalShift);
+                    coreTriangle += (-8 * gameBoard.getWidth() - 8 + additionalShift);
                 }
                 else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 2, -2)))
                 {
