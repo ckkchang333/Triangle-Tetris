@@ -57,10 +57,13 @@ MonoBehaviour:
   trianglesIndices: 
   orientationsDeltas:
   - myList: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b000000ec030000ed030000ee030000ef030000d4070000d5070000d6070000d7070000b80b0000bb0b0000bc0b0000bd0b0000be0b0000bf0b0000c00b0000c10b0000c20b0000c30b0000
+  dropTimeIntervalBase: 0.025
   dropTimeInterval: 0.025
   pieceID: 0
   active: 1
   letter: 1
+  obilteration: 0
+  printRotateDebug: 0
   pieceSprite: {fileID: 1450173624775824, guid: e8550c7d14d39214dbaaa53e1c1b0b6d,
     type: 2}
   pieceColor: {r: 0, g: 0, b: 1, a: 1}

@@ -19,6 +19,7 @@ public class Piece : MonoBehaviour {
     public int orientationState;
     public List<int> trianglesIndices;
     public List<ListWrapperInt> orientationsDeltas;
+    public float dropTimeIntervalBase;
     public float dropTimeInterval;
     private float timer;
     public int pieceID;
@@ -889,6 +890,7 @@ public class Piece : MonoBehaviour {
         {
             if(!letter)
             {
+                dropTimeIntervalBase = gameBoard.getPieceLowerTimer();
                 dropTimeInterval = gameBoard.getPieceLowerTimer();
             }
             timer = dropTimeInterval;
@@ -937,10 +939,39 @@ public class Piece : MonoBehaviour {
                 horizontalMove(false);
             }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            //if (Input.GetKey(KeyCode.DownArrow))
+            //{
+            //    dropTimeInterval = dropTimeIntervalBase / 8;
+            //    if(timer > dropTimeIntervalBase / 8)
+            //    {
+            //        timer = dropTimeIntervalBase / 8;
+            //    }
+            //}
+            //else if(!Input.GetKey(KeyCode.DownArrow))
+            //{
+            //    dropTimeInterval = dropTimeIntervalBase;
+            //}
+
+
+            if (Input.GetKey(KeyCode.DownArrow))
             {
-                lower();
+                dropTimeInterval = dropTimeIntervalBase / 8;
+                if (timer > dropTimeIntervalBase / 8)
+                {
+                    timer = dropTimeIntervalBase / 8;
+                }
             }
+            else if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                dropTimeInterval = dropTimeIntervalBase;
+                timer = dropTimeIntervalBase;
+            }
+
+            //if(Input.GetKeyDown(KeyCode.DownArrow))
+            //{
+            //    lower();
+            //}
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 drop();
