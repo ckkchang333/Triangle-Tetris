@@ -477,9 +477,15 @@ public class Board : MonoBehaviour {
                     emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
                 }
             }
-            if(Input.GetKeyDown(KeyCode.P) && !gameOver)
+            if((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q)) && !gameOver)
             {
                 pause();
+            }
+
+            if(Input.GetKeyDown(KeyCode.F10))
+            {
+                uiController.GetComponent<UI>().resetUI();
+                startGame();
             }
         }
         else if(titleActive)
