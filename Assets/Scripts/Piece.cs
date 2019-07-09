@@ -215,14 +215,14 @@ public class Piece : MonoBehaviour {
     }
 
 
-    void rotateNeo()
+    void rotateNeo(bool rotateClockwise)
     {
         int rotateDelta = 0;
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (rotateClockwise)
         {
             rotateDelta = -1;
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        else if (!rotateClockwise)
         {
             rotateDelta = 1;
         }
@@ -703,9 +703,9 @@ public class Piece : MonoBehaviour {
         }
     }
 
-    void horizontalMove()
+    void horizontalMove(bool shiftLeft)
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(shiftLeft)
         {
             for(int i = 0; i < trianglesIndices.Count; ++i)
             {
@@ -753,7 +753,7 @@ public class Piece : MonoBehaviour {
             updateTriangleIndices();
             gameBoard.dropGhostPiece();
         }
-        else if(Input.GetKeyDown(KeyCode.D))
+        else if(!shiftLeft)
         {
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
@@ -805,25 +805,19 @@ public class Piece : MonoBehaviour {
 
     void lower()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (!gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
         {
-            if (!gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
-            {
-                return;
-            }
-            fallOnce();
-            timer = dropTimeInterval;
+            return;
         }
+        fallOnce();
+        timer = dropTimeInterval;
     }
 
     public void drop()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        for (int i = 0; i < gameBoard.height; ++i)
         {
-            for (int i = 0; i < gameBoard.height; ++i)
-            {
-                fallOnce();
-            }
+            fallOnce();
         }
     }
 
@@ -926,10 +920,31 @@ public class Piece : MonoBehaviour {
         {
             timer -= Time.deltaTime;
             //rotate();
-            rotateNeo();
-            horizontalMove();
-            lower();
-            drop();
+            if(Input.GetKeyDown(KeyCode.Z))
+            {
+                rotateNeo(true);
+            }
+            else if(Input.GetKeyDown(KeyCode.X))
+            {
+                rotateNeo(false);
+            }
+            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                horizontalMove(true);
+            }
+            else if(Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                horizontalMove(false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                lower();
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                drop();
+            }
             if (timer <= 0)
             {
                 fallOnce();
