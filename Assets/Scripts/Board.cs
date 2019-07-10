@@ -362,11 +362,16 @@ public class Board : MonoBehaviour {
 
     public void dropGhostPiece()
     {
-        if(ghostOn)
+        if (ghostOn)
         {
             emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
-            ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
-            ghostPiece.GetComponent<Piece>().ghostDrop();
+        }
+        ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().getTriangleIndices());
+        ghostPiece.GetComponent<Piece>().coreTriangle = currentPiece.GetComponent<Piece>().getCoreTriangle();
+        ghostPiece.GetComponent<Piece>().ghostDrop();
+        if (!ghostOn)
+        {
+            emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
         }
     }
 
@@ -406,6 +411,11 @@ public class Board : MonoBehaviour {
         paused = false;
     }
     
+    public int getGhostCoreTriangle()
+    {
+        return ghostPiece.GetComponent<Piece>().getCoreTriangle();
+    }
+    
     // Use this for initialization
     void Start () {
         uiController = uiObject.GetComponent<UI>();
@@ -432,7 +442,6 @@ public class Board : MonoBehaviour {
                 GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().dequeue();
                 currentPiece = Instantiate(piecePrefab);
                 currentPiece.GetComponent<Piece>().gameBoard = this;
-                ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>();
                 ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
                 //ghostPiece.GetComponent<Piece>().ghostDrop();
                 //dropGhostPiece();
@@ -468,14 +477,19 @@ public class Board : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.G) && !gameOver)
             {
                 ghostOn = !ghostOn;
-                if (ghostOn)
-                {
-                    dropGhostPiece();
-                }
-                else
+                dropGhostPiece();
+                if(!ghostOn)
                 {
                     emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
                 }
+                //if (ghostOn)
+                //{
+                //    dropGhostPiece();
+                //}
+                //else
+                //{
+                //    emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
+                //}
             }
             if((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q)) && !gameOver)
             {
@@ -490,9 +504,12 @@ public class Board : MonoBehaviour {
         }
         else if(titleActive)
         {
+            ghostOn = false;
             if (titleLetterIndex >= 0 && currentPiece == null)
             {
                 currentPiece = Instantiate(titlePieces[titleLetterIndex]);
+                //ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
+                dropGhostPiece();
                 if (titleLetterIndex == 0)
                 {
                     currentPiece.GetComponent<Piece>().coreTriangle = (getHeight() - 5) * getWidth() * 4 + titleLetterIndex * 4;

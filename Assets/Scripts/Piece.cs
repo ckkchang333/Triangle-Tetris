@@ -45,6 +45,11 @@ public class Piece : MonoBehaviour {
         return new List<int>(trianglesIndices);
     }
 
+    public int getCoreTriangle()
+    {
+        return coreTriangle;
+    }
+
     int getColumnIndex(int triangleIndex)
     {
         return (triangleIndex % (gameBoard.width * 4)) / 4;
@@ -811,15 +816,19 @@ public class Piece : MonoBehaviour {
             return;
         }
         fallOnce();
-        timer = dropTimeInterval;
+        timer = dropTimeIntervalBase;
     }
 
     public void drop()
     {
-        for (int i = 0; i < gameBoard.height; ++i)
-        {
-            fallOnce();
-        }
+        //for (int i = 0; i < gameBoard.height; ++i)
+        //{
+        //    fallOnce();
+        //}
+        gameBoard.emptyTriangles(trianglesIndices);
+        coreTriangle = gameBoard.GetComponent<Board>().getGhostCoreTriangle();
+        updateTriangleIndices();
+        timer = dropTimeIntervalBase * 2;
     }
 
     public void ghostDrop()
@@ -847,6 +856,7 @@ public class Piece : MonoBehaviour {
         {
             if(gameBoard.checkEmpty(shadowHitbox))
             {
+                coreTriangle -= gameBoard.getWidth() * 4;
                 for (int j = 0; j < shadowHitbox.Count; ++j)
                 {
                     shadowHitbox[j] -= gameBoard.getWidth() * 4;
@@ -965,6 +975,11 @@ public class Piece : MonoBehaviour {
             {
                 dropTimeInterval = dropTimeIntervalBase;
                 timer = dropTimeIntervalBase;
+            }
+
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                timer = 0;
             }
 
             //if(Input.GetKeyDown(KeyCode.DownArrow))
