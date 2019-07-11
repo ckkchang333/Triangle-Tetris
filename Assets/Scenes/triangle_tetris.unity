@@ -4053,9 +4053,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Z      -     Rotate Left\nX      -     Rotate Right\n\u2190     -     Move
-    Left\n\u2192     -     Move Right\n\u2193       -     Lower\nL-SHIFT    -    Hold\nSPACE
-    \    -    Drop\n\nG - Ghost\nP / Q - Pause\nF10 - Quick Restart during play\n"
+  m_Text: "Z      -     Rotate Counter-Clockwise\nX      -     Rotate Clockwise\n\u2190
+    \    -     Move Left\n\u2192     -     Move Right\n\u2193       -     Soft Drop\n\u2191
+    \      -     Lock\nSPACE     -    Hard Drop\nL-SHIFT    -    Hold\n\nG      -
+    \    Ghost\nP/Q   -     Pause\nF10    -   Quick Restart during play\n"
 --- !u!222 &955787025
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5737,7 +5738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1496440592
 Transform:
   m_ObjectHideFlags: 0
@@ -7142,7 +7143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1798437856
 Transform:
   m_ObjectHideFlags: 0
