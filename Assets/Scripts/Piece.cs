@@ -1028,6 +1028,10 @@ public class Piece : MonoBehaviour {
             //{
             //    dropTimeInterval = dropTimeIntervalBase;
             //}
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                lower();
+            }
 
 
             if (Input.GetKey(KeyCode.DownArrow))
@@ -1044,7 +1048,7 @@ public class Piece : MonoBehaviour {
                 timer = dropTimeIntervalBase;
             }
 
-            if(Input.GetKeyDown(KeyCode.UpArrow))
+            if(Input.GetKeyDown(KeyCode.UpArrow) && !gameBoard.checkEmpty(shiftPassedIndices(trianglesIndices, 0, -1)))
             {
                 timer = 0;
             }
