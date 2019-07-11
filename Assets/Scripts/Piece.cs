@@ -27,6 +27,12 @@ public class Piece : MonoBehaviour {
     public bool letter;
     public bool obilteration;
     public bool printRotateDebug;
+    public int leftDelayedAutoshift;
+    public int rightDelayedAutoshift;
+    public int leftAutoRepeatInterval;
+    public int rightAutoRepeatInterval;
+    public int frameCounter = -1;
+    private bool firstDelayflag = true;
 
 
 
@@ -1014,6 +1020,58 @@ public class Piece : MonoBehaviour {
             else if(Input.GetKeyDown(KeyCode.RightArrow))
             {
                 horizontalMove(false);
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                ++frameCounter;
+                Debug.Log(frameCounter);
+                if (firstDelayflag)
+                {
+                    if (frameCounter >= leftDelayedAutoshift)
+                    {
+                        horizontalMove(true);
+                        frameCounter = 0;
+                        firstDelayflag = false;
+                    }
+                }
+                else
+                {
+                    if (frameCounter >= leftAutoRepeatInterval)
+                    {
+                        horizontalMove(true);
+                        frameCounter = 0;
+                    }
+                }
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                ++frameCounter;
+                Debug.Log(frameCounter);
+                if (firstDelayflag)
+                {
+                    if (frameCounter >= rightDelayedAutoshift)
+                    {
+                        horizontalMove(false);
+                        frameCounter = 0;
+                        firstDelayflag = false;
+                    }
+                }
+                else
+                {
+                    if (frameCounter >= leftAutoRepeatInterval)
+                    {
+                        horizontalMove(false);
+                        frameCounter = 0;
+                    }
+                }
+            }
+
+
+            if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                frameCounter = -1;
+                firstDelayflag = true;
             }
 
             //if (Input.GetKey(KeyCode.DownArrow))
