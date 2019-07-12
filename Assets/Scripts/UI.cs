@@ -97,56 +97,61 @@ public class UI : MonoBehaviour {
             {
                 pauseText.SetActive(true);
                 selectorSprite.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.P))
+                if(!controlsVisible)
                 {
-                    pauseText.SetActive(true);
-                }
-                if (Input.GetKeyDown(KeyCode.UpArrow) && pauseIndex > 0)
-                {
-                    //selectorSprite.transform.Translate(new Vector3(0, displace));
-                    selectorSprite.transform.position += new Vector3(0, displace);
-                    pauseIndex = --pauseIndex;
-
-                }
-                if (Input.GetKeyDown(KeyCode.DownArrow) && pauseIndex < pauseMaxIndex)
-                {
-                    //selectorSprite.transform.Translate(new Vector3(0, -displace));
-                    selectorSprite.transform.position -= new Vector3(0, displace);
-                    pauseIndex = ++pauseIndex;
-                }
-                if (Input.GetKeyDown(KeyCode.X))
-                {
-                    rotateSelector(true);
-                }
-                if (Input.GetKeyDown(KeyCode.Z))
-                {
-                    rotateSelector(false);
-                }
-                if(Input.GetKeyDown(KeyCode.Space))
-                {
-                    if(pauseIndex == 0)
+                    if (Input.GetKeyDown(KeyCode.UpArrow) && pauseIndex > 0)
                     {
-                        resetUI();
-                        //gameBoard.GetComponent<Board>().resetGame();
-                        gameBoard.GetComponent<Board>().startGame();
+                        //selectorSprite.transform.Translate(new Vector3(0, displace));
+                        selectorSprite.transform.position += new Vector3(0, displace);
+                        pauseIndex = --pauseIndex;
+
+                    }
+                    if (Input.GetKeyDown(KeyCode.DownArrow) && pauseIndex < pauseMaxIndex)
+                    {
+                        //selectorSprite.transform.Translate(new Vector3(0, -displace));
+                        selectorSprite.transform.position -= new Vector3(0, displace);
+                        pauseIndex = ++pauseIndex;
+                    }
+                    if (Input.GetKeyDown(KeyCode.X))
+                    {
+                        rotateSelector(true);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Z))
+                    {
+                        rotateSelector(false);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        if (pauseIndex == 0)
+                        {
+                            resetUI();
+                            //gameBoard.GetComponent<Board>().resetGame();
+                            gameBoard.GetComponent<Board>().startGame();
+                            uiIndex = -1;
+                        }
+                        else if (pauseIndex == 1)
+                        {
+                            controlsVisible = true;
+                            controlsInfoBox.SetActive(true);
+                        }
+                        else if (pauseIndex == 2)
+                        {
+                            settingsBoard.SetActive(true);
+                            uiIndex += 3;
+                        }
+                    }
+                    if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q))
+                    {
+                        pauseText.SetActive(false);
+                        selectorSprite.SetActive(false);
                         uiIndex = -1;
                     }
-                    else if (pauseIndex == 1)
-                    {
-                        controlsVisible = !controlsVisible;
-                        controlsInfoBox.SetActive(controlsVisible);
-                    }
-                    else if (pauseIndex == 2)
-                    {
-                        settingsBoard.SetActive(true);
-                        uiIndex += 3;
-                    }
                 }
-                if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    pauseText.SetActive(false);
-                    selectorSprite.SetActive(false);
-                    uiIndex = -1;
+
+                    controlsVisible = false;
+                    controlsInfoBox.SetActive(false);
                 }
             }
             // Playing the Game
