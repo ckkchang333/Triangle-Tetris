@@ -137,6 +137,10 @@ public class Board : MonoBehaviour {
         leftAutoRepeatRate = leftARRvalue;
         rightDelayedAutoshift = rightDASvalue;
         rightAutoRepeatRate = rightARRvalue;
+        if(currentPiece != null)
+        {
+            currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
+        }
     }
 
     public void resetGame()

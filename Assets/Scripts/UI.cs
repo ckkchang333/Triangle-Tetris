@@ -72,6 +72,8 @@ public class UI : MonoBehaviour {
             highScoreText.GetComponent<Text>().text = "High Score: " + newHighScore;
             highScoreText.SetActive(true);
         }
+        selectorSprite.transform.position = startingSelectorPosition;
+        selectorSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
         uiIndex = 0;
     }
 
