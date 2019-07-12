@@ -29,8 +29,8 @@ public class Piece : MonoBehaviour {
     public bool printRotateDebug;
     public int leftDelayedAutoshift;
     public int rightDelayedAutoshift;
-    public int leftAutoRepeatInterval;
-    public int rightAutoRepeatInterval;
+    public int leftAutoRepeatRate;
+    public int rightAutoRepeatRate;
     public int frameCounter = -1;
     private bool firstDelayflag = true;
 
@@ -181,6 +181,16 @@ public class Piece : MonoBehaviour {
             trianglesIndices.Add(coreTriangle + currentDeltas[i]);
         }
     }
+
+
+    public void setDasAndArr(int leftDASvalue, int leftARRvalue, int rightDASvalue, int rightARRvalue)
+    {
+        leftDelayedAutoshift = leftDASvalue;
+        leftAutoRepeatRate = leftARRvalue;
+        rightDelayedAutoshift = rightDASvalue;
+        rightAutoRepeatRate = rightARRvalue;
+    }
+
 
     void rotate()
     {
@@ -1037,7 +1047,7 @@ public class Piece : MonoBehaviour {
                 }
                 else
                 {
-                    if (frameCounter >= leftAutoRepeatInterval)
+                    if (frameCounter >= leftAutoRepeatRate)
                     {
                         horizontalMove(true);
                         frameCounter = 0;
@@ -1059,7 +1069,7 @@ public class Piece : MonoBehaviour {
                 }
                 else
                 {
-                    if (frameCounter >= leftAutoRepeatInterval)
+                    if (frameCounter >= rightAutoRepeatRate)
                     {
                         horizontalMove(false);
                         frameCounter = 0;

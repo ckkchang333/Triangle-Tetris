@@ -34,6 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4805236531994918}
+  - component: {fileID: 114056979538852608}
   m_Layer: 0
   m_Name: Diamond Sprite
   m_TagString: Untagged
@@ -1566,7 +1567,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003289859447042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.194948, y: -0.4303677, z: -9.993418}
+  m_LocalPosition: {x: 2.8632417, y: -4.1743813, z: -9.993418}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4007737146864774}
@@ -1645,6 +1646,18 @@ Transform:
   m_Father: {fileID: 4199486495547464}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+--- !u!114 &114056979538852608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1003289859447042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f085b671a5713458683db9ae5a897e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteColor: {r: 0.83137256, g: 0.83137256, b: 0.2, a: 1}
 --- !u!212 &212017663338096864
 SpriteRenderer:
   m_ObjectHideFlags: 1

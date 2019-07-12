@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\pieceHolder.cs" />
     <Compile Include="Assets\Scripts\PieceQueue.cs" />
     <Compile Include="Assets\Scripts\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\SettingsMenu.cs" />
     <Compile Include="Assets\Scripts\Sprite.cs" />
     <Compile Include="Assets\Scripts\UI.cs" />
     <Reference Include="UnityEditor.StandardEvents">

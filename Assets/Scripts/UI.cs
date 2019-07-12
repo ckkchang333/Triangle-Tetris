@@ -9,7 +9,7 @@ public class UI : MonoBehaviour {
     public GameObject mainMenuText;
     public GameObject authorText;
     public int mainMenuIndex = 0;
-    public int mainMenuMaxIndex = 2;
+    public int mainMenuMaxIndex = 3;
     public float displace;
 
     [Header("Controls")]
@@ -25,6 +25,10 @@ public class UI : MonoBehaviour {
     public GameObject highScoreText;
     public GameObject newHighScoreText;
     public GameObject gameOverText;
+
+
+    [Header("Settings Box")]
+    public GameObject settingsBoard;
 
     [Header("Other")]
     public GameObject scoreText;
@@ -132,6 +136,11 @@ public class UI : MonoBehaviour {
                         controlsVisible = !controlsVisible;
                         controlsInfoBox.SetActive(controlsVisible);
                     }
+                    else if (pauseIndex == 2)
+                    {
+                        settingsBoard.SetActive(true);
+                        uiIndex += 3;
+                    }
                 }
                 if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q))
                 {
@@ -196,18 +205,36 @@ public class UI : MonoBehaviour {
                     }
                     else if (mainMenuIndex == 1)
                     {
-                        controlsVisible = !controlsVisible;
-                        controlsInfoBox.SetActive(controlsVisible);
+                        controlsVisible = true;
+                        controlsInfoBox.SetActive(true);
                     }
                     else if (mainMenuIndex == 2)
+                    {
+                        uiIndex += 3;
+                    }
+                    else if (mainMenuIndex == 3)
                     {
                         //Debug.Log("Quitting");
                         Application.Quit();
                     }
                 }
+                if(Input.GetKeyDown(KeyCode.Escape))
+                {
+                    controlsVisible = false;
+                    controlsInfoBox.SetActive(false);
+                }
             }
-
-            //Debug.Log(uiIndex);
+            // Main Menu Settings
+            else if(uiIndex >= 1)
+            {
+                settingsBoard.SetActive(true);
+                if(Input.GetKeyDown(KeyCode.Escape))
+                {
+                    settingsBoard.GetComponent<SettingsMenu>().updateGameBoardDasAndArr();
+                    uiIndex -= 3;
+                    settingsBoard.SetActive(false);
+                }
+            }
         }
     }
 }

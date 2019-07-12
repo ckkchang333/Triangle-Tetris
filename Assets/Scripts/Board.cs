@@ -50,8 +50,11 @@ public class Board : MonoBehaviour {
 
     private bool paused = false;
     private int titleLetterIndex = 4;
-
     private int currentHighScore = 0;
+    public int leftDelayedAutoshift;
+    public int rightDelayedAutoshift;
+    public int leftAutoRepeatRate;
+    public int rightAutoRepeatRate;
 
 
     int getColumnIndex(int triangleIndex)
@@ -126,6 +129,14 @@ public class Board : MonoBehaviour {
         pieceHolder.GetComponent<pieceHolder>().empty();
         pieceHolder.SetActive(!toggle);
         gameOver = toggle;
+    }
+
+    public void setDasAndArr(int leftDASvalue, int leftARRvalue, int rightDASvalue, int rightARRvalue)
+    {
+        leftDelayedAutoshift = leftDASvalue;
+        leftAutoRepeatRate = leftARRvalue;
+        rightDelayedAutoshift = rightDASvalue;
+        rightAutoRepeatRate = rightARRvalue;
     }
 
     public void resetGame()
@@ -442,6 +453,7 @@ public class Board : MonoBehaviour {
                 GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().dequeue();
                 currentPiece = Instantiate(piecePrefab);
                 currentPiece.GetComponent<Piece>().gameBoard = this;
+                currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
                 ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
                 //ghostPiece.GetComponent<Piece>().ghostDrop();
                 //dropGhostPiece();
