@@ -292,7 +292,6 @@ public class Board : MonoBehaviour {
     public void clearFilledRows()
     {
         bool fullRowFound = false;
-        //Debug.Log("Starting: " + fullRowFound.ToString());
         int counter = 0;
         for(int i  = 0; i < height; ++i)
         {
@@ -310,14 +309,32 @@ public class Board : MonoBehaviour {
                                 Block beneathBlockScript = fetchBlockScriptByIndex((i- 2) * width * 4 + l * 4);
                                 if(beneathBlockScript.permTop && !beneathBlockScript.permBottom)
                                 {
-                                    beneathBlockScript.filledBottom = false;
-                                    beneathBlockScript.filledLeft = false;
-                                    beneathBlockScript.filledTop = false;
-                                    beneathBlockScript.filledRight = false;
-                                    beneathBlockScript.permBottom = false;
-                                    beneathBlockScript.permLeft = false;
-                                    beneathBlockScript.permTop = false;
-                                    beneathBlockScript.permRight = false;
+                                    Color fillColor = Color.white;
+                                    if(!beneathBlockScript.permLeft)
+                                    {
+                                        fillColor = fetchBlockScriptByIndex((i - 1) * width * 4 + l * 4).getQuadColor(1);
+                                    }
+                                    else if(!beneathBlockScript.permRight)
+                                    {
+                                        fillColor = fetchBlockScriptByIndex((i - 1) * width * 4 + l * 4).getQuadColor(3);
+                                    }
+                                    beneathBlockScript.setQuadFilled(0, true, fillColor);
+                                    if(!beneathBlockScript.filledLeft)
+                                    {
+                                        beneathBlockScript.setQuadFilled(1, true, fillColor);
+                                    }
+                                    if (!beneathBlockScript.filledRight)
+                                    {
+                                        beneathBlockScript.setQuadFilled(3, true, fillColor);
+                                    }
+                                    beneathBlockScript.filledBottom = true;
+                                    beneathBlockScript.filledLeft = true;
+                                    beneathBlockScript.filledTop = true;
+                                    beneathBlockScript.filledRight = true;
+                                    beneathBlockScript.permBottom = true;
+                                    beneathBlockScript.permLeft = true;
+                                    beneathBlockScript.permTop = true;
+                                    beneathBlockScript.permRight = true;
                                 }
                             }
                         }

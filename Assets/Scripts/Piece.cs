@@ -837,11 +837,11 @@ public class Piece : MonoBehaviour {
                     leftTriangleIndices.Add(current - 2);
                     //leftBelowTriangleIndices.Add(current - 2);
                 }
-                else if (current % 4 == 2 && !rowChecked)
-                {
-                    rowChecked = true;
-                    leftBelowTriangleIndices.Add(current - 2);
-                }
+                //else if (current % 4 == 2 && !rowChecked)
+                //{
+                //    rowChecked = true;
+                //    leftBelowTriangleIndices.Add(current - 2);
+                //}
                 else if (current % 4 == 3)
                 {
                     leftTriangleIndices.Add(current - 2);
@@ -938,11 +938,11 @@ public class Piece : MonoBehaviour {
                 //    rightTriangleIndices.Add(current + 2);
                 //    //rightBelowTriangleIndices.Add(current + 2);
                 //}
-                else if (current % 4 == 2 && !rowChecked)
-                {
-                    rightBelowTriangleIndices.Add(current - 2);
-                    rowChecked = true;
-                }
+                //else if (current % 4 == 2 && !rowChecked)
+                //{
+                //    rightBelowTriangleIndices.Add(current - 2);
+                //    rowChecked = true;
+                //}
                 //else if (current % 4 == 3)
                 //{
                 //    rightTriangleIndices.Add(current + 2);

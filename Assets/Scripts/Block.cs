@@ -76,6 +76,28 @@ public class Block : MonoBehaviour {
         }
     }
 
+    public Color getQuadColor(int quadIndex)
+    {
+        Color returnColor = Color.white;
+        if(quadIndex == 0)
+        {
+            returnColor =  this.transform.Find("triangles").Find("triangleBottom").GetComponent<SpriteRenderer>().color;
+        }
+        else if (quadIndex == 1)
+        {
+            returnColor = this.transform.Find("triangles").Find("triangleLeft").GetComponent<SpriteRenderer>().color;
+        }
+        else if (quadIndex == 2)
+        {
+            returnColor = this.transform.Find("triangles").Find("triangleTop").GetComponent<SpriteRenderer>().color;
+        }
+        else if (quadIndex == 3)
+        {
+            returnColor = this.transform.Find("triangles").Find("triangleRight").GetComponent<SpriteRenderer>().color;
+        }
+        return returnColor;
+    }
+
 
 	// Use this for initialization
 	void Start ()
