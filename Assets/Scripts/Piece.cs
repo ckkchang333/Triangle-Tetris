@@ -1038,7 +1038,7 @@ public class Piece : MonoBehaviour {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 ++frameCounter;
-                Debug.Log(frameCounter);
+                //Debug.Log(frameCounter);
                 if (firstDelayflag)
                 {
                     if (frameCounter >= leftDelayedAutoshift)
@@ -1060,7 +1060,7 @@ public class Piece : MonoBehaviour {
             else if (Input.GetKey(KeyCode.RightArrow))
             {
                 ++frameCounter;
-                Debug.Log(frameCounter);
+                //Debug.Log(frameCounter);
                 if (firstDelayflag)
                 {
                     if (frameCounter >= rightDelayedAutoshift)
@@ -1119,7 +1119,7 @@ public class Piece : MonoBehaviour {
                 timer = dropTimeIntervalBase;
             }
 
-            if(Input.GetKeyDown(KeyCode.UpArrow) && !gameBoard.checkEmpty(shiftPassedIndices(trianglesIndices, 0, -1)))
+            if(Input.GetKeyDown(KeyCode.DownArrow) && !gameBoard.checkEmpty(shiftPassedIndices(trianglesIndices, 0, -1)))
             {
                 timer = 0;
             }

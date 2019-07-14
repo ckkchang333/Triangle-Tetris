@@ -16,7 +16,14 @@ public class Sprite : MonoBehaviour {
                 Transform triangles = rowObject.GetChild(j).Find("triangles");
                 for(int k = 0; k < 4; ++k)
                 {
-                    triangles.GetChild(k).GetComponent<SpriteRenderer>().color = spriteColor;
+                    try
+                    {
+                        triangles.GetChild(k).GetComponent<SpriteRenderer>().color = spriteColor;
+                    }
+                    catch
+                    {
+                        // do nothing
+                    }
                 }
 
             }
