@@ -239,6 +239,14 @@ public class Piece : MonoBehaviour {
 
     void rotateNeo(bool rotateClockwise)
     {
+        if(printRotateDebug)
+        {
+            Debug.Log("Very Start");
+            for(int i = 0; i < trianglesIndices.Count; ++i)
+            {
+                Debug.Log(trianglesIndices[i]);
+            }
+        }
         int rotateDelta = 0;
         if (rotateClockwise)
         {
@@ -439,13 +447,14 @@ public class Piece : MonoBehaviour {
             for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
             {
                 //rotatedTriangleIndices[i] += additionalShift;
-                if (getRowIndex(rotatedTriangleIndices[i]) >= gameBoard.getHeight())
+                if (getRowIndex(rotatedTriangleIndices[i]) >= gameBoard.getHeight() - 1)
                 {
                     for(int j = 0; j < rotatedTriangleIndices.Count; ++j)
                     {
                         rotatedTriangleIndices[j] -= 4 * gameBoard.getWidth();
                     }
                     ++downShift;
+                    i = 0;
                 }
             }
             if(printRotateDebug)
@@ -459,7 +468,7 @@ public class Piece : MonoBehaviour {
             if (gameBoard.checkEmpty(rotatedTriangleIndices))
             {
                 orientationState += rotateDelta;
-                coreTriangle += additionalShift - (downShift * gameBoard.getWidth() * 4);
+                coreTriangle += additionalShift;
                 if(printRotateDebug)
                 {
                     Debug.Log(downShift);
@@ -781,13 +790,32 @@ public class Piece : MonoBehaviour {
                 //    Debug.Log(check[i]);
                 //}
             }
+            else
+            {
+                return;
+            }
             timer += 0.5f * Time.deltaTime;
             gameBoard.emptyTriangles(trianglesIndices);
+            coreTriangle -= downShift * gameBoard.getWidth() * 4;
             updateTriangleIndices();
             //for(int i = 0; i < trianglesIndices.Count; ++i)
             //{
             //    if(trianglesIndices[i] > gameBoard.getWidth() * gameBoard.height)
             //}
+            //int additionalDownShift = 0;
+            //for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
+            //{
+            //    //rotatedTriangleIndices[i] += additionalShift;
+            //    if (getRowIndex(rotatedTriangleIndices[i]) >= gameBoard.getHeight() - 1)
+            //    {
+            //        for (int j = 0; j < rotatedTriangleIndices.Count; ++j)
+            //        {
+            //            rotatedTriangleIndices[j] -= 4 * gameBoard.getWidth();
+            //        }
+            //        ++additionalDownShift;
+            //    }
+            //}
+            //coreTriangle -= additionalDownShift * gameBoard.getWidth() * 4;
             gameBoard.dropGhostPiece();
         }
     }
@@ -1226,10 +1254,10 @@ public class Piece : MonoBehaviour {
             }
             catch
             {
-                for(int i = 0; i < trianglesIndices.Count; ++i)
-                {
-                    Debug.Log(trianglesIndices[i]);
-                }
+                //for(int i = 0; i < trianglesIndices.Count; ++i)
+                //{
+                //    Debug.Log(trianglesIndices[i]);
+                //}
             }
         }
     }

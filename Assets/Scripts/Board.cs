@@ -170,6 +170,14 @@ public class Board : MonoBehaviour {
         //    Debug.Log(triangleIndices[i]);
         //}
         //Debug.Log("In Check Empty End");
+
+        for(int i = 0; i < triangleIndices.Count; ++i)
+        {
+            if(triangleIndices[i] >= (getHeight() * getWidth() * 4))
+            {
+                return false;
+            }
+        }
         for (int i = 0; i < triangleIndices.Count; ++i)
         {
             if(triangleIndices[i] < 0)
