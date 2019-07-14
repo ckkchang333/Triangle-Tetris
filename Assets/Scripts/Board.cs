@@ -455,6 +455,13 @@ public class Board : MonoBehaviour {
     {
         return ghostPiece.GetComponent<Piece>().getCoreTriangle();
     }
+
+    public void replayTitle()
+    {
+        obilterateBoard();
+        titleLetterIndex = titlePieces.Count - 1;
+        titleActive = true;
+    }
     
     // Use this for initialization
     void Start () {
@@ -539,7 +546,7 @@ public class Board : MonoBehaviour {
 
             if(Input.GetKeyDown(KeyCode.F10))
             {
-                uiController.GetComponent<UI>().resetUI();
+                uiController.GetComponent<UI>().resetGameUI();
                 startGame();
             }
         }
@@ -560,6 +567,7 @@ public class Board : MonoBehaviour {
                     currentPiece.GetComponent<Piece>().coreTriangle = (getHeight() - 5) * getWidth() * 4 + (2 * titleLetterIndex - 1) * 4;
                 }
                 currentPiece.GetComponent<Piece>().gameBoard = this;
+                currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
                 --titleLetterIndex;
             }
             else if(titleLetterIndex == -1 && currentPiece == null)

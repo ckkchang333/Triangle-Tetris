@@ -77,12 +77,20 @@ public class UI : MonoBehaviour {
         uiIndex = 0;
     }
 
-    public void resetUI()
+    public void resetGameUI()
     {
         pauseText.SetActive(false);
         selectorSprite.SetActive(false);
         uiIndex = -1;
         scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
+    }
+
+
+    public void replayTitle()
+    {
+        toggleActive(false, 0);
+        gameBoard.GetComponent<Board>().replayTitle();
+
     }
 
 	// Use this for initialization
@@ -127,7 +135,7 @@ public class UI : MonoBehaviour {
                     {
                         if (pauseIndex == 0)
                         {
-                            resetUI();
+                            resetGameUI();
                             //gameBoard.GetComponent<Board>().resetGame();
                             gameBoard.GetComponent<Board>().startGame();
                             uiIndex = -1;
@@ -176,6 +184,10 @@ public class UI : MonoBehaviour {
             {
                 if(!controlsVisible)
                 {
+                    if(Input.GetKeyDown(KeyCode.F10))
+                    {
+                        replayTitle();
+                    }
                     mainMenuText.SetActive(true);
                     selectorSprite.SetActive(true);
                     authorText.SetActive(true);
@@ -248,6 +260,12 @@ public class UI : MonoBehaviour {
                     settingsBoard.SetActive(false);
                 }
             }
+        }
+        else
+        {
+            mainMenuText.SetActive(false);
+            selectorSprite.SetActive(false);
+            authorText.SetActive(false);
         }
     }
 }

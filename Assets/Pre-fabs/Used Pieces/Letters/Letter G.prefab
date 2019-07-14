@@ -67,6 +67,11 @@ MonoBehaviour:
   letter: 1
   obilteration: 0
   printRotateDebug: 0
+  leftDelayedAutoshift: 10
+  rightDelayedAutoshift: 10
+  leftAutoRepeatRate: 5
+  rightAutoRepeatRate: 5
+  frameCounter: -1
   pieceSprite: {fileID: 1034580741981786, guid: 595c5c3ae916f094781fd05bf18f915b,
     type: 2}
   pieceColor: {r: 0.06959773, g: 0.8679245, b: 0.06959773, a: 1}
