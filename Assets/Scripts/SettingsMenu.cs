@@ -24,6 +24,8 @@ public class SettingsMenu : MonoBehaviour {
 
     public float displace;
 
+    private Vector3 startingTriangleSelectorPosition;
+
 
     private int menuIndex;
 
@@ -41,12 +43,22 @@ public class SettingsMenu : MonoBehaviour {
         gameBoard.GetComponent<Board>().setDasAndArr(leftDasValue, leftArrValue, rightDasValue, rightArrValue);
     }
 
+    public void resestSelectorPosition()
+    {
+        menuIndex = 0;
+        selectorTriangles.transform.position = startingTriangleSelectorPosition;
+        selectorTriangles.SetActive(true);
+        selectorReset.SetActive(false);
+    }
+
     // Use this for initialization
     void Start () {
         leftDasText.text = leftDasValue.ToString();
         leftArrText.text = leftArrValue.ToString();
         rightDasText.text = rightDasValue.ToString();
         rightArrText.text = rightArrValue.ToString();
+
+        startingTriangleSelectorPosition = selectorTriangles.transform.position;
     }
 
     // Update is called once per frame

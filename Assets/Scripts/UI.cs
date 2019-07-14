@@ -81,6 +81,7 @@ public class UI : MonoBehaviour {
     {
         pauseText.SetActive(false);
         selectorSprite.SetActive(false);
+        uiIndex = -1;
         scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
     }
 
@@ -140,6 +141,10 @@ public class UI : MonoBehaviour {
                         {
                             settingsBoard.SetActive(true);
                             uiIndex += 3;
+                        }
+                        else if (pauseIndex == 3)
+                        {
+                            Application.Quit();
                         }
                     }
                     if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q))
@@ -238,6 +243,7 @@ public class UI : MonoBehaviour {
                 if(Input.GetKeyDown(KeyCode.Escape))
                 {
                     settingsBoard.GetComponent<SettingsMenu>().updateGameBoardDasAndArr();
+                    settingsBoard.GetComponent<SettingsMenu>().resestSelectorPosition();
                     uiIndex -= 3;
                     settingsBoard.SetActive(false);
                 }

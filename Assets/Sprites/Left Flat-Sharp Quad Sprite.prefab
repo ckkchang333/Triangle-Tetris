@@ -35,6 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4507176496780796}
+  - component: {fileID: 114499511666815408}
   m_Layer: 0
   m_Name: Row Middle
   m_TagString: Untagged
@@ -301,6 +302,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4832784489167788}
+  - component: {fileID: 114877137945028268}
   m_Layer: 0
   m_Name: Left Flat-Sharp Quad Sprite
   m_TagString: Untagged
@@ -1181,7 +1183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470927341204420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.52229923, y: -3.0982242, z: -9.993418}
+  m_LocalPosition: {x: -1.8264098, y: -2.4136133, z: -9.993418}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4507176496780796}
@@ -1229,6 +1231,30 @@ Transform:
   m_Father: {fileID: 4507176496780796}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114499511666815408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1043661614059014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f085b671a5713458683db9ae5a897e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteColor: {r: 0.30704877, g: 0.78481716, b: 0.8679245, a: 1}
+--- !u!114 &114877137945028268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1470927341204420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f085b671a5713458683db9ae5a897e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteColor: {r: 0.37624598, g: 0.81986576, b: 0.8962264, a: 1}
 --- !u!212 &212021490543225232
 SpriteRenderer:
   m_ObjectHideFlags: 1

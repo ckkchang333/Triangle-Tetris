@@ -43,7 +43,7 @@ public class Board : MonoBehaviour {
     public bool swapLock = false;
 
     public bool gameOver = false;
-    private float pieceCurrentLowerTimer = 1.0f;
+    public float pieceCurrentLowerTimer = 1.0f;
 
     private bool active = false;
     private bool titleActive = true;
@@ -443,12 +443,12 @@ public class Board : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            obilterateBoard();
-            currentPiece = null;
-            startGame();
-        }
+        //if(Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    obilterateBoard();
+        //    currentPiece = null;
+        //    startGame();
+        //}
         if(active)
         {
 

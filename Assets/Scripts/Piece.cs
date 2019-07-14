@@ -908,10 +908,13 @@ public class Piece : MonoBehaviour {
         //{
         //    fallOnce();
         //}
-        gameBoard.emptyTriangles(trianglesIndices);
-        coreTriangle = gameBoard.GetComponent<Board>().getGhostCoreTriangle();
-        updateTriangleIndices();
-        timer = dropTimeIntervalBase;
+        if(gameBoard.checkEmpty(getNewTriangleIndices(0, -1)))
+        {
+            gameBoard.emptyTriangles(trianglesIndices);
+            coreTriangle = gameBoard.GetComponent<Board>().getGhostCoreTriangle();
+            updateTriangleIndices();
+            timer = dropTimeIntervalBase;
+        }
     }
 
     public void ghostDrop()

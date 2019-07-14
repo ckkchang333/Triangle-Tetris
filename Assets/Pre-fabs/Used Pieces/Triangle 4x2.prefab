@@ -69,8 +69,8 @@ MonoBehaviour:
   printRotateDebug: 0
   leftDelayedAutoshift: 10
   rightDelayedAutoshift: 10
-  leftAutoRepeatInterval: 6
-  rightAutoRepeatInterval: 6
+  leftAutoRepeatRate: 0
+  rightAutoRepeatRate: 0
   frameCounter: -1
   pieceSprite: {fileID: 1840893309589932, guid: 9e2e5d93ac81c014f951479272d19109,
     type: 2}
