@@ -805,13 +805,23 @@ public class Piece : MonoBehaviour {
             }
             List<int> leftTriangleIndices = getNewTriangleIndices(-1, 0);
             List<int> leftBelowTriangleIndices = getNewTriangleIndices(-1, -1);
+            List<int> leftAboveTriangleIndices = getNewTriangleIndices(-1, 1);
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
                 int current = trianglesIndices[i];
-                if(current % 4 == 1)
+                if (current % 4 == 0)
+                {
+                    leftAboveTriangleIndices.Add(current + 2);
+                    //leftBelowTriangleIndices.Add(current - 2);
+                }
+                else if (current % 4 == 1)
                 {
                     leftTriangleIndices.Add(current - 2);
                     //leftBelowTriangleIndices.Add(current - 2);
+                }
+                else if(current % 4 == 2)
+                {
+                    leftBelowTriangleIndices.Add(current - 2);
                 }
                 else if (current % 4 == 3)
                 {
@@ -829,7 +839,7 @@ public class Piece : MonoBehaviour {
                 coreTriangle -= (4 + gameBoard.width * 4);
                 timer += 0.5f * Time.deltaTime;
             }
-            else if (gameBoard.checkEmpty(getNewTriangleIndices(-1, 1)))
+            else if (gameBoard.checkEmpty(leftAboveTriangleIndices))
             {
                 coreTriangle += ( gameBoard.width * 4 - 4);
                 timer += 0.5f * Time.deltaTime;
@@ -853,13 +863,23 @@ public class Piece : MonoBehaviour {
             }
             List<int> rightTriangleIndices = getNewTriangleIndices(1, 0);
             List<int> rightBelowTriangleIndices = getNewTriangleIndices(1, -1);
+            List<int> rightAboveTriangleIndices = getNewTriangleIndices(1, 1);
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
                 int current = trianglesIndices[i];
+                if (current % 4 == 0)
+                {
+                    rightAboveTriangleIndices.Add(current + 2);
+                    //rightBelowTriangleIndices.Add(current + 2);
+                }
                 if (current % 4 == 1)
                 {
                     rightTriangleIndices.Add(current + 2);
                     //rightBelowTriangleIndices.Add(current + 2);
+                }
+                else if (current % 4 == 2)
+                {
+                    rightBelowTriangleIndices.Add(current - 2);
                 }
                 else if (current % 4 == 3)
                 {
@@ -877,7 +897,7 @@ public class Piece : MonoBehaviour {
                 coreTriangle -= (gameBoard.width * 4 - 4);
                 timer += 0.5f * Time.deltaTime;
             }
-            else if (gameBoard.checkEmpty(getNewTriangleIndices(1, 1)))
+            else if (gameBoard.checkEmpty(rightAboveTriangleIndices))
             {
                 coreTriangle += (gameBoard.width * 4 + 4);
                 timer += 0.5f * Time.deltaTime;
