@@ -806,21 +806,40 @@ public class Piece : MonoBehaviour {
             List<int> leftTriangleIndices = getNewTriangleIndices(-1, 0);
             List<int> leftBelowTriangleIndices = getNewTriangleIndices(-1, -1);
             List<int> leftAboveTriangleIndices = getNewTriangleIndices(-1, 1);
+            int aboveRow = 0;
+            int belowRow = 0;
+            bool rowChecked = false;
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
                 int current = trianglesIndices[i];
-                if (current % 4 == 0)
+                if (i == 0)
                 {
+                    belowRow = trianglesIndices[0] / 1000;
+                    aboveRow = trianglesIndices[0] / 1000;
+                    rowChecked = false;
+                }
+                else
+                {
+                    if (current /(gameBoard.getWidth() * 4) != belowRow)
+                    {
+                        belowRow = current / (gameBoard.getWidth() * 4);
+                        aboveRow = current / (gameBoard.getWidth() * 4);
+                        rowChecked = false;
+                    }
+                }
+                if (current % 4 == 0 && !rowChecked)
+                {
+                    rowChecked = true;
                     leftAboveTriangleIndices.Add(current + 2);
-                    //leftBelowTriangleIndices.Add(current - 2);
                 }
                 else if (current % 4 == 1)
                 {
                     leftTriangleIndices.Add(current - 2);
                     //leftBelowTriangleIndices.Add(current - 2);
                 }
-                else if(current % 4 == 2)
+                else if (current % 4 == 2 && !rowChecked)
                 {
+                    rowChecked = true;
                     leftBelowTriangleIndices.Add(current - 2);
                 }
                 else if (current % 4 == 3)
@@ -864,28 +883,71 @@ public class Piece : MonoBehaviour {
             List<int> rightTriangleIndices = getNewTriangleIndices(1, 0);
             List<int> rightBelowTriangleIndices = getNewTriangleIndices(1, -1);
             List<int> rightAboveTriangleIndices = getNewTriangleIndices(1, 1);
+            int aboveRow = 0;
+            int belowRow = 0;
+            bool rowChecked = false;
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
                 int current = trianglesIndices[i];
-                if (current % 4 == 0)
-                {
-                    rightAboveTriangleIndices.Add(current + 2);
-                    //rightBelowTriangleIndices.Add(current + 2);
-                }
+                //if (current % 4 == 0)
+                //{
+                //    rightAboveTriangleIndices.Add(current + 2);
+                //    rightBelowTriangleIndices.Add(current + 2);
+                //}
                 if (current % 4 == 1)
                 {
                     rightTriangleIndices.Add(current + 2);
                     //rightBelowTriangleIndices.Add(current + 2);
                 }
-                else if (current % 4 == 2)
-                {
-                    rightBelowTriangleIndices.Add(current - 2);
-                }
+                //else if (current % 4 == 2)
+                //{
+                //    rightBelowTriangleIndices.Add(current - 2);
+                //}
                 else if (current % 4 == 3)
                 {
                     rightTriangleIndices.Add(current + 2);
                     //rightBelowTriangleIndices.Add(current + 2);
                 }
+            }
+            for (int i = trianglesIndices.Count - 1; i >= 0; --i)
+            {
+                int current = trianglesIndices[i];
+                if (i == trianglesIndices.Count - 1)
+                {
+                    belowRow = trianglesIndices[trianglesIndices.Count - 1] / 1000;
+                    aboveRow = trianglesIndices[trianglesIndices.Count - 1] / 1000;
+                    rowChecked = false;
+                }
+                else
+                {
+                    if (current / (gameBoard.getWidth() * 4) != belowRow)
+                    {
+                        belowRow = current / (gameBoard.getWidth() * 4);
+                        aboveRow = current / (gameBoard.getWidth() * 4);
+                        rowChecked = false;
+                    }
+                }
+                if (current % 4 == 0 && !rowChecked)
+                {
+                    rightAboveTriangleIndices.Add(current + 2);
+                    rowChecked = true;
+                    //rightBelowTriangleIndices.Add(current + 2);
+                }
+                //else if (current % 4 == 1)
+                //{
+                //    rightTriangleIndices.Add(current + 2);
+                //    //rightBelowTriangleIndices.Add(current + 2);
+                //}
+                else if (current % 4 == 2 && !rowChecked)
+                {
+                    rightBelowTriangleIndices.Add(current - 2);
+                    rowChecked = true;
+                }
+                //else if (current % 4 == 3)
+                //{
+                //    rightTriangleIndices.Add(current + 2);
+                //    //rightBelowTriangleIndices.Add(current + 2);
+                //}
             }
             if (gameBoard.checkEmpty(rightTriangleIndices))
             {
