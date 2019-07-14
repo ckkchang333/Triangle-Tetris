@@ -62,7 +62,7 @@ public class PieceQueue : MonoBehaviour {
        } 
         for(int i = 0; i < 5; ++i)
         {
-            GameObject sprite = Instantiate(pieceQueue[i].GetComponent<Piece>().getSprite(), this.transform.position - new Vector3(0, 1.25f * i + (i > 0 ? 1.0f : 0)), Quaternion.Euler(0, 0, 0));
+            GameObject sprite = Instantiate(pieceQueue[i].GetComponent<Piece>().getSprite(), this.transform.position - new Vector3(0 + (i == 0 ? -0.55f : 0), 1.25f * i + (i > 0 ? 1.0f : 0)), Quaternion.Euler(0, 0, 0));
             pieceSpriteQueue.Add(sprite);
             sprite.transform.parent = this.transform;
             if(i == 0)
