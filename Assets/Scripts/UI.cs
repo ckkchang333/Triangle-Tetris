@@ -88,6 +88,7 @@ public class UI : MonoBehaviour {
 
     public void replayTitle()
     {
+        
         toggleActive(false, 0);
         gameBoard.GetComponent<Board>().replayTitle();
 
@@ -266,6 +267,9 @@ public class UI : MonoBehaviour {
             mainMenuText.SetActive(false);
             selectorSprite.SetActive(false);
             authorText.SetActive(false);
+            gameOverText.SetActive(false);
+            scoreText.SetActive(false);
+            newHighScoreText.SetActive(false);
         }
     }
 }

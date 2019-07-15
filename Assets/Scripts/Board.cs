@@ -45,7 +45,7 @@ public class Board : MonoBehaviour {
     public bool gameOver = false;
     public float pieceCurrentLowerTimer = 1.0f;
 
-    private bool active = false;
+    public bool active = false;
     private bool titleActive = true;
 
     private bool paused = false;
@@ -129,6 +129,7 @@ public class Board : MonoBehaviour {
         pieceHolder.GetComponent<pieceHolder>().empty();
         pieceHolder.SetActive(!toggle);
         gameOver = toggle;
+        active = false;
     }
 
     public void setDasAndArr(int leftDASvalue, int leftARRvalue, int rightDASvalue, int rightARRvalue)
@@ -213,6 +214,11 @@ public class Board : MonoBehaviour {
 
     private void obilterateBoard()
     {
+        if(currentPiece != null)
+        {
+            emptyTriangles(currentPiece.GetComponent<Piece>().trianglesIndices);
+            Destroy(currentPiece);
+        }
         for(int i = 0; i < this.getHeight(); ++i)
         {
             for(int j = 0; j < this.getWidth(); ++j)
@@ -427,6 +433,7 @@ public class Board : MonoBehaviour {
 
     public void startGame()
     {
+        //Debug.Log("Starting new Game");
         Destroy(currentPiece);
         obilterateBoard();
         toggleActive(true);
@@ -449,6 +456,7 @@ public class Board : MonoBehaviour {
         pieceHolder.GetComponent<pieceHolder>().empty();
         rowsCleared = 0;
         paused = false;
+        active = true;
     }
     
     public int getGhostCoreTriangle()
@@ -459,6 +467,7 @@ public class Board : MonoBehaviour {
     public void replayTitle()
     {
         obilterateBoard();
+        active = false;
         titleLetterIndex = titlePieces.Count - 1;
         titleActive = true;
     }
