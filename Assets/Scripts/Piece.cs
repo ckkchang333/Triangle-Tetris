@@ -33,12 +33,30 @@ public class Piece : MonoBehaviour {
     public int rightAutoRepeatRate;
     public int frameCounter = -1;
     private bool firstDelayflag = true;
+    public List<KeyCode> controlsKeys;
+    private int rotateLeftIndex = 0;
+    private int rotateRightIndex = 1;
+    private int shiftLeftIndex = 2;
+    private int shiftRightIndex = 3;
+    private int softDropIndex = 4;
+    private int hardDropIndex = 5;
+    private int lockInIndex = 6;
 
-
-
+    private bool lockDelayFlag = true;
+    
     public GameObject pieceSprite;
 
     public Color pieceColor = Color.red;
+
+    public void setLockDelayFlag(bool toggle)
+    {
+        lockDelayFlag = toggle;
+    }
+
+    public void setControlsKeys(List<KeyCode> newKeys)
+    {
+        controlsKeys = new List<KeyCode>(newKeys.GetRange(0, lockInIndex + 1));
+    }
 
 
     public int getPieceID()
@@ -1023,7 +1041,14 @@ public class Piece : MonoBehaviour {
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle = gameBoard.GetComponent<Board>().getGhostCoreTriangle();
             updateTriangleIndices();
-            timer = dropTimeIntervalBase;
+            if(lockDelayFlag)
+            {
+                timer = dropTimeIntervalBase;
+            }
+            else
+            {
+                timer = 0;
+            }
         }
     }
 
@@ -1128,24 +1153,24 @@ public class Piece : MonoBehaviour {
         {
             timer -= Time.deltaTime;
             //rotate();
-            if(Input.GetKeyDown(KeyCode.Z))
+            if(Input.GetKeyDown(controlsKeys[rotateLeftIndex]))
             {
                 rotateNeo(true);
             }
-            else if(Input.GetKeyDown(KeyCode.X))
+            else if(Input.GetKeyDown(controlsKeys[rotateRightIndex]))
             {
                 rotateNeo(false);
             }
-            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            if(Input.GetKeyDown(controlsKeys[shiftLeftIndex]))
             {
                 horizontalMove(true);
             }
-            else if(Input.GetKeyDown(KeyCode.RightArrow))
+            else if(Input.GetKeyDown(controlsKeys[shiftRightIndex]))
             {
                 horizontalMove(false);
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(controlsKeys[shiftLeftIndex]))
             {
                 ++frameCounter;
                 //Debug.Log(frameCounter);
@@ -1167,7 +1192,7 @@ public class Piece : MonoBehaviour {
                     }
                 }
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(controlsKeys[shiftRightIndex]))
             {
                 ++frameCounter;
                 //Debug.Log(frameCounter);
@@ -1191,7 +1216,7 @@ public class Piece : MonoBehaviour {
             }
 
 
-            if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+            if (Input.GetKeyUp(controlsKeys[shiftLeftIndex]) || Input.GetKeyUp(controlsKeys[shiftRightIndex]))
             {
                 frameCounter = -1;
                 firstDelayflag = true;
@@ -1209,13 +1234,13 @@ public class Piece : MonoBehaviour {
             //{
             //    dropTimeInterval = dropTimeIntervalBase;
             //}
-            if(Input.GetKeyDown(KeyCode.DownArrow))
+            if(Input.GetKeyDown(controlsKeys[softDropIndex]))
             {
                 lower();
             }
 
 
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(controlsKeys[softDropIndex]))
             {
                 dropTimeInterval = dropTimeIntervalBase / 8;
                 if (timer > dropTimeIntervalBase / 8)
@@ -1223,13 +1248,13 @@ public class Piece : MonoBehaviour {
                     timer = dropTimeIntervalBase / 8;
                 }
             }
-            else if (Input.GetKeyUp(KeyCode.DownArrow))
+            else if (Input.GetKeyUp(controlsKeys[softDropIndex]))
             {
                 dropTimeInterval = dropTimeIntervalBase;
                 timer = dropTimeIntervalBase;
             }
 
-            if(Input.GetKeyDown(KeyCode.DownArrow) && !gameBoard.checkEmpty(shiftPassedIndices(trianglesIndices, 0, -1)))
+            if(Input.GetKeyDown(controlsKeys[lockInIndex]) && !gameBoard.checkEmpty(shiftPassedIndices(trianglesIndices, 0, -1)))
             {
                 timer = 0;
             }
@@ -1239,7 +1264,7 @@ public class Piece : MonoBehaviour {
             //    lower();
             //}
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(controlsKeys[hardDropIndex]))
             {
                 drop();
             }

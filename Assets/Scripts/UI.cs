@@ -44,6 +44,31 @@ public class UI : MonoBehaviour {
     public GameObject gameBoard;
 
 
+    private KeyCode rotateLeftKey = KeyCode.Z;
+    private KeyCode rotateRightKey = KeyCode.X;
+    private KeyCode replayTitleKey = KeyCode.F10;
+    private KeyCode pauseKey = KeyCode.P;
+    private int rotateLeftIndex = 1;
+    private int rotateRightIndex = 0;
+    private int replayTitleIndex = 10;
+    private int pauseKeyIndex = 9;
+
+
+    public int getUiIndex()
+    {
+        return uiIndex;
+    }
+
+    public void setKeys(List<KeyCode> newKeys)
+    {
+        rotateLeftKey = newKeys[rotateLeftIndex];
+        rotateRightKey = newKeys[rotateRightIndex];
+        replayTitleKey = newKeys[replayTitleIndex];
+        pauseKey = newKeys[pauseKeyIndex];
+
+    }
+
+
     public void toggleActive(bool toggle, int currentUiIndex)
     {
         active = toggle;
@@ -124,11 +149,11 @@ public class UI : MonoBehaviour {
                         selectorSprite.transform.position -= new Vector3(0, displace);
                         pauseIndex = ++pauseIndex;
                     }
-                    if (Input.GetKeyDown(KeyCode.X))
+                    if (Input.GetKeyDown(rotateRightKey))
                     {
                         rotateSelector(true);
                     }
-                    if (Input.GetKeyDown(KeyCode.Z))
+                    if (Input.GetKeyDown(rotateLeftKey))
                     {
                         rotateSelector(false);
                     }
@@ -141,22 +166,31 @@ public class UI : MonoBehaviour {
                             gameBoard.GetComponent<Board>().startGame();
                             uiIndex = -1;
                         }
+                        //else if (pauseIndex == 1)
+                        //{
+                        //    controlsVisible = true;
+                        //    controlsInfoBox.SetActive(true);
+                        //}
+                        //else if (pauseIndex == 2)
+                        //{
+                        //    settingsBoard.SetActive(true);
+                        //    uiIndex += 3;
+                        //}
+                        //else if (pauseIndex == 3)
+                        //{
+                        //    Application.Quit();
+                        //}
                         else if (pauseIndex == 1)
-                        {
-                            controlsVisible = true;
-                            controlsInfoBox.SetActive(true);
-                        }
-                        else if (pauseIndex == 2)
                         {
                             settingsBoard.SetActive(true);
                             uiIndex += 3;
                         }
-                        else if (pauseIndex == 3)
+                        else if (pauseIndex == 2)
                         {
                             Application.Quit();
                         }
                     }
-                    if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q))
+                    if (Input.GetKeyDown(pauseKey))
                     {
                         pauseText.SetActive(false);
                         selectorSprite.SetActive(false);
@@ -173,7 +207,7 @@ public class UI : MonoBehaviour {
             // Playing the Game
             else if (uiIndex == -1)
             {
-                if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q))
+                if(Input.GetKeyDown(pauseKey))
                 {
                     selectorSprite.transform.position = startingSelectorPosition;
                     selectorSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -185,18 +219,18 @@ public class UI : MonoBehaviour {
             {
                 if(!controlsVisible)
                 {
-                    if(Input.GetKeyDown(KeyCode.F10))
+                    if(Input.GetKeyDown(replayTitleKey))
                     {
                         replayTitle();
                     }
                     mainMenuText.SetActive(true);
                     selectorSprite.SetActive(true);
                     authorText.SetActive(true);
-                    if (Input.GetKeyDown(KeyCode.X))
+                    if (Input.GetKeyDown(rotateLeftKey))
                     {
                         rotateSelector(true);
                     }
-                    if (Input.GetKeyDown(KeyCode.Z))
+                    if (Input.GetKeyDown(rotateRightKey))
                     {
                         rotateSelector(false);
                     }
@@ -228,20 +262,30 @@ public class UI : MonoBehaviour {
                         scoreText.SetActive(true);
                         uiIndex = -1;
                     }
+
                     else if (mainMenuIndex == 1)
-                    {
-                        controlsVisible = true;
-                        controlsInfoBox.SetActive(true);
-                    }
-                    else if (mainMenuIndex == 2)
                     {
                         uiIndex += 3;
                     }
-                    else if (mainMenuIndex == 3)
+                    else if (mainMenuIndex == 2)
                     {
                         //Debug.Log("Quitting");
                         Application.Quit();
                     }
+                    //else if (mainMenuIndex == 1)
+                    //{
+                    //    controlsVisible = true;
+                    //    controlsInfoBox.SetActive(true);
+                    //}
+                    //else if (mainMenuIndex == 2)
+                    //{
+                    //    uiIndex += 3;
+                    //}
+                    //else if (mainMenuIndex == 3)
+                    //{
+                    //    //Debug.Log("Quitting");
+                    //    Application.Quit();
+                    //}
                 }
                 if(Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -253,10 +297,14 @@ public class UI : MonoBehaviour {
             else if(uiIndex >= 1)
             {
                 settingsBoard.SetActive(true);
-                if(Input.GetKeyDown(KeyCode.Escape))
+                if(Input.GetKeyDown(KeyCode.Escape) && !settingsBoard.GetComponent<SettingsMenu>().getListeningFlag())
                 {
                     settingsBoard.GetComponent<SettingsMenu>().updateGameBoardDasAndArr();
+                    settingsBoard.GetComponent<SettingsMenu>().updateControls();
                     settingsBoard.GetComponent<SettingsMenu>().resestSelectorPosition();
+                    settingsBoard.GetComponent<SettingsMenu>().setLockDelayFlag();
+                    setKeys(settingsBoard.GetComponent<SettingsMenu>().getCurrentControls());
+                    gameBoard.GetComponent<Board>().updatePieceSettings();
                     uiIndex -= 3;
                     settingsBoard.SetActive(false);
                 }

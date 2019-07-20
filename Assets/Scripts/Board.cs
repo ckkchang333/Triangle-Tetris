@@ -56,6 +56,36 @@ public class Board : MonoBehaviour {
     public int leftAutoRepeatRate;
     public int rightAutoRepeatRate;
 
+    public List<KeyCode> controlsKeys;
+    private int holdIndex = 7;
+    private int ghostIndex = 8;
+    private int pauseIndex = 9;
+    private int quickRestartIndex = 10;
+
+    private bool lockDelayFlag = true;
+
+    public void updatePieceSettings()
+    {
+        if(currentPiece != null)
+        {
+            currentPiece.GetComponent<Piece>().gameBoard = this;
+            currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
+            currentPiece.GetComponent<Piece>().setControlsKeys(controlsKeys);
+            currentPiece.GetComponent<Piece>().setLockDelayFlag(lockDelayFlag);
+            //ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
+        }
+    }
+
+    public void setLockDelayFlag(bool toggle)
+    {
+        lockDelayFlag = toggle;
+    }
+
+    public void setControlsKeys(List<KeyCode> newKeys)
+    {
+        controlsKeys = new List<KeyCode>(newKeys);
+    }
+
 
     int getColumnIndex(int triangleIndex)
     {
@@ -379,7 +409,7 @@ public class Board : MonoBehaviour {
                         }
                         rowsCleared += counter;
                         scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
-                        //pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared;
+                        pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared / 5;
                         counter = 0;
                     }
                     fullRowFound = false;
@@ -497,24 +527,27 @@ public class Board : MonoBehaviour {
             {
                 GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().dequeue();
                 currentPiece = Instantiate(piecePrefab);
-                currentPiece.GetComponent<Piece>().gameBoard = this;
-                currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
+                updatePieceSettings();
+                //currentPiece.GetComponent<Piece>().gameBoard = this;
+                //currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
+                //currentPiece.GetComponent<Piece>().setControlsKeys(controlsKeys);
+                //currentPiece.GetComponent<Piece>().setLockDelayFlag(lockDelayFlag);
                 ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
                 //ghostPiece.GetComponent<Piece>().ghostDrop();
                 //dropGhostPiece();
 
             }
 
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                obilterateBoard();
-            }
-            if (Input.GetKeyDown(KeyCode.R) && gameOver)
-            {
-                resetGame();
-            }
+            //if (Input.GetKeyDown(KeyCode.O))
+            //{
+            //    obilterateBoard();
+            //}
+            //if (Input.GetKeyDown(KeyCode.R) && gameOver)
+            //{
+            //    resetGame();
+            //}
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && pieceHolder != null && !swapLock && !gameOver)
+            if (Input.GetKeyDown(controlsKeys[holdIndex]) && pieceHolder != null && !swapLock && !gameOver)
             {
                 emptyTriangles(currentPiece.GetComponent<Piece>().getTriangleIndices());
                 emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
@@ -525,13 +558,16 @@ public class Board : MonoBehaviour {
                 {
                     heldPiece.GetComponent<Piece>().resetPosition();
                     currentPiece = Instantiate(heldPiece);
-                    currentPiece.GetComponent<Piece>().resetPosition();
+                    updatePieceSettings();
+                    //currentPiece.GetComponent<Piece>().resetPosition();
+                    //currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
+                    //currentPiece.GetComponent<Piece>().setControlsKeys(controlsKeys);
                     Destroy(heldPiece);
                 }
                 swapLock = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.G) && !gameOver)
+            if (Input.GetKeyDown(controlsKeys[ghostIndex]) && !gameOver)
             {
                 ghostOn = !ghostOn;
                 dropGhostPiece();
@@ -548,12 +584,12 @@ public class Board : MonoBehaviour {
                 //    emptyTriangles(ghostPiece.GetComponent<Piece>().trianglesIndices);
                 //}
             }
-            if((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Q)) && !gameOver)
+            if(Input.GetKeyDown(controlsKeys[pauseIndex]) && !gameOver && (uiController.getUiIndex() == -2 || uiController.getUiIndex() == -1))
             {
                 pause();
             }
 
-            if(Input.GetKeyDown(KeyCode.F10))
+            if(Input.GetKeyDown(controlsKeys[quickRestartIndex]))
             {
                 uiController.GetComponent<UI>().resetGameUI();
                 startGame();
@@ -565,7 +601,10 @@ public class Board : MonoBehaviour {
             if (titleLetterIndex >= 0 && currentPiece == null)
             {
                 currentPiece = Instantiate(titlePieces[titleLetterIndex]);
-                //ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
+                updatePieceSettings();
+                //currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
+                //currentPiece.GetComponent<Piece>().setControlsKeys(controlsKeys);
+                ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
                 dropGhostPiece();
                 if (titleLetterIndex == 0)
                 {

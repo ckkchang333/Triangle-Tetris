@@ -63,7 +63,7 @@ MonoBehaviour:
   active: 1
   letter: 0
   obilteration: 0
-  printRotateDebug: 1
+  printRotateDebug: 0
   leftDelayedAutoshift: 10
   rightDelayedAutoshift: 10
   leftAutoRepeatRate: 0
