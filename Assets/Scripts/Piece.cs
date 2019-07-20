@@ -483,334 +483,669 @@ public class Piece : MonoBehaviour {
                     Debug.Log(rotatedTriangleIndices[i]);
                 }
             }
-            if (gameBoard.checkEmpty(rotatedTriangleIndices))
+            if(rotateClockwise)
             {
-                orientationState += rotateDelta;
-                coreTriangle += additionalShift;
-                if(printRotateDebug)
-                {
-                    Debug.Log(downShift);
-                    Debug.Log("A");
-                    Debug.Log(downShift);
-                    Debug.Log(additionalShift);
-                    Debug.Log(coreTriangle);
-                    for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
-                    {
-                        Debug.Log(rotatedTriangleIndices[i]);
-                    }
-                }
-            }
-            else if(gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 0)))
-            {
-                orientationState += rotateDelta;
-                coreTriangle += (-4 + additionalShift);
-                //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
-                if(printRotateDebug)
-                {
-                    Debug.Log("B");
-                    Debug.Log(downShift);
-                    Debug.Log(additionalShift);
-                    Debug.Log(coreTriangle);
-                    Debug.Log("Printing Shifted");
-                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
-                    for (int i = 0; i < shiftedIndices.Count; ++i)
-                    {
-                        Debug.Log(shiftedIndices[i] + additionalShift);
-                    }
-                }
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 0)))
-            {
-                orientationState += rotateDelta;
-                coreTriangle += (4 + additionalShift);
-                //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 1, 0);
-                if(printRotateDebug)
-                {
-                    Debug.Log("C");
-                    Debug.Log(downShift);
-                    Debug.Log(additionalShift);
-                    Debug.Log(coreTriangle);
-                    Debug.Log("Printing Shifted");
-                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, 0);
-                    for (int i = 0; i < shiftedIndices.Count; ++i)
-                    {
-                        Debug.Log(shiftedIndices[i] + additionalShift);
-                    }
-                }
-                //for (int i = 0; i < check.Count; ++i)
-                //{
-                //    Debug.Log(check[i]);
-                //}
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -1)))
-            {
-                orientationState += rotateDelta;
-                coreTriangle += (-4 * gameBoard.getWidth() + additionalShift);
-                //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 0, -1);
-                if(printRotateDebug)
-                {
-                    Debug.Log("D");
-                    Debug.Log(downShift);
-                    Debug.Log(additionalShift);
-                    Debug.Log(coreTriangle);
-                    Debug.Log("Printing Shifted");
-                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -1);
-                    for (int i = 0; i < shiftedIndices.Count; ++i)
-                    {
-                        Debug.Log(shiftedIndices[i] + additionalShift);
-                    }
-                }
-                //for (int i = 0; i < check.Count; ++i)
-                //{
-                //    Debug.Log(check[i]);
-                //}
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -1)))
-            {
-                orientationState += rotateDelta;
-                coreTriangle += (-4 * gameBoard.getWidth() - 4 + additionalShift);
-                //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, -1);
-                if(printRotateDebug)
-                {
-                    Debug.Log("E");
-                    Debug.Log(downShift);
-                    Debug.Log(additionalShift);
-                    Debug.Log(coreTriangle);
-                    Debug.Log("Printing Shifted");
-                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, -1);
-                    for (int i = 0; i < shiftedIndices.Count; ++i)
-                    {
-                        Debug.Log(shiftedIndices[i] + additionalShift);
-                    }
-                }
-                //for (int i = 0; i < check.Count; ++i)
-                //{
-                //    Debug.Log(check[i]);
-                //}
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -1)))
-            {
-                orientationState += rotateDelta;
-                coreTriangle += (-4 * gameBoard.getWidth() + 4 + additionalShift);
-                if(printRotateDebug)
-                {
-                    Debug.Log("F");
-                    Debug.Log(downShift);
-                    Debug.Log(additionalShift);
-                    Debug.Log(coreTriangle);
-                    Debug.Log("Printing Shifted");
-                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -1);
-                    for (int i = 0; i < shiftedIndices.Count; ++i)
-                    {
-                        Debug.Log(shiftedIndices[i] + additionalShift);
-                    }
-                }
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -2)))
-            {
-                if (printRotateDebug)
-                {
-                    Debug.Log("G");
-                    Debug.Log(downShift);
-                    Debug.Log(additionalShift);
-                    Debug.Log(coreTriangle);
-                    Debug.Log("Printing Shifted");
-                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -2);
-                    for (int i = 0; i < shiftedIndices.Count; ++i)
-                    {
-                        Debug.Log(shiftedIndices[i] + additionalShift);
-                    }
-                }
-                orientationState += rotateDelta;
-                coreTriangle += (-8 * gameBoard.getWidth() + additionalShift);
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -2)))
-            {
-                if(printRotateDebug)
-                {
-                    Debug.Log("H");
-                    Debug.Log("downShift: " + downShift);
-                    Debug.Log("additionalShift: " + additionalShift);
-                    Debug.Log("coreTriangle: " + coreTriangle);
-                    Debug.Log("Printing Shifted");
-                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, -2);
-                    for (int i = 0; i < shiftedIndices.Count; ++i)
-                    {
-                        Debug.Log(shiftedIndices[i] + additionalShift);
-                    }
-                }
-                orientationState += rotateDelta;
-                coreTriangle += (-8 * gameBoard.getWidth() - 4 + additionalShift);
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -2)))
-            {
-                if(printRotateDebug)
-                {
-                    Debug.Log("I");
-                    Debug.Log(downShift);
-                    Debug.Log(additionalShift);
-                    Debug.Log(coreTriangle);
-                    Debug.Log("Printing Shifted");
-                    List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -2);
-                    for (int i = 0; i < shiftedIndices.Count; ++i)
-                    {
-                        Debug.Log(shiftedIndices[i] + additionalShift);
-                    }
-                }
-                orientationState += rotateDelta;
-                coreTriangle += (-8 * gameBoard.getWidth() + 4 + additionalShift);
-            }
-            else if (rotatedTriangleIndices.Count > 12)
-            {
-                if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -3)))
+                if (gameBoard.checkEmpty(rotatedTriangleIndices))
                 {
                     orientationState += rotateDelta;
-                    coreTriangle += (-12 * gameBoard.getWidth() + additionalShift);
+                    coreTriangle += additionalShift;
                     if (printRotateDebug)
                     {
-                        Debug.Log("J");
+                        Debug.Log(downShift);
+                        Debug.Log("A");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
+                        {
+                            Debug.Log(rotatedTriangleIndices[i]);
+                        }
+                    }
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 0)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (4 + additionalShift);
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 1, 0);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("C");
                         Debug.Log(downShift);
                         Debug.Log(additionalShift);
                         Debug.Log(coreTriangle);
                         Debug.Log("Printing Shifted");
-                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -3);
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, 0);
                         for (int i = 0; i < shiftedIndices.Count; ++i)
                         {
                             Debug.Log(shiftedIndices[i] + additionalShift);
                         }
                     }
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 0)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-4 + additionalShift);
                     //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
-                }
-                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -2, -2)))
-                {
                     if (printRotateDebug)
                     {
-                        Debug.Log("K");
+                        Debug.Log("B");
                         Debug.Log(downShift);
                         Debug.Log(additionalShift);
                         Debug.Log(coreTriangle);
                         Debug.Log("Printing Shifted");
-                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -2, -2);
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -1)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-4 * gameBoard.getWidth() + additionalShift);
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 0, -1);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("D");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -1);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -1)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-4 * gameBoard.getWidth() + 4 + additionalShift);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("F");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -1);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -1)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-4 * gameBoard.getWidth() - 4 + additionalShift);
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, -1);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("E");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, -1);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -2)))
+                {
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("G");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -2);
                         for (int i = 0; i < shiftedIndices.Count; ++i)
                         {
                             Debug.Log(shiftedIndices[i] + additionalShift);
                         }
                     }
                     orientationState += rotateDelta;
-                    coreTriangle += (-8 * gameBoard.getWidth() - 8 + additionalShift);
+                    coreTriangle += (-8 * gameBoard.getWidth() + additionalShift);
                 }
-                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 2, -2)))
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -2)))
                 {
                     if (printRotateDebug)
                     {
-                        Debug.Log("L");
+                        Debug.Log("I");
                         Debug.Log(downShift);
                         Debug.Log(additionalShift);
                         Debug.Log(coreTriangle);
                         Debug.Log("Printing Shifted");
-                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 2, -2);
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -2);
                         for (int i = 0; i < shiftedIndices.Count; ++i)
                         {
                             Debug.Log(shiftedIndices[i] + additionalShift);
                         }
                     }
                     orientationState += rotateDelta;
-                    coreTriangle += (-8 * gameBoard.getWidth() + 8 + additionalShift);
+                    coreTriangle += (-8 * gameBoard.getWidth() + 4 + additionalShift);
                 }
-                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, 2)))
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -2)))
                 {
                     if (printRotateDebug)
                     {
-                        Debug.Log("K");
-                        Debug.Log(downShift);
-                        Debug.Log(additionalShift);
-                        Debug.Log(coreTriangle);
+                        Debug.Log("H");
+                        Debug.Log("downShift: " + downShift);
+                        Debug.Log("additionalShift: " + additionalShift);
+                        Debug.Log("coreTriangle: " + coreTriangle);
                         Debug.Log("Printing Shifted");
-                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, 2);
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, -2);
                         for (int i = 0; i < shiftedIndices.Count; ++i)
                         {
                             Debug.Log(shiftedIndices[i] + additionalShift);
                         }
                     }
                     orientationState += rotateDelta;
-                    coreTriangle += (8 * gameBoard.getWidth() + additionalShift);
+                    coreTriangle += (-8 * gameBoard.getWidth() - 4 + additionalShift);
                 }
-                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 2)))
+                else if (rotatedTriangleIndices.Count > 12)
                 {
-                    if (printRotateDebug)
+                    if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -3)))
                     {
-                        Debug.Log("L");
-                        Debug.Log(downShift);
-                        Debug.Log(additionalShift);
-                        Debug.Log(coreTriangle);
-                        Debug.Log("Printing Shifted");
-                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, 2);
-                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        orientationState += rotateDelta;
+                        coreTriangle += (-12 * gameBoard.getWidth() + additionalShift);
+                        if (printRotateDebug)
                         {
-                            Debug.Log(shiftedIndices[i] + additionalShift);
+                            Debug.Log("J");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -3);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
                         }
+                        //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
                     }
-                    orientationState += rotateDelta;
-                    coreTriangle += (8 * gameBoard.getWidth() - 4 + additionalShift);
-                }
-                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 2)))
-                {
-                    if (printRotateDebug)
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 2, -2)))
                     {
-                        Debug.Log("L");
-                        Debug.Log(downShift);
-                        Debug.Log(additionalShift);
-                        Debug.Log(coreTriangle);
-                        Debug.Log("Printing Shifted");
-                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, 2);
-                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        if (printRotateDebug)
                         {
-                            Debug.Log(shiftedIndices[i] + additionalShift);
+                            Debug.Log("L");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 2, -2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
                         }
+                        orientationState += rotateDelta;
+                        coreTriangle += (-8 * gameBoard.getWidth() + 8 + additionalShift);
                     }
-                    orientationState += rotateDelta;
-                    coreTriangle += (8 * gameBoard.getWidth() + 4 + additionalShift);
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -2, -2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("K");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -2, -2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (-8 * gameBoard.getWidth() - 8 + additionalShift);
+                    }
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, 2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("K");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, 2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (8 * gameBoard.getWidth() + additionalShift);
+                    }
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("L");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, 2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (8 * gameBoard.getWidth() + 4 + additionalShift);
+                    }
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("L");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, 2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (8 * gameBoard.getWidth() - 4 + additionalShift);
+                    }
                 }
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, 1)))
-            {
-                Debug.Log("M");
-                orientationState += rotateDelta;
-                coreTriangle += (4 * gameBoard.getWidth() + additionalShift);
-                //Debug.Log("G");
-                List<int> check = shiftPassedIndices(rotatedTriangleIndices, 0, 1);
-                for (int i = 0; i < check.Count; ++i)
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, 1)))
                 {
-                    Debug.Log(check[i]);
+                    Debug.Log("M");
+                    orientationState += rotateDelta;
+                    coreTriangle += (4 * gameBoard.getWidth() + additionalShift);
+                    //Debug.Log("G");
+                    List<int> check = shiftPassedIndices(rotatedTriangleIndices, 0, 1);
+                    for (int i = 0; i < check.Count; ++i)
+                    {
+                        Debug.Log(check[i]);
+                    }
                 }
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 1)))
-            {
-                Debug.Log("N");
-                orientationState += rotateDelta;
-                coreTriangle += (4 * gameBoard.getWidth() - 4 + additionalShift);
-                //Debug.Log("H");
-                //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 1);
-                //for (int i = 0; i < check.Count; ++i)
-                //{
-                //    Debug.Log(check[i]);
-                //}
-            }
-            else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 1)))
-            {
-                Debug.Log("O");
-                orientationState += rotateDelta;
-                coreTriangle += (4 * gameBoard.getWidth() + 4 + additionalShift);
-                //Debug.Log("I");
-                //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 1, 1);
-                //for (int i = 0; i < check.Count; ++i)
-                //{
-                //    Debug.Log(check[i]);
-                //}
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 1)))
+                {
+                    Debug.Log("O");
+                    orientationState += rotateDelta;
+                    coreTriangle += (4 * gameBoard.getWidth() + 4 + additionalShift);
+                    //Debug.Log("I");
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 1, 1);
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 1)))
+                {
+                    Debug.Log("N");
+                    orientationState += rotateDelta;
+                    coreTriangle += (4 * gameBoard.getWidth() - 4 + additionalShift);
+                    //Debug.Log("H");
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 1);
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else
+                {
+                    return;
+                }
             }
             else
             {
-                return;
+                if (gameBoard.checkEmpty(rotatedTriangleIndices))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += additionalShift;
+                    if (printRotateDebug)
+                    {
+                        Debug.Log(downShift);
+                        Debug.Log("A");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
+                        {
+                            Debug.Log(rotatedTriangleIndices[i]);
+                        }
+                    }
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 0)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-4 + additionalShift);
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("B");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 0)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (4 + additionalShift);
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 1, 0);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("C");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, 0);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -1)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-4 * gameBoard.getWidth() + additionalShift);
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 0, -1);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("D");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -1);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -1)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-4 * gameBoard.getWidth() - 4 + additionalShift);
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, -1);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("E");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, -1);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -1)))
+                {
+                    orientationState += rotateDelta;
+                    coreTriangle += (-4 * gameBoard.getWidth() + 4 + additionalShift);
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("F");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -1);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -2)))
+                {
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("G");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -2);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    orientationState += rotateDelta;
+                    coreTriangle += (-8 * gameBoard.getWidth() + additionalShift);
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, -2)))
+                {
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("H");
+                        Debug.Log("downShift: " + downShift);
+                        Debug.Log("additionalShift: " + additionalShift);
+                        Debug.Log("coreTriangle: " + coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, -2);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    orientationState += rotateDelta;
+                    coreTriangle += (-8 * gameBoard.getWidth() - 4 + additionalShift);
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, -2)))
+                {
+                    if (printRotateDebug)
+                    {
+                        Debug.Log("I");
+                        Debug.Log(downShift);
+                        Debug.Log(additionalShift);
+                        Debug.Log(coreTriangle);
+                        Debug.Log("Printing Shifted");
+                        List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, -2);
+                        for (int i = 0; i < shiftedIndices.Count; ++i)
+                        {
+                            Debug.Log(shiftedIndices[i] + additionalShift);
+                        }
+                    }
+                    orientationState += rotateDelta;
+                    coreTriangle += (-8 * gameBoard.getWidth() + 4 + additionalShift);
+                }
+                else if (rotatedTriangleIndices.Count > 12)
+                {
+                    if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, -3)))
+                    {
+                        orientationState += rotateDelta;
+                        coreTriangle += (-12 * gameBoard.getWidth() + additionalShift);
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("J");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, -3);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 0);
+                    }
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -2, -2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("K");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -2, -2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (-8 * gameBoard.getWidth() - 8 + additionalShift);
+                    }
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 2, -2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("L");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 2, -2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (-8 * gameBoard.getWidth() + 8 + additionalShift);
+                    }
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, 2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("K");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 0, 2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (8 * gameBoard.getWidth() + additionalShift);
+                    }
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("L");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, -1, 2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (8 * gameBoard.getWidth() - 4 + additionalShift);
+                    }
+                    else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 2)))
+                    {
+                        if (printRotateDebug)
+                        {
+                            Debug.Log("L");
+                            Debug.Log(downShift);
+                            Debug.Log(additionalShift);
+                            Debug.Log(coreTriangle);
+                            Debug.Log("Printing Shifted");
+                            List<int> shiftedIndices = shiftPassedIndices(rotatedTriangleIndices, 1, 2);
+                            for (int i = 0; i < shiftedIndices.Count; ++i)
+                            {
+                                Debug.Log(shiftedIndices[i] + additionalShift);
+                            }
+                        }
+                        orientationState += rotateDelta;
+                        coreTriangle += (8 * gameBoard.getWidth() + 4 + additionalShift);
+                    }
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 0, 1)))
+                {
+                    Debug.Log("M");
+                    orientationState += rotateDelta;
+                    coreTriangle += (4 * gameBoard.getWidth() + additionalShift);
+                    //Debug.Log("G");
+                    List<int> check = shiftPassedIndices(rotatedTriangleIndices, 0, 1);
+                    for (int i = 0; i < check.Count; ++i)
+                    {
+                        Debug.Log(check[i]);
+                    }
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, -1, 1)))
+                {
+                    Debug.Log("N");
+                    orientationState += rotateDelta;
+                    coreTriangle += (4 * gameBoard.getWidth() - 4 + additionalShift);
+                    //Debug.Log("H");
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, -1, 1);
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else if (gameBoard.checkEmpty(shiftPassedIndices(rotatedTriangleIndices, 1, 1)))
+                {
+                    Debug.Log("O");
+                    orientationState += rotateDelta;
+                    coreTriangle += (4 * gameBoard.getWidth() + 4 + additionalShift);
+                    //Debug.Log("I");
+                    //List<int> check = shiftPassedIndices(rotatedTriangleIndices, 1, 1);
+                    //for (int i = 0; i < check.Count; ++i)
+                    //{
+                    //    Debug.Log(check[i]);
+                    //}
+                }
+                else
+                {
+                    return;
+                }
             }
             timer += 0.5f * Time.deltaTime;
             gameBoard.emptyTriangles(trianglesIndices);

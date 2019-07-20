@@ -409,7 +409,7 @@ public class Board : MonoBehaviour {
                         }
                         rowsCleared += counter;
                         scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
-                        pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared / 5;
+                        pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared / 7;
                         counter = 0;
                     }
                     fullRowFound = false;
