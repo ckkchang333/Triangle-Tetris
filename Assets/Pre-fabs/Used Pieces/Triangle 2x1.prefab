@@ -72,6 +72,7 @@ MonoBehaviour:
   leftAutoRepeatRate: 0
   rightAutoRepeatRate: 0
   frameCounter: -1
+  controlsKeys: 
   pieceSprite: {fileID: 1431641362449754, guid: 0501d8e6e9c06f845abccfb9f2a1e515,
     type: 2}
-  pieceColor: {r: 0, g: 1, b: 0, a: 1}
+  pieceColor: {r: 0.13333334, g: 0.88235295, b: 0.13333334, a: 1}

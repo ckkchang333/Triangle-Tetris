@@ -1254,7 +1254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f085b671a5713458683db9ae5a897e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteColor: {r: 0.37624598, g: 0.81986576, b: 0.8962264, a: 1}
+  spriteColor: {r: 0.88235295, g: 0.5058824, b: 0.13333334, a: 1}
 --- !u!212 &212021490543225232
 SpriteRenderer:
   m_ObjectHideFlags: 1

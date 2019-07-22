@@ -11076,11 +11076,11 @@ MonoBehaviour:
   mainMenuText: {fileID: 1569433455}
   authorText: {fileID: 623284006}
   mainMenuIndex: 0
-  mainMenuMaxIndex: 3
+  mainMenuMaxIndex: 2
   displace: 1.4
   controlsInfoBox: {fileID: 1496440591}
   pauseText: {fileID: 1075555311}
-  pauseMaxIndex: 3
+  pauseMaxIndex: 2
   highScoreText: {fileID: 1305787029}
   newHighScoreText: {fileID: 623280105}
   gameOverText: {fileID: 1299523731}

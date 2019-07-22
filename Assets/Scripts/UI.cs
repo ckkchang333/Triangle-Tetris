@@ -48,8 +48,8 @@ public class UI : MonoBehaviour {
     private KeyCode rotateRightKey = KeyCode.X;
     private KeyCode replayTitleKey = KeyCode.F10;
     private KeyCode pauseKey = KeyCode.P;
-    private int rotateLeftIndex = 1;
-    private int rotateRightIndex = 0;
+    private int rotateLeftIndex = 0;
+    private int rotateRightIndex = 1;
     private int replayTitleIndex = 10;
     private int pauseKeyIndex = 9;
 
@@ -226,11 +226,11 @@ public class UI : MonoBehaviour {
                     mainMenuText.SetActive(true);
                     selectorSprite.SetActive(true);
                     authorText.SetActive(true);
-                    if (Input.GetKeyDown(rotateLeftKey))
+                    if (Input.GetKeyDown(rotateRightKey))
                     {
                         rotateSelector(true);
                     }
-                    if (Input.GetKeyDown(rotateRightKey))
+                    if (Input.GetKeyDown(rotateLeftKey))
                     {
                         rotateSelector(false);
                     }

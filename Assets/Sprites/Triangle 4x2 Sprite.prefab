@@ -1422,6 +1422,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4022693493508894}
+  - component: {fileID: 114761377668176332}
   m_Layer: 0
   m_Name: Triangle 4x2 Sprite
   m_TagString: Untagged
@@ -1755,7 +1756,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1840893309589932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.2226586, y: -0.93208313, z: -9.993418}
+  m_LocalPosition: {x: 5.6729636, y: 0.029452711, z: -9.993418}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4988828367513438}
@@ -3193,6 +3194,18 @@ Transform:
   m_Father: {fileID: 4642304388434904}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114761377668176332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1840893309589932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f085b671a5713458683db9ae5a897e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteColor: {r: 0.13333334, g: 0.7882353, b: 0.88235295, a: 1}
 --- !u!212 &212019883010446762
 SpriteRenderer:
   m_ObjectHideFlags: 1

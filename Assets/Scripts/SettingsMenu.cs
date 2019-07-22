@@ -177,7 +177,7 @@ public class SettingsMenu : MonoBehaviour {
         defaultControls.Add(KeyCode.DownArrow);
         defaultControls.Add(KeyCode.LeftShift);
         defaultControls.Add(KeyCode.G);
-        defaultControls.Add(KeyCode.P);
+        defaultControls.Add(KeyCode.Escape);
         defaultControls.Add(KeyCode.F10);
 
         currentControls = new List<KeyCode>(defaultControls);
