@@ -407,6 +407,22 @@ public class Board : MonoBehaviour {
                                 }
                             }
                         }
+                        for (int k = 0; k < counter; ++k)
+                        {
+                            for (int l = 0; l < width; ++l)
+                            {
+                                Block currentBlockScript = fetchBlockScriptByIndex((height - 1 - k) * width * 4 + l * 4);
+
+                                currentBlockScript.permBottom = false;
+                                currentBlockScript.permLeft = false;
+                                currentBlockScript.permTop = false;
+                                currentBlockScript.permRight = false;
+                                currentBlockScript.filledBottom = false;
+                                currentBlockScript.filledLeft = false;
+                                currentBlockScript.filledTop = false;
+                                currentBlockScript.filledRight = false;
+                            }
+                        }
                         rowsCleared += counter;
                         scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
                         pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared / 7;
