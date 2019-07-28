@@ -36,17 +36,17 @@ public class SettingsMenu : MonoBehaviour {
 
     public List<KeyCode> currentControls;
 
-    private int rotateLeftControlIndex = 0;
-    private int rotateRightControlIndex = 1;
-    private int shiftLeftControlIndex = 2;
-    private int shiftRightControlIndex = 3;
-    private int softDropControlIndex = 4;
-    private int lockInControlIndex = 5;
-    private int hardDropControlIndex = 6;
-    private int holdControlIndex = 7;
-    private int ghostControlIndex = 8;
-    private int pauseControlIndex = 9;
-    private int quickRestartControlIndex = 10;
+    //private int rotateLeftControlIndex = 0;
+    //private int rotateRightControlIndex = 1;
+    //private int shiftLeftControlIndex = 2;
+    //private int shiftRightControlIndex = 3;
+    //private int softDropControlIndex = 4;
+    //private int lockInControlIndex = 5;
+    //private int hardDropControlIndex = 6;
+    //private int holdControlIndex = 7;
+    //private int ghostControlIndex = 8;
+    //private int pauseControlIndex = 9;
+    //private int quickRestartControlIndex = 10;
 
 
     private Vector3 startingSelectorKeysPosition;
@@ -57,6 +57,8 @@ public class SettingsMenu : MonoBehaviour {
 
     public GameObject gameBoard;
 
+    public GameObject settings;
+
     public GameObject spaceSelectPrompt;
     public GameObject spaceRebindPrompt;
 
@@ -65,14 +67,39 @@ public class SettingsMenu : MonoBehaviour {
     private bool inputListening = false;
 
 
-    public KeyCode key;
-
     public Text keyText;
 
-
-    public void setLockDelayFlag()
+    public void updateAllSettings()
     {
-        gameBoard.GetComponent<Board>().setLockDelayFlag(lockDelayFlag);
+        updateSettingsDasArr();
+        updateControls();
+        updateSettingsLockDelay();
+        resetSelectorPosition();
+        settings.GetComponent<SettingsManager>().updateAll();
+    }
+
+
+    public void setControls(List<KeyCode> newDefaultKeys)
+    {
+        defaultControls = new List<KeyCode>(newDefaultKeys);
+        currentControls = new List<KeyCode>(newDefaultKeys);
+    }
+    
+    public void setDasArr(int newLeftDas, int newLeftArr, int newRightDas, int newRightArr)
+    {
+        leftDasValue = newLeftDas;
+        leftArrValue = newLeftArr;
+        rightDasValue = newRightDas;
+        rightArrValue = newRightArr;
+    }
+    //public void setLockDelayFlag()
+    //{
+    //    gameBoard.GetComponent<Board>().setLockDelayFlag(lockDelayFlag);
+    //}
+
+    public void updateSettingsLockDelay()
+    {
+        settings.GetComponent<SettingsManager>().setLockDelay(lockDelayFlag);
     }
 
     void updateControlKeysText()
@@ -98,7 +125,6 @@ public class SettingsMenu : MonoBehaviour {
                 {
                     //Debug.Log("KeyCode down: " + current);
                     //keyText.text = current.ToString();
-                    //key = current;
                     controlsValues.transform.GetChild(menuIndex).GetComponent<Text>().text = current.ToString();
                     currentControls[menuIndex] = current;
                     
@@ -123,18 +149,28 @@ public class SettingsMenu : MonoBehaviour {
         toChange.text = newText;
     }
 
-    public void updateGameBoardDasAndArr()
+    //public void updateGameBoardDasAndArr()
+    //{
+    //    gameBoard.GetComponent<Board>().setDasAndArr(leftDasValue, leftArrValue, rightDasValue, rightArrValue);
+    //}
+
+    public void updateSettingsDasArr()
     {
-        gameBoard.GetComponent<Board>().setDasAndArr(leftDasValue, leftArrValue, rightDasValue, rightArrValue);
+        settings.GetComponent<SettingsManager>().setDasArr(leftDasValue, leftArrValue, rightDasValue, rightArrValue);
     }
+
+    //public void updateControls()
+    //{
+    //    gameBoard.GetComponent<Board>().setControlsKeys(currentControls);
+
+    //}
 
     public void updateControls()
     {
-        gameBoard.GetComponent<Board>().setControlsKeys(currentControls);
-        
+        settings.GetComponent<SettingsManager>().setControls(currentControls);        
     }
 
-    public void resestSelectorPosition()
+    public void resetSelectorPosition()
     {
         menuIndex = 0;
         selectorTriangles.transform.position = startingTriangleSelectorPosition;
@@ -155,37 +191,11 @@ public class SettingsMenu : MonoBehaviour {
         rightDasText.text = rightDasValue.ToString();
         rightArrText.text = rightArrValue.ToString();
 
-        //defaultControls = new List<KeyCode>(11);
-
-        //defaultControls[rotateLeftControlIndex] = KeyCode.Z;
-        //defaultControls[rotateRightControlIndex] = KeyCode.X;
-        //defaultControls[shiftLeftControlIndex] = KeyCode.LeftArrow;
-        //defaultControls[shiftRightControlIndex] = KeyCode.RightArrow;
-        //defaultControls[softDropControlIndex] = KeyCode.DownArrow;
-        //defaultControls[hardDropControlIndex] = KeyCode.Space;
-        //defaultControls[lockInControlIndex] = KeyCode.DownArrow;
-        //defaultControls[holdControlIndex] = KeyCode.LeftShift;
-        //defaultControls[ghostControlIndex] = KeyCode.G;
-        //defaultControls[pauseControlIndex] = KeyCode.P;
-        //defaultControls[quickRestartControlIndex] = KeyCode.F10;
-        defaultControls.Add(KeyCode.Z);
-        defaultControls.Add(KeyCode.X);
-        defaultControls.Add(KeyCode.LeftArrow);
-        defaultControls.Add(KeyCode.RightArrow);
-        defaultControls.Add(KeyCode.DownArrow);
-        defaultControls.Add(KeyCode.Space);
-        defaultControls.Add(KeyCode.DownArrow);
-        defaultControls.Add(KeyCode.LeftShift);
-        defaultControls.Add(KeyCode.G);
-        defaultControls.Add(KeyCode.Escape);
-        defaultControls.Add(KeyCode.F10);
-
-        currentControls = new List<KeyCode>(defaultControls);
         updateControlKeysText();
 
 
-        updateGameBoardDasAndArr();
-        updateControls();
+        //updateGameBoardDasAndArr();
+        //updateControls();
 
         this.gameObject.SetActive(false);
     }
@@ -433,23 +443,29 @@ public class SettingsMenu : MonoBehaviour {
                     lockDelayFlag = !lockDelayFlag;
                     if(lockDelayFlag)
                     {
+                        updateText(lockDelayText, "Enabled");
                         lockDelayText.text = "Enabled";
                     }
                     else
                     {
-                        lockDelayText.text = "Disabled";
+                        updateText(lockDelayText, "Disabled");
                     }
                 }
                 else if (menuIndex == 16)
                 {
                     leftDasValue = 10;
-                    leftDasText.text = leftDasValue.ToString();
+                    updateText(leftDasText, leftDasValue.ToString());
+                    //leftDasText.text = leftDasValue.ToString();
                     leftArrValue = 5;
-                    leftArrText.text = leftArrValue.ToString();
+                    updateText(leftArrText, leftArrValue.ToString());
+                    //leftArrText.text = leftArrValue.ToString();
                     rightDasValue = 10;
-                    rightDasText.text = rightDasValue.ToString();
+                    updateText(rightDasText, rightDasValue.ToString());
+                    //rightDasText.text = rightDasValue.ToString();
                     rightArrValue = 5;
-                    rightArrText.text = rightArrValue.ToString();
+                    updateText(rightArrText, rightArrValue.ToString());
+                    //rightArrText.text = rightArrValue.ToString();
+
 
                     lockDelayFlag = true;
 

@@ -48,7 +48,11 @@ public class Piece : MonoBehaviour {
 
     public Color pieceColor = Color.red;
 
-    public void setLockDelayFlag(bool toggle)
+    public AudioSource audioSource;
+    public AudioClip slideRotateClip;
+    public AudioClip hardDropClip;
+
+    public void setLockDelay(bool toggle)
     {
         lockDelayFlag = toggle;
     }
@@ -92,6 +96,10 @@ public class Piece : MonoBehaviour {
 
     void fallOnce()
     {
+        if(Input.GetKey(controlsKeys[softDropIndex]))
+        {
+            audioSource.PlayOneShot(slideRotateClip);
+        }
         List<int> fallTriangleIndices = getNewTriangleIndices(0, -1);
         for (int i = 0; i < trianglesIndices.Count; ++i)
         {
@@ -1170,6 +1178,7 @@ public class Piece : MonoBehaviour {
             //}
             //coreTriangle -= additionalDownShift * gameBoard.getWidth() * 4;
             gameBoard.dropGhostPiece();
+            audioSource.PlayOneShot(slideRotateClip);
         }
     }
 
@@ -1251,6 +1260,7 @@ public class Piece : MonoBehaviour {
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
             gameBoard.dropGhostPiece();
+            audioSource.PlayOneShot(slideRotateClip);
         }
         else if(!shiftLeft)
         {
@@ -1352,6 +1362,7 @@ public class Piece : MonoBehaviour {
             gameBoard.emptyTriangles(trianglesIndices);
             updateTriangleIndices();
             gameBoard.dropGhostPiece();
+            audioSource.PlayOneShot(slideRotateClip);
         }
     }
 
@@ -1363,6 +1374,10 @@ public class Piece : MonoBehaviour {
         }
         fallOnce();
         timer = dropTimeIntervalBase;
+        if(Input.GetKey(controlsKeys[softDropIndex]))
+        {
+            audioSource.PlayOneShot(slideRotateClip);
+        }
     }
 
     public void drop()
@@ -1384,6 +1399,8 @@ public class Piece : MonoBehaviour {
             {
                 timer = 0;
             }
+            //audioSource.PlayOneShot(hardDropClip);
+            AudioSource.PlayClipAtPoint(hardDropClip, new Vector3(0, 0, -7));
         }
     }
 
@@ -1479,7 +1496,10 @@ public class Piece : MonoBehaviour {
             updateTriangleIndices();
             gameBoard.dropGhostPiece();
             gameBoard.updateBoard(trianglesIndices, pieceColor);
+
+            audioSource = gameObject.GetComponent<AudioSource>();
         }
+
     }
 	
 	// Update is called once per frame

@@ -54,6 +54,11 @@ public class UI : MonoBehaviour {
     private int pauseKeyIndex = 9;
 
 
+
+    public AudioSource audioSource;
+    public AudioClip slideRotateClip;
+
+
     public int getUiIndex()
     {
         return uiIndex;
@@ -141,6 +146,7 @@ public class UI : MonoBehaviour {
                         //selectorSprite.transform.Translate(new Vector3(0, displace));
                         selectorSprite.transform.position += new Vector3(0, displace);
                         pauseIndex = --pauseIndex;
+                        audioSource.PlayOneShot(slideRotateClip);
 
                     }
                     if (Input.GetKeyDown(KeyCode.DownArrow) && pauseIndex < pauseMaxIndex)
@@ -148,14 +154,17 @@ public class UI : MonoBehaviour {
                         //selectorSprite.transform.Translate(new Vector3(0, -displace));
                         selectorSprite.transform.position -= new Vector3(0, displace);
                         pauseIndex = ++pauseIndex;
+                        audioSource.PlayOneShot(slideRotateClip);
                     }
                     if (Input.GetKeyDown(rotateRightKey))
                     {
                         rotateSelector(true);
+                        audioSource.PlayOneShot(slideRotateClip);
                     }
                     if (Input.GetKeyDown(rotateLeftKey))
                     {
                         rotateSelector(false);
+                        audioSource.PlayOneShot(slideRotateClip);
                     }
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
@@ -299,10 +308,11 @@ public class UI : MonoBehaviour {
                 settingsBoard.SetActive(true);
                 if(Input.GetKeyDown(KeyCode.Escape) && !settingsBoard.GetComponent<SettingsMenu>().getListeningFlag())
                 {
-                    settingsBoard.GetComponent<SettingsMenu>().updateGameBoardDasAndArr();
-                    settingsBoard.GetComponent<SettingsMenu>().updateControls();
-                    settingsBoard.GetComponent<SettingsMenu>().resestSelectorPosition();
-                    settingsBoard.GetComponent<SettingsMenu>().setLockDelayFlag();
+                    settingsBoard.GetComponent<SettingsMenu>().updateAllSettings();
+                    //settingsBoard.GetComponent<SettingsMenu>().updateSettingsDasArr();
+                    //settingsBoard.GetComponent<SettingsMenu>().updateControls();
+                    //settingsBoard.GetComponent<SettingsMenu>().resestSelectorPosition();
+                    //settingsBoard.GetComponent<SettingsMenu>().setLockDelayFlag();
                     setKeys(settingsBoard.GetComponent<SettingsMenu>().getCurrentControls());
                     gameBoard.GetComponent<Board>().updatePieceSettings();
                     uiIndex -= 3;

@@ -70,6 +70,10 @@ MonoBehaviour:
   leftAutoRepeatRate: 5
   rightAutoRepeatRate: 5
   frameCounter: -1
+  controlsKeys: 
   pieceSprite: {fileID: 1492071940216038, guid: 858aab6679e0b414eaf4d490161a47d7,
     type: 2}
   pieceColor: {r: 0.8490566, g: 0.8490566, b: 0.18823424, a: 1}
+  audioSource: {fileID: 0}
+  slideRotateClip: {fileID: 8300000, guid: 6b52f55c29315f94f91365196c96cbf7, type: 3}
+  hardDropClip: {fileID: 8300000, guid: 73ee5deec6b2f67409eb7cb278004a38, type: 3}

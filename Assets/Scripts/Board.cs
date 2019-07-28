@@ -71,12 +71,12 @@ public class Board : MonoBehaviour {
             currentPiece.GetComponent<Piece>().gameBoard = this;
             currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
             currentPiece.GetComponent<Piece>().setControlsKeys(controlsKeys);
-            currentPiece.GetComponent<Piece>().setLockDelayFlag(lockDelayFlag);
+            currentPiece.GetComponent<Piece>().setLockDelay(lockDelayFlag);
             //ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
         }
     }
 
-    public void setLockDelayFlag(bool toggle)
+    public void setLockDelay(bool toggle)
     {
         lockDelayFlag = toggle;
     }
@@ -162,12 +162,12 @@ public class Board : MonoBehaviour {
         active = false;
     }
 
-    public void setDasAndArr(int leftDASvalue, int leftARRvalue, int rightDASvalue, int rightARRvalue)
+    public void setDasArr(int newLeftDas, int newLeftArr, int newRightDas, int newRightArr)
     {
-        leftDelayedAutoshift = leftDASvalue;
-        leftAutoRepeatRate = leftARRvalue;
-        rightDelayedAutoshift = rightDASvalue;
-        rightAutoRepeatRate = rightARRvalue;
+        leftDelayedAutoshift = newLeftDas;
+        leftAutoRepeatRate = newLeftArr;
+        rightDelayedAutoshift = newRightDas;
+        rightAutoRepeatRate = newRightArr;
         if(currentPiece != null)
         {
             currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);

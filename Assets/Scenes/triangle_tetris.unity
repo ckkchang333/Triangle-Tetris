@@ -1255,7 +1255,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4543546254497446, guid: 69779752b6ae8f846ae61dd7bf19c81a, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114557330404430962, guid: 69779752b6ae8f846ae61dd7bf19c81a,
         type: 2}
@@ -2636,6 +2636,55 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 307930248}
+--- !u!1 &317789587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 317789589}
+  - component: {fileID: 317789588}
+  m_Layer: 0
+  m_Name: Settings Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &317789588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 317789587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a404b3f15c08354f865ae5632713b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameBoard: {fileID: 875047089}
+  UI: {fileID: 1798437855}
+  defaultControls: 
+  currentControls: 
+  leftDasValue: 10
+  leftArrValue: 6
+  rightDasValue: 10
+  rightArrValue: 6
+  lockDelayFlag: 1
+--- !u!4 &317789589
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 317789587}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.2369996, y: -0.5301178, z: -90.04492}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1090209674}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &319899286
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,7 +3111,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4915276528717254, guid: 2339edc015ad5b44fa88b9a41a4917d7, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114630106730027480, guid: 2339edc015ad5b44fa88b9a41a4917d7,
         type: 2}
@@ -5356,7 +5405,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1090209674}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &919583743
 Prefab:
@@ -6642,10 +6691,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 89.94531}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 317789589}
   - {fileID: 515687470}
   - {fileID: 1511883889}
-  - {fileID: 875047091}
   - {fileID: 1798437856}
+  - {fileID: 875047091}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9030,7 +9080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1495402823
 Transform:
   m_ObjectHideFlags: 0
@@ -9087,10 +9137,10 @@ MonoBehaviour:
   currentControls: 
   menuIndex: 0
   gameBoard: {fileID: 875047089}
+  settings: {fileID: 317789587}
   spaceSelectPrompt: {fileID: 1748878874}
   spaceRebindPrompt: {fileID: 615580549}
   controlsValues: {fileID: 1108748255}
-  key: 0
   keyText: {fileID: 1730014781}
 --- !u!1 &1496440591
 GameObject:
@@ -11039,6 +11089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1798437856}
   - component: {fileID: 1798437857}
+  - component: {fileID: 1798437858}
   m_Layer: 0
   m_Name: UserInterfaceController
   m_TagString: Untagged
@@ -11090,6 +11141,103 @@ MonoBehaviour:
   active: 0
   uiIndex: 0
   gameBoard: {fileID: 875047089}
+  audioSource: {fileID: 1798437858}
+  slideRotateClip: {fileID: 8300000, guid: 6b52f55c29315f94f91365196c96cbf7, type: 3}
+--- !u!82 &1798437858
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1798437855}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1827388550
 Prefab:
   m_ObjectHideFlags: 0
