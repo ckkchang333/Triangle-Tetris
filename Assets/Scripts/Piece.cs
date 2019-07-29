@@ -19,7 +19,7 @@ public class Piece : MonoBehaviour {
     public int orientationState;
     public List<int> trianglesIndices;
     public List<ListWrapperInt> orientationsDeltas;
-    public float dropTimeIntervalBase;
+    public float dropTimeIntervalBase = 60;
     public float dropTimeInterval;
     private float timer;
     public int pieceID;
@@ -1166,7 +1166,8 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
-            timer += 0.5f * Time.deltaTime;
+            //timer += 0.5f * Time.deltaTime;
+            timer += dropTimeIntervalBase/2;
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle -= downShift * gameBoard.getWidth() * 4;
             updateTriangleIndices();
@@ -1252,17 +1253,20 @@ public class Piece : MonoBehaviour {
             if(gameBoard.checkEmpty(leftTriangleIndices))
             {
                 coreTriangle -= 4;
-                timer += 0.5f * Time.deltaTime;
+                //timer += 0.5f * Time.deltaTime;
+                timer += dropTimeIntervalBase / 2;
             }
             else if(gameBoard.checkEmpty(leftBelowTriangleIndices))
             {
                 coreTriangle -= (4 + gameBoard.width * 4);
-                timer += 0.5f * Time.deltaTime;
+                //timer += 0.5f * Time.deltaTime;
+                timer += dropTimeIntervalBase / 2;
             }
             else if (gameBoard.checkEmpty(leftAboveTriangleIndices))
             {
                 coreTriangle += ( gameBoard.width * 4 - 4);
-                timer += 0.5f * Time.deltaTime;
+                //timer += 0.5f * Time.deltaTime;
+                timer += dropTimeIntervalBase / 2;
             }
             else
             {
@@ -1354,17 +1358,20 @@ public class Piece : MonoBehaviour {
             if (gameBoard.checkEmpty(rightTriangleIndices))
             {
                 coreTriangle += 4;
-                timer += 0.5f * Time.deltaTime;
+                //timer += 0.5f * Time.deltaTime;
+                timer += dropTimeIntervalBase / 2;
             }
             else if (gameBoard.checkEmpty(rightBelowTriangleIndices))
             {
                 coreTriangle -= (gameBoard.width * 4 - 4);
-                timer += 0.5f * Time.deltaTime;
+                //timer += 0.5f * Time.deltaTime;
+                timer += dropTimeIntervalBase / 2;
             }
             else if (gameBoard.checkEmpty(rightAboveTriangleIndices))
             {
                 coreTriangle += (gameBoard.width * 4 + 4);
-                timer += 0.5f * Time.deltaTime;
+                //timer += 0.5f * Time.deltaTime;
+                timer += dropTimeIntervalBase / 2;
             }
             else
             {
@@ -1519,7 +1526,8 @@ public class Piece : MonoBehaviour {
         {
             if(!suspend || (suspend && Input.GetKey(controlsKeys[softDropIndex])))
             {
-                timer -= Time.deltaTime;
+                //timer -= Time.deltaTime;
+                timer -= 1;
             }
             //rotate();
             if(Input.GetKeyDown(controlsKeys[rotateLeftIndex]))

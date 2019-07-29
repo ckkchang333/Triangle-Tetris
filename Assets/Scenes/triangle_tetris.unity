@@ -5869,7 +5869,7 @@ MonoBehaviour:
   rowsCleared: 0
   swapLock: 0
   gameOver: 0
-  pieceCurrentLowerTimer: 1
+  pieceCurrentLowerTimer: 60
   active: 0
   leftDelayedAutoshift: 10
   rightDelayedAutoshift: 10

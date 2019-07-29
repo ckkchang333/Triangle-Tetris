@@ -43,7 +43,7 @@ public class Board : MonoBehaviour {
     public bool swapLock = false;
 
     public bool gameOver = false;
-    public float pieceCurrentLowerTimer = 1.0f;
+    public float pieceCurrentLowerTimer = 60;
 
     public bool active = false;
     private bool titleActive = true;
@@ -194,7 +194,7 @@ public class Board : MonoBehaviour {
         obilterateBoard();
         setGameOver(false);
         pieceHolder.GetComponent<pieceHolder>().empty();
-        pieceCurrentLowerTimer = 1.0f;
+        pieceCurrentLowerTimer = 60;
         if (currentPiece != null)
         {
             currentPiece.GetComponent<Piece>().active = false;
@@ -438,7 +438,8 @@ public class Board : MonoBehaviour {
                         }
                         rowsCleared += counter;
                         scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
-                        pieceCurrentLowerTimer = 1.0f - 0.1f * rowsCleared / 7;
+                        //TODO Implement Marathon Mode
+                        pieceCurrentLowerTimer = 60 - 6 * rowsCleared / 7;
                         counter = 0;
                     }
                     fullRowFound = false;

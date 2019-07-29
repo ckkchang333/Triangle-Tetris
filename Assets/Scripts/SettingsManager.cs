@@ -120,10 +120,18 @@ public class SettingsManager : MonoBehaviour {
         currentControls = new List<KeyCode>(defaultControls);
         
         updateAll();
-	}
+
+
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+    }
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        if (Application.targetFrameRate != 60)
+        {
+            Application.targetFrameRate = 60;
+        }
+    }
 }

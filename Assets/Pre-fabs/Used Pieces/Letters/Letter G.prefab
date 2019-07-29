@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4634516955250182}
   - component: {fileID: 114574714968555164}
+  - component: {fileID: 82993451637512280}
   m_Layer: 0
   m_Name: Letter G
   m_TagString: Untagged
@@ -40,6 +41,101 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82993451637512280
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848876100841410}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &114574714968555164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -60,8 +156,8 @@ MonoBehaviour:
   - myList: 0200000003000000040000000500000006000000070000000d0000000e000000e8030000e9030000ea030000eb030000ec030000f4030000f5030000f6030000f7030000d0070000d3070000d4070000d5070000d6070000d7070000d8070000d9070000da070000db070000dc070000dd070000
   - myList: 020000000300000004000000050000000600000007000000090000000a000000f0030000f1030000f2030000f3030000d0070000d1070000d2070000d3070000d5070000d8070000d9070000da070000db070000b80b0000bb0b0000bc0b0000bd0b0000be0b0000bf0b0000c00b0000c10b0000
   - myList: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000d0000000e000000e8030000e9030000ea030000eb030000f2030000f4030000f5030000f6030000f7030000d0070000d3070000d8070000d9070000da070000db070000dc070000dd070000
-  dropTimeIntervalBase: 0.025
-  dropTimeInterval: 0.025
+  dropTimeIntervalBase: 2
+  dropTimeInterval: 2
   pieceID: 0
   active: 1
   letter: 1
@@ -73,6 +169,7 @@ MonoBehaviour:
   rightAutoRepeatRate: 5
   frameCounter: -1
   controlsKeys: 
+  suspend: 0
   pieceSprite: {fileID: 1034580741981786, guid: 595c5c3ae916f094781fd05bf18f915b,
     type: 2}
   pieceColor: {r: 0.06959773, g: 0.8679245, b: 0.06959773, a: 1}

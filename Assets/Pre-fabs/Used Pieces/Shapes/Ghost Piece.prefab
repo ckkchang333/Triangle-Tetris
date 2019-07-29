@@ -152,8 +152,8 @@ MonoBehaviour:
   orientationState: 0
   trianglesIndices: 
   orientationsDeltas: []
-  dropTimeIntervalBase: 0
-  dropTimeInterval: 0.5
+  dropTimeIntervalBase: 60
+  dropTimeInterval: 60
   pieceID: 0
   active: 0
   letter: 0
@@ -165,6 +165,7 @@ MonoBehaviour:
   rightAutoRepeatRate: 0
   frameCounter: -1
   controlsKeys: 
+  suspend: 0
   pieceSprite: {fileID: 0}
   pieceColor: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
   audioSource: {fileID: 82313287200180270, guid: 5517b930ada1aad4c9b192ccb8bf0147,

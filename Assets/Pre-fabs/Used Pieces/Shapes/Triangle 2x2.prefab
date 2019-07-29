@@ -156,8 +156,8 @@ MonoBehaviour:
   - myList: 0100000002000000e8030000e9030000ea030000eb030000ed030000ee030000
   - myList: 0600000007000000ea030000eb030000ec030000ed030000ee030000ef030000
   - myList: 000000000300000004000000050000000600000007000000ec030000ef030000
-  dropTimeIntervalBase: 0
-  dropTimeInterval: 1
+  dropTimeIntervalBase: 60
+  dropTimeInterval: 60
   pieceID: 6
   active: 1
   letter: 0
@@ -169,6 +169,7 @@ MonoBehaviour:
   rightAutoRepeatRate: 0
   frameCounter: -1
   controlsKeys: 
+  suspend: 0
   pieceSprite: {fileID: 1426953841750978, guid: fb26209c6eaf30045a4a5b5e642353f0,
     type: 2}
   pieceColor: {r: 0.88235295, g: 0.13333334, b: 0.22745098, a: 1}
