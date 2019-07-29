@@ -1254,7 +1254,7 @@ public class Piece : MonoBehaviour {
             {
                 coreTriangle -= 4;
                 //timer += 0.5f * Time.deltaTime;
-                timer += dropTimeIntervalBase / 2;
+                //timer += dropTimeIntervalBase / 2;
             }
             else if(gameBoard.checkEmpty(leftBelowTriangleIndices))
             {
@@ -1359,7 +1359,7 @@ public class Piece : MonoBehaviour {
             {
                 coreTriangle += 4;
                 //timer += 0.5f * Time.deltaTime;
-                timer += dropTimeIntervalBase / 2;
+                //timer += dropTimeIntervalBase / 2;
             }
             else if (gameBoard.checkEmpty(rightBelowTriangleIndices))
             {

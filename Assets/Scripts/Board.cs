@@ -67,6 +67,8 @@ public class Board : MonoBehaviour {
 
     private bool lockDelayFlag = true;
 
+    public List<int> marathonLevelFallIntervals;
+
     public void setGameMode(int newGameMode)
     {
         gameMode = newGameMode;
@@ -439,7 +441,15 @@ public class Board : MonoBehaviour {
                         rowsCleared += counter;
                         scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
                         //TODO Implement Marathon Mode
-                        pieceCurrentLowerTimer = 60 - 6 * rowsCleared / 7;
+                        if(gameMode == 1)
+                        {
+                            int level = rowsCleared / 10;
+                            if(level > 20)
+                            {
+                                level = 20;
+                            }
+                            pieceCurrentLowerTimer = marathonLevelFallIntervals[level];
+                        }
                         counter = 0;
                     }
                     fullRowFound = false;

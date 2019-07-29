@@ -105,17 +105,17 @@ public class SettingsManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        defaultControls.Add(KeyCode.Z);
-        defaultControls.Add(KeyCode.X);
-        defaultControls.Add(KeyCode.LeftArrow);
-        defaultControls.Add(KeyCode.RightArrow);
-        defaultControls.Add(KeyCode.DownArrow);
-        defaultControls.Add(KeyCode.Space);
-        defaultControls.Add(KeyCode.DownArrow);
-        defaultControls.Add(KeyCode.LeftShift);
-        defaultControls.Add(KeyCode.G);
-        defaultControls.Add(KeyCode.Escape);
-        defaultControls.Add(KeyCode.F10);
+        //defaultControls.Add(KeyCode.Z);
+        //defaultControls.Add(KeyCode.X);
+        //defaultControls.Add(KeyCode.LeftArrow);
+        //defaultControls.Add(KeyCode.RightArrow);
+        //defaultControls.Add(KeyCode.DownArrow);
+        //defaultControls.Add(KeyCode.Space);
+        //defaultControls.Add(KeyCode.DownArrow);
+        //defaultControls.Add(KeyCode.LeftShift);
+        //defaultControls.Add(KeyCode.G);
+        //defaultControls.Add(KeyCode.Escape);
+        //defaultControls.Add(KeyCode.F10);
 
         currentControls = new List<KeyCode>(defaultControls);
         
@@ -133,5 +133,6 @@ public class SettingsManager : MonoBehaviour {
         {
             Application.targetFrameRate = 60;
         }
+        Debug.Log(1 / Time.smoothDeltaTime);
     }
 }
