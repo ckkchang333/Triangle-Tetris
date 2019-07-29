@@ -62,7 +62,15 @@ public class Board : MonoBehaviour {
     private int pauseIndex = 9;
     private int quickRestartIndex = 10;
 
+
+    public int gameMode = -1;
+
     private bool lockDelayFlag = true;
+
+    public void setGameMode(int newGameMode)
+    {
+        gameMode = newGameMode;
+    }
 
     public void updatePieceSettings()
     {
@@ -72,6 +80,11 @@ public class Board : MonoBehaviour {
             currentPiece.GetComponent<Piece>().setDasAndArr(leftDelayedAutoshift, leftAutoRepeatRate, rightDelayedAutoshift, rightAutoRepeatRate);
             currentPiece.GetComponent<Piece>().setControlsKeys(controlsKeys);
             currentPiece.GetComponent<Piece>().setLockDelay(lockDelayFlag);
+            // Playing on Rest Mode
+            if(gameMode == 0)
+            {
+                currentPiece.GetComponent<Piece>().setSuspend(true);
+            }
             //ghostPiece.GetComponent<Piece>().trianglesIndices = new List<int>(currentPiece.GetComponent<Piece>().trianglesIndices);
         }
     }

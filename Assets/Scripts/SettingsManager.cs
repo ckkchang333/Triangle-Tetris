@@ -34,15 +34,27 @@ public class SettingsManager : MonoBehaviour {
 
     public bool lockDelayFlag = true;
 
+    public int gameMode = -1;
+
     public void updateAll()
     {
         updateBoardDasArr();
+        updateBoardGameMode();
         updateBoardLockDelay();
         updateAllControls();
         updateSettingsBoardDasArr();
         updateSettingsControls();
     }
 
+    public void setGameMode(int newGameMode)
+    {
+        gameMode = newGameMode;
+    }
+
+    public void updateBoardGameMode()
+    {
+        gameBoard.GetComponent<Board>().setGameMode(gameMode);
+    }
 
     public void setDasArr(int newLeftDas, int newLeftArr, int newRightDas, int newRightArr)
     {
@@ -106,9 +118,7 @@ public class SettingsManager : MonoBehaviour {
         defaultControls.Add(KeyCode.F10);
 
         currentControls = new List<KeyCode>(defaultControls);
-
-
-
+        
         updateAll();
 	}
 	

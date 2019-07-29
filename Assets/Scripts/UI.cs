@@ -9,12 +9,20 @@ public class UI : MonoBehaviour {
     public GameObject mainMenuText;
     public GameObject authorText;
     public int mainMenuIndex = 0;
-    public int mainMenuMaxIndex = 3;
-    public float displace;
+    public int mainMenuIndexMax = 3;
+    public float mainMenuDisplace;
+
+
+    [Header("Play Menu")]
+    public GameObject playMenuText;
+    public int playMenuIndex = 0;
+    public int playMenuIndexMax = 3;
+    public float playMenuDisplace;
 
     [Header("Controls")]
     public GameObject controlsInfoBox;
     private bool controlsVisible = false;
+    
 
     [Header("Pause Menu")]
     public GameObject pauseText;
@@ -39,6 +47,8 @@ public class UI : MonoBehaviour {
 
     private Vector3 startingSelectorPosition;
 
+    public SettingsManager settings;
+
 
     [Header("External")]
     public GameObject gameBoard;
@@ -52,8 +62,6 @@ public class UI : MonoBehaviour {
     private int rotateRightIndex = 1;
     private int replayTitleIndex = 10;
     private int pauseKeyIndex = 9;
-
-
 
     public AudioSource audioSource;
     public AudioClip slideRotateClip;
@@ -144,7 +152,7 @@ public class UI : MonoBehaviour {
                     if (Input.GetKeyDown(KeyCode.UpArrow) && pauseIndex > 0)
                     {
                         //selectorSprite.transform.Translate(new Vector3(0, displace));
-                        selectorSprite.transform.position += new Vector3(0, displace);
+                        selectorSprite.transform.position += new Vector3(0, mainMenuDisplace);
                         pauseIndex = --pauseIndex;
                         audioSource.PlayOneShot(slideRotateClip);
 
@@ -152,7 +160,7 @@ public class UI : MonoBehaviour {
                     if (Input.GetKeyDown(KeyCode.DownArrow) && pauseIndex < pauseMaxIndex)
                     {
                         //selectorSprite.transform.Translate(new Vector3(0, -displace));
-                        selectorSprite.transform.position -= new Vector3(0, displace);
+                        selectorSprite.transform.position -= new Vector3(0, mainMenuDisplace);
                         pauseIndex = ++pauseIndex;
                         audioSource.PlayOneShot(slideRotateClip);
                     }
@@ -192,7 +200,7 @@ public class UI : MonoBehaviour {
                         else if (pauseIndex == 1)
                         {
                             settingsBoard.SetActive(true);
-                            uiIndex += 3;
+                            uiIndex += 4;
                         }
                         else if (pauseIndex == 2)
                         {
@@ -224,6 +232,7 @@ public class UI : MonoBehaviour {
                     uiIndex = -2;
                 }
             }
+            // Main Menu
             else if (uiIndex == 0)
             {
                 if(!controlsVisible)
@@ -246,35 +255,38 @@ public class UI : MonoBehaviour {
                     if (Input.GetKeyDown(KeyCode.UpArrow) && mainMenuIndex > 0)
                     {
                         //selectorSprite.transform.Translate(new Vector3(0, displace));
-                        selectorSprite.transform.position += new Vector3(0, displace);
-                        mainMenuIndex = --mainMenuIndex;
+                        selectorSprite.transform.position += new Vector3(0, mainMenuDisplace);
+                        --mainMenuIndex;
 
                     }
-                    if (Input.GetKeyDown(KeyCode.DownArrow) && mainMenuIndex < mainMenuMaxIndex)
+                    if (Input.GetKeyDown(KeyCode.DownArrow) && mainMenuIndex < mainMenuIndexMax)
                     {
                         //selectorSprite.transform.Translate(new Vector3(0, -displace));
-                        selectorSprite.transform.position -= new Vector3(0, displace);
-                        mainMenuIndex = ++mainMenuIndex;
+                        selectorSprite.transform.position -= new Vector3(0, mainMenuDisplace);
+                        ++mainMenuIndex;
                     }
                 }
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
+                    //if(mainMenuIndex == 0)
+                    //{
+                    //    mainMenuText.SetActive(false);
+                    //    selectorSprite.SetActive(false);
+                    //    gameOverText.SetActive(false);
+                    //    newHighScoreText.SetActive(false);
+                    //    authorText.SetActive(false);
+                    //    scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
+                    //    gameBoard.GetComponent<Board>().startGame();
+                    //    scoreText.SetActive(true);
+                    //    uiIndex = -1;
+                    //}
                     if(mainMenuIndex == 0)
                     {
-                        mainMenuText.SetActive(false);
-                        selectorSprite.SetActive(false);
-                        gameOverText.SetActive(false);
-                        newHighScoreText.SetActive(false);
-                        authorText.SetActive(false);
-                        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
-                        gameBoard.GetComponent<Board>().startGame();
-                        scoreText.SetActive(true);
-                        uiIndex = -1;
+                        uiIndex = 1;
                     }
-
                     else if (mainMenuIndex == 1)
                     {
-                        uiIndex += 3;
+                        uiIndex += 4;
                     }
                     else if (mainMenuIndex == 2)
                     {
@@ -302,8 +314,90 @@ public class UI : MonoBehaviour {
                     controlsInfoBox.SetActive(false);
                 }
             }
+            else if(uiIndex  == 1)
+            {
+                // TODO: NOW
+                mainMenuText.SetActive(false);
+                playMenuText.SetActive(true);
+
+                if (Input.GetKeyDown(rotateRightKey))
+                {
+                    rotateSelector(true);
+                }
+                if (Input.GetKeyDown(rotateLeftKey))
+                {
+                    rotateSelector(false);
+                }
+                if (Input.GetKeyDown(KeyCode.UpArrow) && playMenuIndex > 0)
+                {
+                    //selectorSprite.transform.Translate(new Vector3(0, displace));
+                    selectorSprite.transform.position += new Vector3(0, playMenuDisplace);
+                    --playMenuIndex;
+
+                }
+                if (Input.GetKeyDown(KeyCode.DownArrow) && playMenuIndex < playMenuIndexMax)
+                {
+                    //selectorSprite.transform.Translate(new Vector3(0, -displace));
+                    selectorSprite.transform.position -= new Vector3(0, playMenuDisplace);
+                    ++playMenuIndex;
+                }
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+
+                    if (playMenuIndex == 1)
+                    {
+                        playMenuText.SetActive(false);
+                        mainMenuText.SetActive(false);
+                        selectorSprite.SetActive(false);
+                        gameOverText.SetActive(false);
+                        newHighScoreText.SetActive(false);
+                        authorText.SetActive(false);
+                        settings.setGameMode(0);
+                        settings.updateAll();
+                        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
+                        gameBoard.GetComponent<Board>().startGame();
+                        scoreText.SetActive(true);
+                        uiIndex = -1;
+                    }
+                    else if (playMenuIndex == 2)
+                    {
+                        playMenuText.SetActive(false);
+                        mainMenuText.SetActive(false);
+                        selectorSprite.SetActive(false);
+                        gameOverText.SetActive(false);
+                        newHighScoreText.SetActive(false);
+                        authorText.SetActive(false);
+                        settings.setGameMode(1);
+                        settings.updateAll();
+                        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
+                        gameBoard.GetComponent<Board>().startGame();
+                        scoreText.SetActive(true);
+                        uiIndex = -1;
+                    }
+                    else if (playMenuIndex == 3)
+                    {
+                        playMenuText.SetActive(false);
+                        mainMenuText.SetActive(false);
+                        selectorSprite.SetActive(false);
+                        gameOverText.SetActive(false);
+                        newHighScoreText.SetActive(false);
+                        authorText.SetActive(false);
+                        settings.setGameMode(2);
+                        settings.updateAll();
+                        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
+                        gameBoard.GetComponent<Board>().startGame();
+                        scoreText.SetActive(true);
+                        uiIndex = -1;
+                    }
+                    else if (playMenuIndex == 4)
+                    {
+                        uiIndex = 0;
+                        playMenuText.SetActive(false);
+                    }
+                }
+            }
             // Main Menu Settings
-            else if(uiIndex >= 1)
+            else if(uiIndex >= 2)
             {
                 settingsBoard.SetActive(true);
                 if(Input.GetKeyDown(KeyCode.Escape) && !settingsBoard.GetComponent<SettingsMenu>().getListeningFlag())
@@ -315,7 +409,7 @@ public class UI : MonoBehaviour {
                     //settingsBoard.GetComponent<SettingsMenu>().setLockDelayFlag();
                     setKeys(settingsBoard.GetComponent<SettingsMenu>().getCurrentControls());
                     gameBoard.GetComponent<Board>().updatePieceSettings();
-                    uiIndex -= 3;
+                    uiIndex -= 4;
                     settingsBoard.SetActive(false);
                 }
             }

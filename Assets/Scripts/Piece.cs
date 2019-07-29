@@ -43,6 +43,8 @@ public class Piece : MonoBehaviour {
     private int lockInIndex = 6;
 
     private bool lockDelayFlag = true;
+
+    public bool suspend = false;
     
     public GameObject pieceSprite;
 
@@ -51,6 +53,12 @@ public class Piece : MonoBehaviour {
     public AudioSource audioSource;
     public AudioClip slideRotateClip;
     public AudioClip hardDropClip;
+
+
+    public void setSuspend(bool toggle)
+    {
+        suspend = toggle;
+    }
 
     public void setLockDelay(bool toggle)
     {
@@ -133,8 +141,11 @@ public class Piece : MonoBehaviour {
         }
         else
         {
-            gameBoard.setPerm(trianglesIndices);
-            Destroy(this.gameObject);
+            if(!suspend || (suspend && Input.GetKeyDown(controlsKeys[lockInIndex])))
+            {
+                gameBoard.setPerm(trianglesIndices);
+                Destroy(this.gameObject);
+            }
         }
     }
 
@@ -1506,7 +1517,10 @@ public class Piece : MonoBehaviour {
 	void Update () {
         if (active)
         {
-            timer -= Time.deltaTime;
+            if(!suspend || (suspend && Input.GetKey(controlsKeys[softDropIndex])))
+            {
+                timer -= Time.deltaTime;
+            }
             //rotate();
             if(Input.GetKeyDown(controlsKeys[rotateLeftIndex]))
             {
