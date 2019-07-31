@@ -428,42 +428,44 @@ public class Board : MonoBehaviour {
                 {
                     if (fullRowFound)
                     {
-                        if(i > 1)
-                        {
-                            for (int l = 0; l < width; ++l)
-                            {
-                                Block beneathBlockScript = fetchBlockScriptByIndex((i- 2) * width * 4 + l * 4);
-                                if(beneathBlockScript.permTop && !beneathBlockScript.permBottom)
-                                {
-                                    Color fillColor = Color.white;
-                                    if(!beneathBlockScript.permLeft)
-                                    {
-                                        fillColor = fetchBlockScriptByIndex((i - 1) * width * 4 + l * 4).getQuadColor(1);
-                                    }
-                                    else if(!beneathBlockScript.permRight)
-                                    {
-                                        fillColor = fetchBlockScriptByIndex((i - 1) * width * 4 + l * 4).getQuadColor(3);
-                                    }
-                                    beneathBlockScript.setQuadFilled(0, true, fillColor);
-                                    if(!beneathBlockScript.filledLeft)
-                                    {
-                                        beneathBlockScript.setQuadFilled(1, true, fillColor);
-                                    }
-                                    if (!beneathBlockScript.filledRight)
-                                    {
-                                        beneathBlockScript.setQuadFilled(3, true, fillColor);
-                                    }
-                                    beneathBlockScript.filledBottom = true;
-                                    beneathBlockScript.filledLeft = true;
-                                    beneathBlockScript.filledTop = true;
-                                    beneathBlockScript.filledRight = true;
-                                    beneathBlockScript.permBottom = true;
-                                    beneathBlockScript.permLeft = true;
-                                    beneathBlockScript.permTop = true;
-                                    beneathBlockScript.permRight = true;
-                                }
-                            }
-                        }
+                        //if(i > 0)
+                        //{
+                        //    for (int l = 0; l < width; ++l)
+                        //    {
+                        //        Block beneathBlockScript = fetchBlockScriptByIndex((i- 1) * width * 4 + l * 4);
+                        //        if(beneathBlockScript.permTop && !beneathBlockScript.permBottom)
+                        //        {
+                        //            Color fillColor = Color.white;
+                        //            if(!beneathBlockScript.permLeft)
+                        //            {
+                        //                fillColor = fetchBlockScriptByIndex((i) * width * 4 + l * 4).getQuadColor(1);
+                        //            }
+                        //            else if(!beneathBlockScript.permRight)
+                        //            {
+                        //                fillColor = fetchBlockScriptByIndex((i) * width * 4 + l * 4).getQuadColor(3);
+                        //            }
+                        //            beneathBlockScript.setQuadFilled(0, true, fillColor);
+                        //            if(!beneathBlockScript.filledLeft)
+                        //            {
+                        //                beneathBlockScript.setQuadFilled(1, true, fillColor);
+                        //                Debug.Log("Filling Left");
+                        //            }
+                        //            if (!beneathBlockScript.filledRight)
+                        //            {
+                        //                beneathBlockScript.setQuadFilled(3, true, fillColor);
+                        //                Debug.Log("Filling Right");
+                        //            }
+                        //            beneathBlockScript.filledBottom = true;
+                        //            beneathBlockScript.filledLeft = true;
+                        //            beneathBlockScript.filledTop = true;
+                        //            beneathBlockScript.filledRight = true;
+                        //            beneathBlockScript.permBottom = true;
+                        //            beneathBlockScript.permLeft = true;
+                        //            beneathBlockScript.permTop = true;
+                        //            beneathBlockScript.permRight = true;
+                        //        }
+                        //    }
+                        //}
                         for(int k = i; k < height; ++k)
                         {
                             for(int l = 0; l < width; ++l)
@@ -538,6 +540,44 @@ public class Board : MonoBehaviour {
                 else if(j == width - 1)
                 {
                     fullRowFound = true;
+                    if(i > 0)
+                    {
+                        for (int l = 0; l < width; ++l)
+                        {
+                            Block beneathBlockScript = fetchBlockScriptByIndex((i - 1) * width * 4 + l * 4);
+                            if (beneathBlockScript.permTop && !beneathBlockScript.permBottom)
+                            {
+                                Color fillColor = Color.white;
+                                if (!beneathBlockScript.permLeft)
+                                {
+                                    fillColor = fetchBlockScriptByIndex((i) * width * 4 + l * 4).getQuadColor(1);
+                                }
+                                else if (!beneathBlockScript.permRight)
+                                {
+                                    fillColor = fetchBlockScriptByIndex((i) * width * 4 + l * 4).getQuadColor(3);
+                                }
+                                beneathBlockScript.setQuadFilled(0, true, fillColor);
+                                if (!beneathBlockScript.filledLeft)
+                                {
+                                    beneathBlockScript.setQuadFilled(1, true, fillColor);
+                                    Debug.Log("Filling Left");
+                                }
+                                if (!beneathBlockScript.filledRight)
+                                {
+                                    beneathBlockScript.setQuadFilled(3, true, fillColor);
+                                    Debug.Log("Filling Right");
+                                }
+                                beneathBlockScript.filledBottom = true;
+                                beneathBlockScript.filledLeft = true;
+                                beneathBlockScript.filledTop = true;
+                                beneathBlockScript.filledRight = true;
+                                beneathBlockScript.permBottom = true;
+                                beneathBlockScript.permLeft = true;
+                                beneathBlockScript.permTop = true;
+                                beneathBlockScript.permRight = true;
+                            }
+                        }
+                    }
                     ++counter;
                 }
             }
