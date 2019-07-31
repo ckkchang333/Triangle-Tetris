@@ -64,9 +64,16 @@ public class Board : MonoBehaviour {
 
 
     public int gameMode = -1;
+    public int marathonRecordRows = 0;
+    public float marathonRecordTime = 0;
+    public int sprintRecordRows = 0;
+    public float sprintRecordTime = 0;
+
+    private int sprintTotalRows = 40;
 
     private bool lockDelayFlag = true;
 
+    public float gameTime = 0;
     public List<int> marathonLevelFallIntervals;
 
     public void setGameMode(int newGameMode)
@@ -163,13 +170,66 @@ public class Board : MonoBehaviour {
 
     public void setGameOver(bool toggle)
     {
+        Debug.Log("Setting Game Over");
         currentPiece.GetComponent<Piece>().toggleActive(false);
-        bool newHighScore = rowsCleared > currentHighScore;
-        if (newHighScore)
+        bool newHighScoreFlag = rowsCleared > currentHighScore;
+        if(gameMode == 0)
         {
-            currentHighScore = rowsCleared;
+            uiController.endGameUI(gameMode, false);
         }
-        uiController.endGameUI(newHighScore, currentHighScore);
+        if (gameMode == 1)
+        {
+            if (rowsCleared < marathonLevelFallIntervals.Count * 10)
+            {
+                if (marathonRecordRows < rowsCleared)
+                {
+                    newHighScoreFlag = true;
+                    marathonRecordRows = rowsCleared;
+                    marathonRecordTime = gameTime;
+                    Debug.Log("A");
+                }
+            }
+            else
+            {
+                if (marathonRecordTime < gameTime)
+                {
+                    newHighScoreFlag = true;
+                    marathonRecordRows = rowsCleared;
+                    marathonRecordTime = gameTime;
+                    Debug.Log("B");
+                }
+            }
+            uiController.endGameUI(gameMode, newHighScoreFlag, marathonRecordRows, marathonRecordTime);
+        }
+        else if (gameMode == 2)
+        {
+            if (rowsCleared < 40)
+            {
+                if (sprintRecordRows < rowsCleared)
+                {
+                    newHighScoreFlag = true;
+                    sprintRecordRows = rowsCleared;
+                    sprintRecordTime = gameTime;
+                    Debug.Log("C");
+                }
+            }
+            else
+            {
+                if (sprintRecordTime < gameTime)
+                {
+                    newHighScoreFlag = true;
+                    sprintRecordRows = rowsCleared;
+                    sprintRecordTime = gameTime;
+                    Debug.Log("D");
+                }
+            }
+            uiController.endGameUI(gameMode, newHighScoreFlag, sprintRecordRows, sprintRecordTime);
+        }
+        //if (newHighScoreFlag)
+        //{
+        //    currentHighScore = rowsCleared;
+        //}
+        //uiController.endGameUI(gameMode, newHighScoreFlag, currentHighScore);
         pieceQueue.SetActive(!toggle);
         pieceHolder.GetComponent<pieceHolder>().empty();
         pieceHolder.SetActive(!toggle);
@@ -192,7 +252,14 @@ public class Board : MonoBehaviour {
     public void resetGame()
     {
         rowsCleared = 0;
-        scoreText.text = "Rows Cleared: " + rowsCleared;
+        if(gameMode == 2)
+        {
+            scoreText.text = "Rows Left: " + (sprintTotalRows - rowsCleared);
+        }
+        else
+        {
+            scoreText.text = "Rows Cleared: " + rowsCleared;
+        }
         obilterateBoard();
         setGameOver(false);
         pieceHolder.GetComponent<pieceHolder>().empty();
@@ -439,7 +506,20 @@ public class Board : MonoBehaviour {
                             }
                         }
                         rowsCleared += counter;
-                        scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
+                        if(gameMode == 2)
+                        {
+                            int rowsLeft = sprintTotalRows - rowsCleared;
+                            if(rowsLeft < 0)
+                            {
+                                rowsLeft = 0;
+                                setGameOver(true);
+                            }
+                            scoreText.text = "Rows Left: " + rowsLeft.ToString();
+                        }
+                        else
+                        {
+                            scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
+                        }
                         //TODO Implement Marathon Mode
                         if(gameMode == 1)
                         {
@@ -524,6 +604,7 @@ public class Board : MonoBehaviour {
         pieceQueue.GetComponent<PieceQueue>().emptyQueue();
         pieceQueue.GetComponent<PieceQueue>().fillQueue();
         pieceHolder.GetComponent<pieceHolder>().empty();
+        gameTime = 0;
         rowsCleared = 0;
         paused = false;
         active = true;
@@ -562,7 +643,8 @@ public class Board : MonoBehaviour {
         //}
         if(active)
         {
-
+            gameTime += Time.deltaTime;
+            uiController.setGameTimer(gameTime);
             if (currentPiece == null && pieceQueue != null && !gameOver)
             {
                 GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().dequeue();
