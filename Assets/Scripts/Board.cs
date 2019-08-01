@@ -186,7 +186,6 @@ public class Board : MonoBehaviour {
                     newHighScoreFlag = true;
                     marathonRecordRows = rowsCleared;
                     marathonRecordTime = gameTime;
-                    Debug.Log("A");
                 }
             }
             else
@@ -196,7 +195,6 @@ public class Board : MonoBehaviour {
                     newHighScoreFlag = true;
                     marathonRecordRows = rowsCleared;
                     marathonRecordTime = gameTime;
-                    Debug.Log("B");
                 }
             }
             uiController.endGameUI(gameMode, newHighScoreFlag, marathonRecordRows, marathonRecordTime);
@@ -210,7 +208,6 @@ public class Board : MonoBehaviour {
                     newHighScoreFlag = true;
                     sprintRecordRows = rowsCleared;
                     sprintRecordTime = gameTime;
-                    Debug.Log("C");
                 }
             }
             else
@@ -220,7 +217,6 @@ public class Board : MonoBehaviour {
                     newHighScoreFlag = true;
                     sprintRecordRows = rowsCleared;
                     sprintRecordTime = gameTime;
-                    Debug.Log("D");
                 }
             }
             uiController.endGameUI(gameMode, newHighScoreFlag, sprintRecordRows, sprintRecordTime);
@@ -683,7 +679,10 @@ public class Board : MonoBehaviour {
         //}
         if(active)
         {
-            gameTime += Time.deltaTime;
+            if(!paused)
+            {
+                gameTime += Time.deltaTime;
+            }
             uiController.setGameTimer(gameTime);
             if (currentPiece == null && pieceQueue != null && !gameOver)
             {
