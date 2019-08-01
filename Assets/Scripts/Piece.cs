@@ -1208,6 +1208,41 @@ public class Piece : MonoBehaviour {
             List<int> leftTriangleIndices = getNewTriangleIndices(-1, 0);
             List<int> leftBelowTriangleIndices = getNewTriangleIndices(-1, -1);
             List<int> leftAboveTriangleIndices = getNewTriangleIndices(-1, 1);
+
+
+            List<int> leftBelowExtraIndicies = new List<int>();
+
+            for (int i = 0; i < trianglesIndices.Count; ++i)
+            {
+                // Adding additional hitboxes for moving straight to the left
+                if (trianglesIndices[i] % 4 == 1 || trianglesIndices[i] % 4 == 3)
+                {
+                    leftTriangleIndices.Add(trianglesIndices[i] - 2);
+                }
+
+                //if(leftBelowTriangleIndices[i] % 4 == 3)
+                //{
+                //    leftBelowExtraIndicies.Add(leftBelowTriangleIndices[i] + 3);
+                //}
+                //if (leftBelowTriangleIndices[i] % 4 == 0)
+                //{
+                //    leftBelowExtraIndicies.Add(leftBelowTriangleIndices[i] + 3);
+                //}
+                //if (trianglesIndices[i] % 4 == 3)
+                //{
+                //    leftBelowExtraIndicies.Add(trianglesIndices[i] - 3);
+                //}
+                //else if(trianglesIndices[i] % 4 == 2)
+                //{
+                //    leftBelowExtraIndicies.Add(trianglesIndices[i] - 1);
+                //}
+            }
+
+            //for(int i = 0; i < leftBelowExtraIndicies.Count; ++i)
+            //{
+            //    leftBelowTriangleIndices.Add(leftBelowExtraIndicies[i]);
+            //}
+
             int aboveRow = 0;
             int belowRow = 0;
             bool rowChecked = false;
@@ -1289,6 +1324,40 @@ public class Piece : MonoBehaviour {
             List<int> rightTriangleIndices = getNewTriangleIndices(1, 0);
             List<int> rightBelowTriangleIndices = getNewTriangleIndices(1, -1);
             List<int> rightAboveTriangleIndices = getNewTriangleIndices(1, 1);
+
+
+            List<int> rightBelowExtraIndicies = new List<int>();
+            for (int i = 0; i < trianglesIndices.Count; ++i)
+            {
+                if (trianglesIndices[i] % 4 == 1 || trianglesIndices[i] % 4 == 3)
+                {
+                    rightTriangleIndices.Add(trianglesIndices[i] + 2);
+                }
+
+
+                //if (rightBelowTriangleIndices[i] % 4 == 1)
+                //{
+                //    rightBelowExtraIndicies.Add(rightBelowTriangleIndices[i] - 3);
+                //}
+                //if (rightBelowTriangleIndices[i] % 4 == 0)
+                //{
+                //    rightBelowExtraIndicies.Add(rightBelowTriangleIndices[i] + 1);
+                //}
+
+                //if (trianglesIndices[i] % 4 == 1)
+                //{
+                //    rightBelowExtraIndicies.Add(trianglesIndices[i] - 1);
+                //}
+                //else if (trianglesIndices[i] % 4 == 2)
+                //{
+                //    rightBelowExtraIndicies.Add(trianglesIndices[i] + 1);
+                //}
+            }
+
+            //for (int i = 0; i < rightBelowExtraIndicies.Count; ++i)
+            //{
+            //    rightBelowTriangleIndices.Add(rightBelowExtraIndicies[i]);
+            //}
             int aboveRow = 0;
             int belowRow = 0;
             bool rowChecked = false;
