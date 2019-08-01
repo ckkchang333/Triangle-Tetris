@@ -1733,8 +1733,8 @@ public class Piece : MonoBehaviour {
         }
     }
 
-    private void OnDestroy()
-    {
-        gameBoard.clearFilledRows();
-    }
+    //private void OnDestroy()
+    //{
+    //    gameBoard.clearFilledRows();
+    //}
 }

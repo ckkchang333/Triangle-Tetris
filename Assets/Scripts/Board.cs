@@ -686,6 +686,7 @@ public class Board : MonoBehaviour {
             uiController.setGameTimer(gameTime);
             if (currentPiece == null && pieceQueue != null && !gameOver)
             {
+                clearFilledRows();
                 GameObject piecePrefab = pieceQueue.GetComponent<PieceQueue>().dequeue();
                 currentPiece = Instantiate(piecePrefab);
                 updatePieceSettings();
