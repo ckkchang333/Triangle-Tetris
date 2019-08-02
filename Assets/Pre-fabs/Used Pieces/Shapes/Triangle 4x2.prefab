@@ -177,3 +177,6 @@ MonoBehaviour:
     type: 2}
   slideRotateClip: {fileID: 8300000, guid: 6b52f55c29315f94f91365196c96cbf7, type: 3}
   hardDropClip: {fileID: 8300000, guid: 73ee5deec6b2f67409eb7cb278004a38, type: 3}
+  spinDirectionCheckFlag: 1
+  clockwiseLeft: 3
+  counterwiseLeft: 2

@@ -193,13 +193,13 @@ public class UI : MonoBehaviour {
 	void Update () {
 		if(active)
         {
-            
+
             // Game Paused
             if (uiIndex == -2)
             {
                 pauseText.SetActive(true);
                 selectorSprite.SetActive(true);
-                if(!controlsVisible)
+                if (!controlsVisible)
                 {
                     if (Input.GetKeyDown(KeyCode.UpArrow) && pauseIndex > 0)
                     {
@@ -276,7 +276,7 @@ public class UI : MonoBehaviour {
             // Playing the Game
             else if (uiIndex == -1)
             {
-                if(Input.GetKeyDown(pauseKey))
+                if (Input.GetKeyDown(pauseKey))
                 {
                     //selectorSprite.transform.position = startingSelectorPosition;
                     selectorSprite.transform.localPosition = mainMenuStartPosition;
@@ -288,9 +288,9 @@ public class UI : MonoBehaviour {
             // Main Menu
             else if (uiIndex == 0)
             {
-                if(!controlsVisible)
+                if (!controlsVisible)
                 {
-                    if(Input.GetKeyDown(replayTitleKey))
+                    if (Input.GetKeyDown(replayTitleKey))
                     {
                         replayTitle();
                     }
@@ -319,7 +319,7 @@ public class UI : MonoBehaviour {
                         ++mainMenuIndex;
                     }
                 }
-                if(Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     //if(mainMenuIndex == 0)
                     //{
@@ -333,7 +333,7 @@ public class UI : MonoBehaviour {
                     //    scoreText.SetActive(true);
                     //    uiIndex = -1;
                     //}
-                    if(mainMenuIndex == 0)
+                    if (mainMenuIndex == 0)
                     {
                         uiIndex = 1;
                         selectorSprite.transform.localPosition = playMenuStartPosition;
@@ -362,13 +362,13 @@ public class UI : MonoBehaviour {
                     //    Application.Quit();
                     //}
                 }
-                if(Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     controlsVisible = false;
                     controlsInfoBox.SetActive(false);
                 }
             }
-            else if(uiIndex  == 1)
+            else if (uiIndex == 1)
             {
                 // TODO: NOW
                 mainMenuText.SetActive(false);
@@ -395,10 +395,10 @@ public class UI : MonoBehaviour {
                     selectorSprite.transform.position -= new Vector3(0, playMenuDisplace);
                     ++playMenuIndex;
                 }
-                if(Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
 
-                    if (playMenuIndex == 1)
+                    if (playMenuIndex == 0)
                     {
                         playMenuText.SetActive(false);
                         mainMenuText.SetActive(false);
@@ -414,7 +414,7 @@ public class UI : MonoBehaviour {
                         uiIndex = -1;
                         Debug.Log("Rest Selected");
                     }
-                    else if (playMenuIndex == 2)
+                    else if (playMenuIndex == 1)
                     {
                         playMenuText.SetActive(false);
                         mainMenuText.SetActive(false);
@@ -431,7 +431,7 @@ public class UI : MonoBehaviour {
                         uiIndex = -1;
                         Debug.Log("Marathon Selected");
                     }
-                    else if (playMenuIndex == 3)
+                    else if (playMenuIndex == 2)
                     {
                         playMenuText.SetActive(false);
                         mainMenuText.SetActive(false);
@@ -448,18 +448,25 @@ public class UI : MonoBehaviour {
                         uiIndex = -1;
                         Debug.Log("Sprint Selected");
                     }
-                    else if (playMenuIndex == 4)
+                    else if (playMenuIndex == 3)
                     {
                         uiIndex = 0;
                         playMenuText.SetActive(false);
+                        selectorSprite.transform.localPosition = mainMenuStartPosition;
                     }
+                }
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    uiIndex = 0;
+                    playMenuText.SetActive(false);
+                    selectorSprite.transform.localPosition = mainMenuStartPosition;
                 }
             }
             // Main Menu Settings
-            else if(uiIndex >= 2)
+            else if (uiIndex >= 2)
             {
                 settingsBoard.SetActive(true);
-                if(Input.GetKeyDown(KeyCode.Escape) && !settingsBoard.GetComponent<SettingsMenu>().getListeningFlag())
+                if (Input.GetKeyDown(KeyCode.Escape) && !settingsBoard.GetComponent<SettingsMenu>().getListeningFlag())
                 {
                     settingsBoard.GetComponent<SettingsMenu>().updateAllSettings();
                     //settingsBoard.GetComponent<SettingsMenu>().updateSettingsDasArr();

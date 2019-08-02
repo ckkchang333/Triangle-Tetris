@@ -162,9 +162,12 @@ public class Board : MonoBehaviour {
         Piece pieceScript = currentPiece.GetComponent<Piece>();
         for (int i = 0; i < pieceScript.trianglesIndices.Count; ++i)
         {
-            Block currentBlockScript = fetchBlockScriptByIndex(currentTriangleIndices[i]);
-            int quadIndex = (currentTriangleIndices[i] % (width * 4) % 4);
-            currentBlockScript.setQuadFilled(quadIndex, true, pieceColor);
+            if(currentTriangleIndices[i] < width * 4 * height)
+            {
+                Block currentBlockScript = fetchBlockScriptByIndex(currentTriangleIndices[i]);
+                int quadIndex = (currentTriangleIndices[i] % (width * 4) % 4);
+                currentBlockScript.setQuadFilled(quadIndex, true, pieceColor);
+            }
         }
     }
 

@@ -54,6 +54,10 @@ public class Piece : MonoBehaviour {
     public AudioClip slideRotateClip;
     public AudioClip hardDropClip;
 
+    public bool spinDirectionCheckFlag = false;
+    public int clockwiseLeft = -1;
+    public int counterwiseLeft = -1;
+
 
     public void setSuspend(bool toggle)
     {
@@ -274,7 +278,7 @@ public class Piece : MonoBehaviour {
     }
 
 
-    void rotateNeo(bool rotateClockwise)
+    void rotateNeo(bool rotateCounterClockwise)
     {
         if(printRotateDebug)
         {
@@ -285,14 +289,31 @@ public class Piece : MonoBehaviour {
             }
         }
         int rotateDelta = 0;
-        if (rotateClockwise)
+        if (rotateCounterClockwise)
         {
             rotateDelta = -1;
         }
-        else if (!rotateClockwise)
+        else if (!rotateCounterClockwise)
         {
             rotateDelta = 1;
         }
+
+        bool spinningLeft = false;
+        if(spinDirectionCheckFlag)
+        {
+            if (rotateCounterClockwise)
+            {
+                spinningLeft = ((orientationState + rotateDelta) % 4 == clockwiseLeft) || ((orientationState + rotateDelta) % 4 == (clockwiseLeft - 1) % 4);
+            }
+            else
+            {
+                spinningLeft = ((orientationState + rotateDelta) % 4 == counterwiseLeft) || ((orientationState + rotateDelta) % 4 == (counterwiseLeft + 1) % 4);
+            }
+        }
+        //Debug.Log(rotateCounterClockwise);
+        //Debug.Log(orientationState + rotateDelta);
+        //Debug.Log(spinningLeft);
+
         if(rotateDelta != 0)
         {
             float startTime = Time.realtimeSinceStartup;
@@ -484,7 +505,7 @@ public class Piece : MonoBehaviour {
             for (int i = 0; i < rotatedTriangleIndices.Count; ++i)
             {
                 //rotatedTriangleIndices[i] += additionalShift;
-                if (getRowIndex(rotatedTriangleIndices[i]) >= gameBoard.getHeight() - 1)
+                if (getRowIndex(rotatedTriangleIndices[i]) >= gameBoard.getHeight())
                 {
                     for(int j = 0; j < rotatedTriangleIndices.Count; ++j)
                     {
@@ -502,7 +523,7 @@ public class Piece : MonoBehaviour {
                     Debug.Log(rotatedTriangleIndices[i]);
                 }
             }
-            if(rotateClockwise)
+            if(rotateCounterClockwise || ((!spinDirectionCheckFlag) || (spinDirectionCheckFlag && !spinningLeft)))
             {
                 if (gameBoard.checkEmpty(rotatedTriangleIndices))
                 {
@@ -834,7 +855,7 @@ public class Piece : MonoBehaviour {
                     return;
                 }
             }
-            else
+            else if (((!spinDirectionCheckFlag) || (spinDirectionCheckFlag && spinningLeft)))
             {
                 if (gameBoard.checkEmpty(rotatedTriangleIndices))
                 {
@@ -1215,9 +1236,18 @@ public class Piece : MonoBehaviour {
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
                 // Adding additional hitboxes for moving straight to the left
-                if (trianglesIndices[i] % 4 == 1 || trianglesIndices[i] % 4 == 3)
+                //if (trianglesIndices[i] % 4 == 1 || trianglesIndices[i] % 4 == 3)
+                //{
+                //    leftTriangleIndices.Add(trianglesIndices[i] - 2);
+                //}
+                if (trianglesIndices[i] % 4 == 3)
                 {
+                    leftTriangleIndices.Add(trianglesIndices[i] - 1);
                     leftTriangleIndices.Add(trianglesIndices[i] - 2);
+                    leftTriangleIndices.Add(trianglesIndices[i] - 3);
+                    leftBelowTriangleIndices.Add(trianglesIndices[i] - 1);
+                    leftBelowTriangleIndices.Add(trianglesIndices[i] - 2);
+                    leftBelowTriangleIndices.Add(trianglesIndices[i] - 3);
                 }
 
                 //if(leftBelowTriangleIndices[i] % 4 == 3)
@@ -1329,12 +1359,21 @@ public class Piece : MonoBehaviour {
             List<int> rightBelowExtraIndicies = new List<int>();
             for (int i = 0; i < trianglesIndices.Count; ++i)
             {
-                if (trianglesIndices[i] % 4 == 1 || trianglesIndices[i] % 4 == 3)
+                //if (trianglesIndices[i] % 4 == 1 || trianglesIndices[i] % 4 == 3)
+                //{
+                //    rightTriangleIndices.Add(trianglesIndices[i] + 2);
+                //}
+
+
+                if (trianglesIndices[i] % 4 == 1)
                 {
+                    rightTriangleIndices.Add(trianglesIndices[i] - 1);
+                    rightTriangleIndices.Add(trianglesIndices[i] + 1);
                     rightTriangleIndices.Add(trianglesIndices[i] + 2);
+                    rightBelowTriangleIndices.Add(trianglesIndices[i] - 1);
+                    rightBelowTriangleIndices.Add(trianglesIndices[i] + 1);
+                    rightBelowTriangleIndices.Add(trianglesIndices[i] + 2);
                 }
-
-
                 //if (rightBelowTriangleIndices[i] % 4 == 1)
                 //{
                 //    rightBelowExtraIndicies.Add(rightBelowTriangleIndices[i] - 3);
