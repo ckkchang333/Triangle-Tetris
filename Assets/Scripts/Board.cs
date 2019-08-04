@@ -69,7 +69,7 @@ public class Board : MonoBehaviour {
     public int sprintRecordRows = 0;
     public float sprintRecordTime = 0;
 
-    private int sprintTotalRows = 40;
+    public int sprintTotalRows = 40;
 
     private bool lockDelayFlag = true;
 
@@ -174,7 +174,10 @@ public class Board : MonoBehaviour {
     public void setGameOver(bool toggle)
     {
         Debug.Log("Setting Game Over");
-        currentPiece.GetComponent<Piece>().toggleActive(false);
+        if(currentPiece != null)
+        {
+            currentPiece.GetComponent<Piece>().toggleActive(false);
+        }
         bool newHighScoreFlag = rowsCleared > currentHighScore;
         if(gameMode == 0)
         {
@@ -235,6 +238,7 @@ public class Board : MonoBehaviour {
         gameOver = toggle;
         active = false;
     }
+
 
     public void setDasArr(int newLeftDas, int newLeftArr, int newRightDas, int newRightArr)
     {
@@ -510,7 +514,7 @@ public class Board : MonoBehaviour {
                         if(gameMode == 2)
                         {
                             int rowsLeft = sprintTotalRows - rowsCleared;
-                            if(rowsLeft < 0)
+                            if(rowsLeft <= 0)
                             {
                                 rowsLeft = 0;
                                 setGameOver(true);
@@ -524,12 +528,17 @@ public class Board : MonoBehaviour {
                         //TODO Implement Marathon Mode
                         if(gameMode == 1)
                         {
-                            int level = rowsCleared / 10;
-                            if(level > 20)
+                            int level = rowsCleared / 7;
+                            if(level > 15)
                             {
-                                level = 20;
+                                level = 15;
                             }
+                            uiController.updateMarathonLevelText(level);
                             pieceCurrentLowerTimer = marathonLevelFallIntervals[level];
+                            if(rowsCleared > 15 * 7)
+                            {
+                                setGameOver(true);
+                            }
                         }
                         counter = 0;
                     }
@@ -701,6 +710,10 @@ public class Board : MonoBehaviour {
                 //ghostPiece.GetComponent<Piece>().ghostDrop();
                 //dropGhostPiece();
 
+            }
+            if(gameOver && currentPiece != null)
+            {
+                currentPiece.GetComponent<Piece>().toggleActive(false);
             }
 
             //if (Input.GetKeyDown(KeyCode.O))
