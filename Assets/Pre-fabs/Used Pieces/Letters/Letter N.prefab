@@ -171,10 +171,13 @@ MonoBehaviour:
   pieceSprite: {fileID: 1492071940216038, guid: 858aab6679e0b414eaf4d490161a47d7,
     type: 2}
   pieceColor: {r: 0.8490566, g: 0.8490566, b: 0.18823424, a: 1}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 82980949231969530}
   slideRotateClip: {fileID: 8300000, guid: 5e392a942d632cd4b87deb8d97da534d, type: 3}
+  slideRotateClipVolume: 0.25
   hardDropClip: {fileID: 8300000, guid: da74f3c8fde6c344488d8df68e7afcdc, type: 3}
+  hardDropClipVolume: 1
   spawnClip: {fileID: 8300000, guid: e792df2c1c872144a85e6106cabaf836, type: 3}
+  spawnClipVolume: 1
   spinDirectionCheckFlag: 0
   clockwiseLeft: -1
   counterwiseLeft: -1

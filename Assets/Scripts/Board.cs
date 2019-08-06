@@ -43,7 +43,7 @@ public class Board : MonoBehaviour {
     public bool swapLock = false;
 
     public bool gameOver = false;
-    public float pieceCurrentLowerTimer = 60;
+    public float pieceCurrentLowerTimer = 53;
 
     public bool active = false;
     private bool titleActive = true;
@@ -65,20 +65,26 @@ public class Board : MonoBehaviour {
 
     public int gameMode = -1;
     public int marathonRecordRows = 0;
-    public float marathonRecordTime = 0;
+    public float marathonRecordTime = float.MaxValue;
     public int sprintRecordRows = 0;
-    public float sprintRecordTime = 0;
+    public float sprintRecordTime = float.MaxValue;
 
-    public int sprintTotalRows = 40;
 
     private bool lockDelayFlag = true;
 
     public float gameTime = 0;
     public List<int> marathonLevelFallIntervals;
+    public int rowsPerMarathonLevel;
+    public int sprintTotalRows = 40;
 
     public void setGameMode(int newGameMode)
     {
         gameMode = newGameMode;
+    }
+
+    public int getMarathonLevelsCount()
+    {
+        return marathonLevelFallIntervals.Count;
     }
 
     public void updatePieceSettings()
@@ -178,7 +184,7 @@ public class Board : MonoBehaviour {
         {
             currentPiece.GetComponent<Piece>().toggleActive(false);
         }
-        bool newHighScoreFlag = rowsCleared > currentHighScore;
+        bool newHighScoreFlag = false;
         if(gameMode == 0)
         {
             uiController.endGameUI(gameMode, false);
@@ -196,7 +202,7 @@ public class Board : MonoBehaviour {
             }
             else
             {
-                if (marathonRecordTime < gameTime)
+                if (marathonRecordTime > gameTime)
                 {
                     newHighScoreFlag = true;
                     marathonRecordRows = rowsCleared;
@@ -207,10 +213,11 @@ public class Board : MonoBehaviour {
         }
         else if (gameMode == 2)
         {
-            if (rowsCleared < 40)
+            if (rowsCleared < sprintTotalRows)
             {
                 if (sprintRecordRows < rowsCleared)
                 {
+                    Debug.Log("New Sprint Time High Score Row");
                     newHighScoreFlag = true;
                     sprintRecordRows = rowsCleared;
                     sprintRecordTime = gameTime;
@@ -218,9 +225,10 @@ public class Board : MonoBehaviour {
             }
             else
             {
-                if (sprintRecordTime < gameTime)
+                if (sprintRecordTime > gameTime)
                 {
                     newHighScoreFlag = true;
+                    Debug.Log("New Sprint Time High Score Time");
                     sprintRecordRows = rowsCleared;
                     sprintRecordTime = gameTime;
                 }
@@ -266,7 +274,7 @@ public class Board : MonoBehaviour {
         obilterateBoard();
         setGameOver(false);
         pieceHolder.GetComponent<pieceHolder>().empty();
-        pieceCurrentLowerTimer = 60;
+        pieceCurrentLowerTimer = 53;
         if (currentPiece != null)
         {
             currentPiece.GetComponent<Piece>().active = false;
@@ -410,7 +418,7 @@ public class Board : MonoBehaviour {
 
 
 
-    void pause()
+    public void pause()
     {
         paused = !paused;
         currentPiece.GetComponent<Piece>().toggleActive(!paused);
@@ -528,14 +536,14 @@ public class Board : MonoBehaviour {
                         //TODO Implement Marathon Mode
                         if(gameMode == 1)
                         {
-                            int level = rowsCleared / 7;
-                            if(level > 15)
+                            int level = rowsCleared / rowsPerMarathonLevel;
+                            if(level > marathonLevelFallIntervals.Count)
                             {
-                                level = 15;
+                                level = marathonLevelFallIntervals.Count;
                             }
                             uiController.updateMarathonLevelText(level);
                             pieceCurrentLowerTimer = marathonLevelFallIntervals[level];
-                            if(rowsCleared > 15 * 7)
+                            if(rowsCleared > marathonLevelFallIntervals.Count * rowsPerMarathonLevel)
                             {
                                 setGameOver(true);
                             }
@@ -652,6 +660,7 @@ public class Board : MonoBehaviour {
         pieceQueue.GetComponent<PieceQueue>().emptyQueue();
         pieceQueue.GetComponent<PieceQueue>().fillQueue();
         pieceHolder.GetComponent<pieceHolder>().empty();
+        pieceCurrentLowerTimer = 53;
         gameTime = 0;
         rowsCleared = 0;
         paused = false;

@@ -61,7 +61,8 @@ public class Piece : MonoBehaviour {
     public bool spinDirectionCheckFlag = false;
     public int clockwiseLeft = -1;
     public int counterwiseLeft = -1;
-
+    private bool ready = true;
+    //public bool isTrap = false;
 
     public void setSuspend(bool toggle)
     {
@@ -112,6 +113,7 @@ public class Piece : MonoBehaviour {
 
     void fallOnce()
     {
+        //if (Input.GetKey(controlsKeys[softDropIndex]) && !letter)
         if (Input.GetKey(controlsKeys[softDropIndex]) && !letter)
         {
             audioSource.PlayOneShot(slideRotateClip, slideRotateClipVolume);
@@ -1262,9 +1264,15 @@ public class Piece : MonoBehaviour {
                     leftBelowTriangleIndices.Add(trianglesIndices[i] - 3);
                 }
 
-                if(trianglesIndices[i] % 4 == 1)
+
+                //if(trianglesIndices[i] % 4 == 1)
+                //{
+                //    leftAboveTriangleIndices.Add(trianglesIndices[i] - 2);
+                //}
+
+                if (leftAboveTriangleIndices[i] % 4 == 1)
                 {
-                    leftAboveTriangleIndices.Add(trianglesIndices[i] - 2);
+                    leftAboveTriangleIndices.Add(leftAboveTriangleIndices[i] + 2);
                 }
 
                 //if(leftBelowTriangleIndices[i] % 4 == 3)
@@ -1346,6 +1354,22 @@ public class Piece : MonoBehaviour {
             }
             else if (gameBoard.checkEmpty(leftAboveTriangleIndices))
             {
+                //if(isTrap)
+                //{
+                //    List<int> trapHitbox = new List<int>();
+                //    for(int i = 0; i < trianglesIndices.Count; ++i)
+                //    {
+                //        if(trianglesIndices[i] % 4 == 1)
+                //        {
+                //            trapHitbox.Add(trianglesIndices[i] - 2);
+                //            break;
+                //        }
+                //    }
+                //    if(!gameBoard.checkEmpty(trapHitbox))
+                //    {
+                //        return;
+                //    }
+                //}
                 coreTriangle += ( gameBoard.width * 4 - 4);
                 //timer += 0.5f * Time.deltaTime;
                 timer += dropTimeIntervalBase / 2;
@@ -1394,10 +1418,18 @@ public class Piece : MonoBehaviour {
 
 
 
-                if (trianglesIndices[i] % 4 == 3)
+                //if (trianglesIndices[i] % 4 == 3)
+                //{
+                //    rightAboveTriangleIndices.Add(trianglesIndices[i] + 2);
+                //}
+
+
+
+                if (rightAboveTriangleIndices[i] % 4 == 3)
                 {
-                    rightAboveTriangleIndices.Add(trianglesIndices[i] + 2);
+                    rightAboveTriangleIndices.Add(rightAboveTriangleIndices[i] - 2);
                 }
+
                 //if (rightBelowTriangleIndices[i] % 4 == 1)
                 //{
                 //    rightBelowExtraIndicies.Add(rightBelowTriangleIndices[i] - 3);
@@ -1501,6 +1533,22 @@ public class Piece : MonoBehaviour {
             }
             else if (gameBoard.checkEmpty(rightAboveTriangleIndices))
             {
+                //if (isTrap)
+                //{
+                //    List<int> trapHitbox = new List<int>();
+                //    for (int i = 0; i < trianglesIndices.Count; ++i)
+                //    {
+                //        if (trianglesIndices[i] % 4 == 3)
+                //        {
+                //            trapHitbox.Add(trianglesIndices[i] + 2);
+                //            break;
+                //        }
+                //    }
+                //    if (!gameBoard.checkEmpty(trapHitbox))
+                //    {
+                //        return;
+                //    }
+                //}
                 coreTriangle += (gameBoard.width * 4 + 4);
                 //timer += 0.5f * Time.deltaTime;
                 timer += dropTimeIntervalBase / 2;
@@ -1623,9 +1671,9 @@ public class Piece : MonoBehaviour {
     {
         if (active)
         {
+            AudioSource.PlayClipAtPoint(spawnClip, new Vector3(0, 0, 0), spawnClipVolume);
             if (!letter)
             {
-                AudioSource.PlayClipAtPoint(spawnClip, new Vector3(0, 0, 0), spawnClipVolume);
                 dropTimeIntervalBase = gameBoard.getPieceLowerTimer();
                 dropTimeInterval = gameBoard.getPieceLowerTimer();
             }
@@ -1657,7 +1705,8 @@ public class Piece : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (active)
+
+        if (active && ready)
         {
             if(!suspend || (suspend && Input.GetKey(controlsKeys[softDropIndex])))
             {
@@ -1796,6 +1845,11 @@ public class Piece : MonoBehaviour {
                 //    Debug.Log(trianglesIndices[i]);
                 //}
             }
+        }
+        ready = active;
+        if(!active)
+        {
+            dropTimeInterval = dropTimeIntervalBase;
         }
     }
 

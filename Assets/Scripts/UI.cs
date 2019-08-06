@@ -69,9 +69,11 @@ public class UI : MonoBehaviour {
 
     public AudioSource audioSource;
     public AudioClip slideRotateClip;
+    public AudioClip newMenuClip;
 
     public Vector3 mainMenuStartPosition;
     public Vector3 playMenuStartPosition;
+    private Vector3 playMenuStartPositionBase;
 
     public void setGameTimer(float timePassed)
     {
@@ -114,7 +116,8 @@ public class UI : MonoBehaviour {
 
     private void rotateSelector(bool clockwise)
     {
-        if(clockwise)
+        audioSource.PlayOneShot(slideRotateClip);
+        if (clockwise)
         {
             selectorSprite.transform.Rotate(new Vector3(0, 0, -90));
         }
@@ -141,6 +144,11 @@ public class UI : MonoBehaviour {
     //}
     public void endGameUI(int gameMode, bool newHighScoreFlag, int rowsCleared = 0, float gameTime = 0)
     {
+        Debug.Log("Ending Game");
+        Debug.Log(gameMode);
+        Debug.Log(newHighScoreFlag);
+        Debug.Log(rowsCleared);
+        Debug.Log(gameTime);
         gameOverText.SetActive(true);
         if (newHighScoreFlag)
         {
@@ -148,11 +156,13 @@ public class UI : MonoBehaviour {
             if(gameMode == 1)
             {
                 playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + (gameTime < 600 ? "0" : "") + (gameTime < 60 ? "0" : "") + ((int)(gameTime / 60)).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "");
+                Debug.Log(playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text);
                 playMenuText.transform.Find("MARATHON SCORE").gameObject.SetActive(true);
             }
             else if (gameMode == 2)
             {
                 playMenuText.transform.Find("SPRINT SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + (gameTime < 600 ? "0" : "") + (gameTime < 60 ? "0" : "") + ((int)(gameTime / 60)).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "");
+                Debug.Log(playMenuText.transform.Find("SPRINT SCORE").GetComponent<Text>().text);
                 playMenuText.transform.Find("SPRINT SCORE").gameObject.SetActive(true);
             }
             //Debug.Log(newHighScore);
@@ -165,7 +175,7 @@ public class UI : MonoBehaviour {
         selectorSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
         uiIndex = 0;
         mainMenuIndex = 0;
-        playMenuIndex = 0;
+        //playMenuIndex = 0;
     }
 
     public void resetGameUI()
@@ -201,6 +211,7 @@ public class UI : MonoBehaviour {
 	void Start () {
         //startingSelectorPosition = selectorSprite.transform.position;
         selectorSprite.transform.localPosition = mainMenuStartPosition;
+        playMenuStartPositionBase = playMenuStartPosition;
     }
 	
 	// Update is called once per frame
@@ -244,9 +255,24 @@ public class UI : MonoBehaviour {
                     {
                         if (pauseIndex == 0)
                         {
+                            gameBoard.GetComponent<Board>().pause();
+                            pauseText.SetActive(false);
+                            selectorSprite.SetActive(false);
+                            uiIndex = -1;
+                        }
+                        else if (pauseIndex == 1)
+                        {
                             uiIndex = 0;
                             pauseText.SetActive(false);
                             selectorSprite.transform.localPosition = mainMenuStartPosition;
+                            gameBoard.GetComponent<Board>().pieceQueue.SetActive(false);
+                            gameBoard.GetComponent<Board>().pieceHolder.SetActive(false);
+                            gameTimer.gameObject.SetActive(false);
+                            marathonLevelText.gameObject.SetActive(false);
+                            scoreText.SetActive(false);
+                            newHighScoreText.SetActive(false);
+                            highScoreText.SetActive(false);
+                            audioSource.PlayOneShot(newMenuClip, 0.1f);
                         }
                         //else if (pauseIndex == 1)
                         //{
@@ -262,12 +288,13 @@ public class UI : MonoBehaviour {
                         //{
                         //    Application.Quit();
                         //}
-                        else if (pauseIndex == 1)
+                        else if (pauseIndex == 2)
                         {
                             settingsBoard.SetActive(true);
                             uiIndex += 4;
+                            audioSource.PlayOneShot(newMenuClip, 0.1f);
                         }
-                        else if (pauseIndex == 2)
+                        else if (pauseIndex == 3)
                         {
                             Application.Quit();
                         }
@@ -323,6 +350,7 @@ public class UI : MonoBehaviour {
                         //selectorSprite.transform.Translate(new Vector3(0, displace));
                         selectorSprite.transform.position += new Vector3(0, mainMenuDisplace);
                         --mainMenuIndex;
+                        audioSource.PlayOneShot(slideRotateClip);
 
                     }
                     if (Input.GetKeyDown(KeyCode.DownArrow) && mainMenuIndex < mainMenuIndexMax)
@@ -330,6 +358,7 @@ public class UI : MonoBehaviour {
                         //selectorSprite.transform.Translate(new Vector3(0, -displace));
                         selectorSprite.transform.position -= new Vector3(0, mainMenuDisplace);
                         ++mainMenuIndex;
+                        audioSource.PlayOneShot(slideRotateClip);
                     }
                 }
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -346,16 +375,23 @@ public class UI : MonoBehaviour {
                     //    scoreText.SetActive(true);
                     //    uiIndex = -1;
                     //}
+                    audioSource.PlayOneShot(newMenuClip, 0.1f);
                     if (mainMenuIndex == 0)
                     {
                         uiIndex = 1;
-                        playMenuIndex = 0;
+                        //playMenuIndex = 0;
+                        //selectorSprite.transform.localPosition = playMenuStartPosition;
                         selectorSprite.transform.localPosition = playMenuStartPosition;
                         gameTimer.gameObject.SetActive(false);
                         marathonLevelText.gameObject.SetActive(false);
                         scoreText.SetActive(false);
                         newHighScoreText.SetActive(false);
                         highScoreText.SetActive(false);
+                        gameOverText.SetActive(false);
+                        if(playMenuIndex == 0)
+                        {
+                            selectorSprite.transform.localPosition = playMenuStartPositionBase;
+                        }
                     }
                     else if (mainMenuIndex == 1)
                     {
@@ -387,12 +423,19 @@ public class UI : MonoBehaviour {
                     controlsInfoBox.SetActive(false);
                 }
             }
+            // Game Mode Menu
             else if (uiIndex == 1)
             {
-                // TODO: NOW
                 mainMenuText.SetActive(false);
                 playMenuText.SetActive(true);
 
+                if (Input.GetKeyDown(replayTitleKey))
+                {
+                    replayTitle();
+                    playMenuText.SetActive(false);
+                    selectorSprite.transform.localPosition = mainMenuStartPosition;
+                    uiIndex = 0;
+                }
                 if (Input.GetKeyDown(rotateRightKey))
                 {
                     rotateSelector(true);
@@ -405,6 +448,7 @@ public class UI : MonoBehaviour {
                 {
                     //selectorSprite.transform.Translate(new Vector3(0, displace));
                     selectorSprite.transform.position += new Vector3(0, playMenuDisplace);
+                    audioSource.PlayOneShot(slideRotateClip);
                     --playMenuIndex;
 
                 }
@@ -412,6 +456,7 @@ public class UI : MonoBehaviour {
                 {
                     //selectorSprite.transform.Translate(new Vector3(0, -displace));
                     selectorSprite.transform.position -= new Vector3(0, playMenuDisplace);
+                    audioSource.PlayOneShot(slideRotateClip);
                     ++playMenuIndex;
                 }
                 gameModeDescriptionText.text = gameModeDescriptions[playMenuIndex];
@@ -432,6 +477,7 @@ public class UI : MonoBehaviour {
                         gameBoard.GetComponent<Board>().startGame();
                         marathonLevelText.gameObject.SetActive(false);
                         scoreText.SetActive(true);
+                        playMenuStartPosition = selectorSprite.transform.localPosition;
                         uiIndex = -1;
                         Debug.Log("Rest Selected");
                     }
@@ -451,6 +497,7 @@ public class UI : MonoBehaviour {
                         gameTimer.gameObject.SetActive(true);
                         marathonLevelText.gameObject.SetActive(true);
                         updateMarathonLevelText(0);
+                        playMenuStartPosition = selectorSprite.transform.localPosition;
                         uiIndex = -1;
                         Debug.Log("Marathon Selected");
                     }
@@ -464,10 +511,11 @@ public class UI : MonoBehaviour {
                         authorText.SetActive(false);
                         settings.setGameMode(2);
                         settings.updateAll();
-                        scoreText.GetComponent<Text>().text = "Rows Left: 7";
+                        scoreText.GetComponent<Text>().text = "Rows Left: " + gameBoard.GetComponent<Board>().getMarathonLevelsCount();
                         gameBoard.GetComponent<Board>().startGame();
                         scoreText.SetActive(true);
                         marathonLevelText.gameObject.SetActive(false);
+                        playMenuStartPosition = selectorSprite.transform.localPosition;
                         gameTimer.gameObject.SetActive(true);
                         uiIndex = -1;
                         Debug.Log("Sprint Selected");
@@ -477,6 +525,9 @@ public class UI : MonoBehaviour {
                         uiIndex = 0;
                         playMenuText.SetActive(false);
                         selectorSprite.transform.localPosition = mainMenuStartPosition;
+                        playMenuIndex = 0;
+                        audioSource.PlayOneShot(newMenuClip, 0.1f);
+                        //selectorSprite.transform.localPosition = playMenuStartPositionBase;
                     }
                 }
                 if (Input.GetKeyDown(KeyCode.Escape))
