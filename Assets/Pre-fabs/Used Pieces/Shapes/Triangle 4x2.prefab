@@ -184,3 +184,4 @@ MonoBehaviour:
   spinDirectionCheckFlag: 1
   clockwiseLeft: 3
   counterwiseLeft: 2
+  lockBufferBase: 1

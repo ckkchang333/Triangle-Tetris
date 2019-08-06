@@ -63,6 +63,7 @@ public class Piece : MonoBehaviour {
     public int counterwiseLeft = -1;
     private bool ready = true;
     //public bool isTrap = false;
+    public bool fellLastFrame = false;
 
     public void setSuspend(bool toggle)
     {
@@ -148,10 +149,11 @@ public class Piece : MonoBehaviour {
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle -= gameBoard.width * 4;
             updateTriangleIndices();
+            fellLastFrame = true;
         }
         else
         {
-            if(!suspend || (suspend && Input.GetKeyDown(controlsKeys[lockInIndex])))
+            if((!suspend || (suspend && Input.GetKeyDown(controlsKeys[lockInIndex]) )) && !fellLastFrame)
             {
                 gameBoard.setPerm(trianglesIndices);
                 Destroy(this.gameObject);
@@ -1601,6 +1603,7 @@ public class Piece : MonoBehaviour {
             //audioSource.PlayOneShot(hardDropClip);
             AudioSource.PlayClipAtPoint(hardDropClip, new Vector3(0, 0, 0), hardDropClipVolume);
             //AudioSource.PlayClipAtPoint()
+            fellLastFrame = false;
         }
     }
 
@@ -1713,8 +1716,12 @@ public class Piece : MonoBehaviour {
                 //timer -= Time.deltaTime;
                 timer -= 1;
             }
+            if (fellLastFrame)
+            {
+                fellLastFrame = false;
+            }
             //rotate();
-            if(Input.GetKeyDown(controlsKeys[rotateLeftIndex]))
+            if (Input.GetKeyDown(controlsKeys[rotateLeftIndex]))
             {
                 rotateNeo(true);
             }
