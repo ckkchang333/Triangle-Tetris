@@ -22,7 +22,7 @@ public class SettingsMenu : MonoBehaviour {
     public Text rightArrText;
 
     public GameObject selectorKeys;
-    public GameObject selectorTriangles;
+    public GameObject selectorParameters;
     public GameObject selectorReset;
 
     public GameObject lockDelaySelector;
@@ -68,6 +68,11 @@ public class SettingsMenu : MonoBehaviour {
 
 
     public Text keyText;
+
+    public Vector3 selectorKeyLocalTop;
+    public Vector3 selectorKeyLocalBottom;
+    public Vector3 selectorParameterLocalTop;
+    public Vector3 selectorParameterLocalBottom;
 
     public void updateAllSettings()
     {
@@ -173,9 +178,9 @@ public class SettingsMenu : MonoBehaviour {
     public void resetSelectorPosition()
     {
         menuIndex = 0;
-        selectorTriangles.transform.position = startingTriangleSelectorPosition;
+        selectorParameters.transform.position = startingTriangleSelectorPosition;
         selectorKeys.transform.position = startingSelectorKeysPosition;
-        selectorTriangles.SetActive(true);
+        selectorParameters.SetActive(true);
         selectorReset.SetActive(false);
     }
 
@@ -183,7 +188,7 @@ public class SettingsMenu : MonoBehaviour {
     void Start ()
     {
         startingSelectorKeysPosition = selectorKeys.transform.position;
-        startingTriangleSelectorPosition = selectorTriangles.transform.position;
+        startingTriangleSelectorPosition = selectorParameters.transform.position;
 
 
         leftDasText.text = leftDasValue.ToString();
@@ -214,7 +219,7 @@ public class SettingsMenu : MonoBehaviour {
             if (menuIndex <= 10)
             {
                 selectorKeys.SetActive(true);
-                selectorTriangles.SetActive(false);
+                selectorParameters.SetActive(false);
                 selectorReset.SetActive(false);
                 spaceSelectPrompt.SetActive(false);
                 lockDelaySelector.SetActive(false);
@@ -223,7 +228,7 @@ public class SettingsMenu : MonoBehaviour {
             else if (menuIndex == 11)
             {
                 selectorKeys.SetActive(false);
-                selectorTriangles.SetActive(false);
+                selectorParameters.SetActive(false);
                 selectorReset.SetActive(false);
                 spaceSelectPrompt.SetActive(true);
                 lockDelaySelector.SetActive(true);
@@ -232,7 +237,7 @@ public class SettingsMenu : MonoBehaviour {
             else if (menuIndex >= 11 && menuIndex <= 15)
             {
                 selectorKeys.SetActive(false);
-                selectorTriangles.SetActive(true);
+                selectorParameters.SetActive(true);
                 selectorReset.SetActive(false);
                 spaceSelectPrompt.SetActive(false);
                 lockDelaySelector.SetActive(false);
@@ -241,45 +246,57 @@ public class SettingsMenu : MonoBehaviour {
             else if (menuIndex == 16)
             {
                 selectorKeys.SetActive(false);
-                selectorTriangles.SetActive(false);
+                selectorParameters.SetActive(false);
                 selectorReset.SetActive(true);
                 spaceSelectPrompt.SetActive(true);
                 lockDelaySelector.SetActive(false);
                 spaceRebindPrompt.SetActive(false);
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow) && menuIndex < 16)
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 ++menuIndex;
-                if (menuIndex <= 10)
+                if (menuIndex > 16)
+                {
+                    menuIndex = 0;
+                    selectorKeys.transform.localPosition = selectorKeyLocalTop;
+                    selectorParameters.transform.localPosition = selectorParameterLocalTop;
+                }
+                else if (menuIndex <= 10)
                 {
                     selectorKeys.transform.position -= new Vector3(0, displaceKeys);
                 }
                 else if (menuIndex > 12 && menuIndex <= 15)
                 {
-                    selectorTriangles.transform.position -= new Vector3(0, displaceParameters);
+                    selectorParameters.transform.position -= new Vector3(0, displaceParameters);
                 }
 
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow) && menuIndex > 0)
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 --menuIndex;
-                if (menuIndex < 10)
+                if (menuIndex < 0)
+                {
+                    menuIndex = 16;
+                    selectorKeys.transform.localPosition = selectorKeyLocalBottom;
+                    selectorParameters.transform.localPosition = selectorParameterLocalBottom;
+                }
+                else if (menuIndex < 10)
                 {
                     selectorKeys.transform.position += new Vector3(0, displaceKeys);
                 }
                 else if (menuIndex >= 12 && menuIndex < 15)
                 {
-                    selectorTriangles.transform.position += new Vector3(0, displaceParameters);
+                    selectorParameters.transform.position += new Vector3(0, displaceParameters);
                 }
                 //if (menuIndex == 4)
                 //{
-                //    selectorTriangles.SetActive(true);
+                //    selectorParameters.SetActive(true);
                 //    selectorReset.SetActive(false);
                 //    spaceSelectPrompt.SetActive(false);
                 //}
                 //else
                 //{
-                //    selectorTriangles.transform.position += new Vector3(0, displaceParameters);
+                //    selectorParameters.transform.position += new Vector3(0, displaceParameters);
                 //}
 
             }
@@ -289,76 +306,76 @@ public class SettingsMenu : MonoBehaviour {
             {
                 if (leftDasValue == dasMin)
                 {
-                    selectorTriangles.transform.GetChild(0).gameObject.SetActive(false);
+                    selectorParameters.transform.GetChild(0).gameObject.SetActive(false);
                 }
                 else
                 {
-                    selectorTriangles.transform.GetChild(0).gameObject.SetActive(true);
+                    selectorParameters.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 if (leftDasValue == dasMax)
                 {
-                    selectorTriangles.transform.GetChild(1).gameObject.SetActive(false);
+                    selectorParameters.transform.GetChild(1).gameObject.SetActive(false);
                 }
                 else
                 {
-                    selectorTriangles.transform.GetChild(1).gameObject.SetActive(true);
+                    selectorParameters.transform.GetChild(1).gameObject.SetActive(true);
                 }
             }
             else if (menuIndex == 1)
             {
                 if (leftArrValue == arrMin)
                 {
-                    selectorTriangles.transform.GetChild(0).gameObject.SetActive(false);
+                    selectorParameters.transform.GetChild(0).gameObject.SetActive(false);
                 }
                 else
                 {
-                    selectorTriangles.transform.GetChild(0).gameObject.SetActive(true);
+                    selectorParameters.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 if (leftArrValue == arrMax)
                 {
-                    selectorTriangles.transform.GetChild(1).gameObject.SetActive(false);
+                    selectorParameters.transform.GetChild(1).gameObject.SetActive(false);
                 }
                 else
                 {
-                    selectorTriangles.transform.GetChild(1).gameObject.SetActive(true);
+                    selectorParameters.transform.GetChild(1).gameObject.SetActive(true);
                 }
             }
             else if (menuIndex == 2)
             {
                 if (rightDasValue == dasMin)
                 {
-                    selectorTriangles.transform.GetChild(0).gameObject.SetActive(false);
+                    selectorParameters.transform.GetChild(0).gameObject.SetActive(false);
                 }
                 else
                 {
-                    selectorTriangles.transform.GetChild(0).gameObject.SetActive(true);
+                    selectorParameters.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 if (rightDasValue == dasMax)
                 {
-                    selectorTriangles.transform.GetChild(1).gameObject.SetActive(false);
+                    selectorParameters.transform.GetChild(1).gameObject.SetActive(false);
                 }
                 else
                 {
-                    selectorTriangles.transform.GetChild(1).gameObject.SetActive(true);
+                    selectorParameters.transform.GetChild(1).gameObject.SetActive(true);
                 }
             }
             else if (menuIndex == 3)
             {
                 if (rightArrValue == arrMin)
                 {
-                    selectorTriangles.transform.GetChild(0).gameObject.SetActive(false);
+                    selectorParameters.transform.GetChild(0).gameObject.SetActive(false);
                 }
                 else
                 {
-                    selectorTriangles.transform.GetChild(0).gameObject.SetActive(true);
+                    selectorParameters.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 if (rightArrValue == arrMax)
                 {
-                    selectorTriangles.transform.GetChild(1).gameObject.SetActive(false);
+                    selectorParameters.transform.GetChild(1).gameObject.SetActive(false);
                 }
                 else
                 {
-                    selectorTriangles.transform.GetChild(1).gameObject.SetActive(true);
+                    selectorParameters.transform.GetChild(1).gameObject.SetActive(true);
                 }
             }
 
