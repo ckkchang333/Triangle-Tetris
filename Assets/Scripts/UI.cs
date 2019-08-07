@@ -48,8 +48,7 @@ public class UI : MonoBehaviour {
 
     public bool active;
     public int uiIndex;
-
-    private Vector3 startingSelectorPosition;
+    
 
     public SettingsManager settings;
 
@@ -219,28 +218,50 @@ public class UI : MonoBehaviour {
 		if(active)
         {
 
-            // Game Paused
+            // Game Paused      pause Menu
             if (uiIndex == -2)
             {
                 pauseText.SetActive(true);
                 selectorSprite.SetActive(true);
                 if (!controlsVisible)
                 {
-                    if (Input.GetKeyDown(KeyCode.UpArrow) && pauseIndex > 0)
+                    //if (Input.GetKeyDown(KeyCode.UpArrow) && pauseIndex > 0)
+                    //{
+                    //    //selectorSprite.transform.Translate(new Vector3(0, displace));
+                    //    selectorSprite.transform.position += new Vector3(0, mainMenuDisplace);
+                    //    pauseIndex = --pauseIndex;
+                    //    audioSource.PlayOneShot(slideRotateClip);
+
+                    //}
+                    //if (Input.GetKeyDown(KeyCode.DownArrow) && pauseIndex < pauseMaxIndex)
+                    //{
+                    //    //selectorSprite.transform.Translate(new Vector3(0, -displace));
+                    //    selectorSprite.transform.position -= new Vector3(0, mainMenuDisplace);
+                    //    pauseIndex = ++pauseIndex;
+                    //    audioSource.PlayOneShot(slideRotateClip);
+                    //}
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
                         //selectorSprite.transform.Translate(new Vector3(0, displace));
-                        selectorSprite.transform.position += new Vector3(0, mainMenuDisplace);
                         pauseIndex = --pauseIndex;
                         audioSource.PlayOneShot(slideRotateClip);
 
                     }
-                    if (Input.GetKeyDown(KeyCode.DownArrow) && pauseIndex < pauseMaxIndex)
+                    if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
                         //selectorSprite.transform.Translate(new Vector3(0, -displace));
-                        selectorSprite.transform.position -= new Vector3(0, mainMenuDisplace);
                         pauseIndex = ++pauseIndex;
                         audioSource.PlayOneShot(slideRotateClip);
                     }
+                    if(pauseIndex < 0)
+                    {
+                        pauseIndex = pauseMaxIndex;
+                    }
+                    else if(pauseIndex > pauseMaxIndex)
+                    {
+                        pauseIndex = 0;
+                    }
+                    selectorSprite.transform.localPosition = mainMenuStartPosition - new Vector3(0, pauseIndex * mainMenuDisplace);
                     if (Input.GetKeyDown(rotateRightKey))
                     {
                         rotateSelector(true);
@@ -345,7 +366,22 @@ public class UI : MonoBehaviour {
                     {
                         rotateSelector(false);
                     }
-                    if (Input.GetKeyDown(KeyCode.UpArrow) && mainMenuIndex > 0)
+                    //if (Input.GetKeyDown(KeyCode.UpArrow) && mainMenuIndex > 0)
+                    //{
+                    //    //selectorSprite.transform.Translate(new Vector3(0, displace));
+                    //    selectorSprite.transform.position += new Vector3(0, mainMenuDisplace);
+                    //    --mainMenuIndex;
+                    //    audioSource.PlayOneShot(slideRotateClip);
+
+                    //}
+                    //if (Input.GetKeyDown(KeyCode.DownArrow) && mainMenuIndex < mainMenuIndexMax)
+                    //{
+                    //    //selectorSprite.transform.Translate(new Vector3(0, -displace));
+                    //    selectorSprite.transform.position -= new Vector3(0, mainMenuDisplace);
+                    //    ++mainMenuIndex;
+                    //    audioSource.PlayOneShot(slideRotateClip);
+                    //}
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
                         //selectorSprite.transform.Translate(new Vector3(0, displace));
                         selectorSprite.transform.position += new Vector3(0, mainMenuDisplace);
@@ -353,13 +389,24 @@ public class UI : MonoBehaviour {
                         audioSource.PlayOneShot(slideRotateClip);
 
                     }
-                    if (Input.GetKeyDown(KeyCode.DownArrow) && mainMenuIndex < mainMenuIndexMax)
+                    if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
                         //selectorSprite.transform.Translate(new Vector3(0, -displace));
                         selectorSprite.transform.position -= new Vector3(0, mainMenuDisplace);
                         ++mainMenuIndex;
                         audioSource.PlayOneShot(slideRotateClip);
                     }
+                    if(mainMenuIndex < 0)
+                    {
+                        mainMenuIndex = mainMenuIndexMax;
+                    }
+                    else if(mainMenuIndex > mainMenuIndexMax)
+                    {
+                        mainMenuIndex = 0;
+                    }
+
+                    selectorSprite.transform.localPosition = mainMenuStartPosition - new Vector3(0, mainMenuIndex * mainMenuDisplace);
+
                 }
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -381,7 +428,8 @@ public class UI : MonoBehaviour {
                         uiIndex = 1;
                         //playMenuIndex = 0;
                         //selectorSprite.transform.localPosition = playMenuStartPosition;
-                        selectorSprite.transform.localPosition = playMenuStartPosition;
+                        //selectorSprite.transform.localPosition = playMenuStartPosition;
+                        selectorSprite.transform.localPosition = playMenuStartPosition - new Vector3(0, playMenuIndex * playMenuDisplace);
                         gameTimer.gameObject.SetActive(false);
                         marathonLevelText.gameObject.SetActive(false);
                         scoreText.SetActive(false);
@@ -444,21 +492,45 @@ public class UI : MonoBehaviour {
                 {
                     rotateSelector(false);
                 }
-                if (Input.GetKeyDown(KeyCode.UpArrow) && playMenuIndex > 0)
+                //if (Input.GetKeyDown(KeyCode.UpArrow) && playMenuIndex > 0)
+                //{
+                //    //selectorSprite.transform.Translate(new Vector3(0, displace));
+                //    selectorSprite.transform.position += new Vector3(0, playMenuDisplace);
+                //    audioSource.PlayOneShot(slideRotateClip);
+                //    --playMenuIndex;
+
+                //}
+                //if (Input.GetKeyDown(KeyCode.DownArrow) && playMenuIndex < playMenuIndexMax)
+                //{
+                //    //selectorSprite.transform.Translate(new Vector3(0, -displace));
+                //    selectorSprite.transform.position -= new Vector3(0, playMenuDisplace);
+                //    audioSource.PlayOneShot(slideRotateClip);
+                //    ++playMenuIndex;
+                //}
+                if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     //selectorSprite.transform.Translate(new Vector3(0, displace));
-                    selectorSprite.transform.position += new Vector3(0, playMenuDisplace);
+                    //selectorSprite.transform.position += new Vector3(0, playMenuDisplace);
                     audioSource.PlayOneShot(slideRotateClip);
                     --playMenuIndex;
 
                 }
-                if (Input.GetKeyDown(KeyCode.DownArrow) && playMenuIndex < playMenuIndexMax)
+                if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     //selectorSprite.transform.Translate(new Vector3(0, -displace));
-                    selectorSprite.transform.position -= new Vector3(0, playMenuDisplace);
+                    //selectorSprite.transform.position -= new Vector3(0, playMenuDisplace);
                     audioSource.PlayOneShot(slideRotateClip);
                     ++playMenuIndex;
                 }
+                if(playMenuIndex < 0)
+                {
+                    playMenuIndex = playMenuIndexMax;
+                }
+                else if (playMenuIndex > playMenuIndexMax)
+                {
+                    playMenuIndex = 0;
+                }
+                selectorSprite.transform.localPosition = playMenuStartPosition - new Vector3(0, playMenuIndex * playMenuDisplace);
                 gameModeDescriptionText.text = gameModeDescriptions[playMenuIndex];
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -477,7 +549,7 @@ public class UI : MonoBehaviour {
                         gameBoard.GetComponent<Board>().startGame();
                         marathonLevelText.gameObject.SetActive(false);
                         scoreText.SetActive(true);
-                        playMenuStartPosition = selectorSprite.transform.localPosition;
+                        //playMenuStartPosition = selectorSprite.transform.localPosition;
                         uiIndex = -1;
                         Debug.Log("Rest Selected");
                     }
@@ -497,7 +569,7 @@ public class UI : MonoBehaviour {
                         gameTimer.gameObject.SetActive(true);
                         marathonLevelText.gameObject.SetActive(true);
                         updateMarathonLevelText(0);
-                        playMenuStartPosition = selectorSprite.transform.localPosition;
+                        //playMenuStartPosition = selectorSprite.transform.localPosition;
                         uiIndex = -1;
                         Debug.Log("Marathon Selected");
                     }
@@ -515,7 +587,7 @@ public class UI : MonoBehaviour {
                         gameBoard.GetComponent<Board>().startGame();
                         scoreText.SetActive(true);
                         marathonLevelText.gameObject.SetActive(false);
-                        playMenuStartPosition = selectorSprite.transform.localPosition;
+                        //playMenuStartPosition = selectorSprite.transform.localPosition;
                         gameTimer.gameObject.SetActive(true);
                         uiIndex = -1;
                         Debug.Log("Sprint Selected");

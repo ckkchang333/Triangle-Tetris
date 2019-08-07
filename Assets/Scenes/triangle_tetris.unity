@@ -12473,11 +12473,11 @@ MonoBehaviour:
   authorText: {fileID: 623284006}
   mainMenuIndex: 0
   mainMenuIndexMax: 2
-  mainMenuDisplace: 1.41
+  mainMenuDisplace: 85
   playMenuText: {fileID: 1428662225}
   playMenuIndex: 0
   playMenuIndexMax: 3
-  playMenuDisplace: 1.5
+  playMenuDisplace: 90
   gameTimer: {fileID: 937538198}
   gameModeDescriptions:
   - Pieces move only when you move them
