@@ -33,6 +33,8 @@ public class Board : MonoBehaviour {
     public Text gameOverText;
     public Text startText;
     public Text pausedText;
+    public Text highscoreRowsText;
+    public Text highscoreTimeText;
     public List<GameObject> titlePieces;
     public GameObject uiObject;
     private UI uiController;
@@ -64,8 +66,10 @@ public class Board : MonoBehaviour {
 
 
     public int gameMode = -1;
+    private bool marathonRecordSetFlag = false;
     public int marathonRecordRows = 0;
     public float marathonRecordTime = float.MaxValue;
+    private bool sprintRecordSetFlag = false;
     public int sprintRecordRows = 0;
     public float sprintRecordTime = float.MaxValue;
 
@@ -196,6 +200,7 @@ public class Board : MonoBehaviour {
                 if (marathonRecordRows < rowsCleared)
                 {
                     newHighScoreFlag = true;
+                    marathonRecordSetFlag = true;
                     marathonRecordRows = rowsCleared;
                     marathonRecordTime = gameTime;
                 }
@@ -205,6 +210,7 @@ public class Board : MonoBehaviour {
                 if (marathonRecordTime > gameTime)
                 {
                     newHighScoreFlag = true;
+                    marathonRecordSetFlag = true;
                     marathonRecordRows = rowsCleared;
                     marathonRecordTime = gameTime;
                 }
@@ -217,8 +223,9 @@ public class Board : MonoBehaviour {
             {
                 if (sprintRecordRows < rowsCleared)
                 {
-                    Debug.Log("New Sprint Time High Score Row");
+                    //Debug.Log("New Sprint Time High Score Row");
                     newHighScoreFlag = true;
+                    sprintRecordSetFlag = true;
                     sprintRecordRows = rowsCleared;
                     sprintRecordTime = gameTime;
                 }
@@ -228,7 +235,8 @@ public class Board : MonoBehaviour {
                 if (sprintRecordTime > gameTime)
                 {
                     newHighScoreFlag = true;
-                    Debug.Log("New Sprint Time High Score Time");
+                    //Debug.Log("New Sprint Time High Score Time");
+                    sprintRecordSetFlag = true;
                     sprintRecordRows = rowsCleared;
                     sprintRecordTime = gameTime;
                 }
@@ -527,11 +535,19 @@ public class Board : MonoBehaviour {
                                 rowsLeft = 0;
                                 setGameOver(true);
                             }
+                            if(rowsCleared > sprintRecordRows)
+                            {
+                                highscoreRowsText.color = Color.green;
+                            }
                             scoreText.text = "Rows Left: " + rowsLeft.ToString();
                         }
                         else
                         {
                             scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
+                            if (rowsCleared > marathonRecordRows)
+                            {
+                                highscoreRowsText.color = Color.green;
+                            }
                         }
                         //TODO Implement Marathon Mode
                         if(gameMode == 1)
@@ -665,6 +681,27 @@ public class Board : MonoBehaviour {
         rowsCleared = 0;
         paused = false;
         active = true;
+        if(gameMode == 1 && marathonRecordSetFlag)
+        {
+            highscoreRowsText.gameObject.SetActive(true);
+            highscoreRowsText.text = "HI: " + marathonRecordRows;
+            highscoreRowsText.color = Color.red;
+
+            highscoreTimeText.gameObject.SetActive(true);
+            highscoreTimeText.text = "HI: " + ((int) marathonRecordTime / 60).ToString() + ":" + (marathonRecordTime % 60 < 10 ? "0" : "") + (Mathf.Round(marathonRecordTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(marathonRecordTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(marathonRecordTime % 60 * 100) % 10 == 0 ? "0" : "");
+            highscoreTimeText.color = Color.green;
+        }
+        else if(gameMode == 2 && sprintRecordSetFlag)
+        {
+
+            highscoreRowsText.gameObject.SetActive(true);
+            highscoreRowsText.text = "HI: " + sprintRecordRows;
+            highscoreRowsText.color = Color.red;
+
+            highscoreTimeText.gameObject.SetActive(true);
+            highscoreTimeText.text = "HI: " + ((int)marathonRecordTime / 60).ToString() + ":" + (marathonRecordTime % 60 < 10 ? "0" : "") + (Mathf.Round(marathonRecordTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(marathonRecordTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(sprintRecordTime % 60 * 100) % 10 == 0 ? "0" : ""); ;
+            highscoreTimeText.color = Color.green;
+        }
     }
     
     public int getGhostCoreTriangle()
@@ -703,6 +740,20 @@ public class Board : MonoBehaviour {
             if(!paused)
             {
                 gameTime += Time.deltaTime;
+                if(gameMode == 1)
+                {
+                    if(gameTime > marathonRecordTime)
+                    {
+                        highscoreTimeText.color = Color.red;
+                    }
+                }
+                else if(gameMode == 2)
+                {
+                    if(gameTime > sprintRecordTime)
+                    {
+                        highscoreTimeText.color = Color.red;
+                    }
+                }
             }
             uiController.setGameTimer(gameTime);
             if (currentPiece == null && pieceQueue != null && !gameOver)
