@@ -21,6 +21,8 @@ public class UI : MonoBehaviour {
     public Text gameTimer;
     public List<string> gameModeDescriptions;
     public Text gameModeDescriptionText;
+    public GameObject creditsBoard;
+    private bool displayingCredits;
 
     [Header("Controls")]
     public GameObject controlsInfoBox;
@@ -182,7 +184,7 @@ public class UI : MonoBehaviour {
         pauseText.SetActive(false);
         selectorSprite.SetActive(false);
         uiIndex = -1;
-        if(playMenuIndex == 3)
+        if(playMenuIndex == 2)
         {
             scoreText.GetComponent<Text>().text = "Rows Left: 40";
         }
@@ -191,7 +193,7 @@ public class UI : MonoBehaviour {
             scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
         }
 
-        if(playMenuIndex == 2)
+        if(playMenuIndex == 3)
         {
             updateMarathonLevelText(0);
         }
@@ -408,7 +410,7 @@ public class UI : MonoBehaviour {
                     selectorSprite.transform.localPosition = mainMenuStartPosition - new Vector3(0, mainMenuIndex * mainMenuDisplace);
 
                 }
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) && !displayingCredits)
                 {
                     //if(mainMenuIndex == 0)
                     //{
@@ -447,6 +449,12 @@ public class UI : MonoBehaviour {
                     }
                     else if (mainMenuIndex == 2)
                     {
+                        creditsBoard.SetActive(true);
+                        displayingCredits = true;
+                        
+                    }
+                    else if (mainMenuIndex == 3)
+                    {
                         //Debug.Log("Quitting");
                         Application.Quit();
                     }
@@ -465,10 +473,15 @@ public class UI : MonoBehaviour {
                     //    Application.Quit();
                     //}
                 }
-                if (Input.GetKeyDown(KeyCode.Escape))
+                //if (Input.GetKeyDown(KeyCode.Escape))
+                //{
+                //    controlsVisible = false;
+                //    controlsInfoBox.SetActive(false);
+                //}
+                if (Input.GetKeyDown(KeyCode.Escape) && displayingCredits)
                 {
-                    controlsVisible = false;
-                    controlsInfoBox.SetActive(false);
+                    creditsBoard.SetActive(false);
+                    displayingCredits = false;
                 }
             }
             // Game Mode Menu
@@ -563,12 +576,11 @@ public class UI : MonoBehaviour {
                         authorText.SetActive(false);
                         settings.setGameMode(1);
                         settings.updateAll();
-                        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
+                        scoreText.GetComponent<Text>().text = "Rows Left: " + gameBoard.GetComponent<Board>().getMarathonLevelsCount();
                         gameBoard.GetComponent<Board>().startGame();
                         scoreText.SetActive(true);
                         gameTimer.gameObject.SetActive(true);
-                        marathonLevelText.gameObject.SetActive(true);
-                        updateMarathonLevelText(0);
+                        marathonLevelText.gameObject.SetActive(false);
                         //playMenuStartPosition = selectorSprite.transform.localPosition;
                         uiIndex = -1;
                         Debug.Log("Marathon Selected");
@@ -583,12 +595,13 @@ public class UI : MonoBehaviour {
                         authorText.SetActive(false);
                         settings.setGameMode(2);
                         settings.updateAll();
-                        scoreText.GetComponent<Text>().text = "Rows Left: " + gameBoard.GetComponent<Board>().getMarathonLevelsCount();
+                        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
                         gameBoard.GetComponent<Board>().startGame();
                         scoreText.SetActive(true);
-                        marathonLevelText.gameObject.SetActive(false);
                         //playMenuStartPosition = selectorSprite.transform.localPosition;
                         gameTimer.gameObject.SetActive(true);
+                        marathonLevelText.gameObject.SetActive(true);
+                        updateMarathonLevelText(0);
                         uiIndex = -1;
                         Debug.Log("Sprint Selected");
                     }
