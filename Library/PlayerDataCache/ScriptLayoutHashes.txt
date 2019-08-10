@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-D:/game prototypes/Triangle Tetris/Builds/TANGI_v0.2.1/TANGI_v0.2.1.exe
+D:/game prototypes/Triangle Tetris/Builds/TANGI_v0.2.2/TANGI_v0.2.2.exe
 SceneListBegin?
 Assets/Scenes/triangle_tetris.unity
 SceneListEnd?
@@ -17,7 +17,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-1e2fae3a4ec0e3c8ffe9a46575221d4a Assembly-CSharp.dll:.SettingsMenu
+45ed6294b26d4222343661d759b40a34 Assembly-CSharp.dll:.SettingsMenu
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -50,7 +50,7 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-3c4fa5d51dc744cf6df9b44f7fea4216 Assembly-CSharp.dll:.UI
+69c5eeeeb4396d1db6fe2dfece08000d Assembly-CSharp.dll:.UI
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -118,7 +118,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 ac49f760968102c1b0d378496ef7861d Assembly-CSharp.dll:.Sprite
-ba0a50b4714f75a604d726dc31aee2be Assembly-CSharp.dll:.Piece
+e51d114d3b6e15c0892c1791ff8e1a50 Assembly-CSharp.dll:.Piece
 acd1749b1393dfac0c98125d777bcbcc Assembly-CSharp.dll:.PieceQueue
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -151,7 +151,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
-626519be63dd15a5325fe1fb0ab9acca Assembly-CSharp.dll:.Board
+4fe038a186a007e1fb70c678ba19503f Assembly-CSharp.dll:.Board
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 793277ce7e0c3af9c7581df69fcf5cea Assembly-CSharp.dll:.SettingsManager
 080737a7dec600135e8f76d7f33e7caa Assembly-CSharp.dll:.Block

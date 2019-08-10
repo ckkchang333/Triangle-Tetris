@@ -75,10 +75,11 @@ public class UI : MonoBehaviour {
     public Vector3 mainMenuStartPosition;
     public Vector3 playMenuStartPosition;
     private Vector3 playMenuStartPositionBase;
+    public Vector3 pauseMenuStartPosition;
 
     public void setGameTimer(float timePassed)
     {
-        gameTimer.text = ((int)timePassed / 60).ToString() + ":" + (timePassed % 60 < 10 ? "0" : "") + (Mathf.Round(timePassed % 60 * 100) / 100.0f).ToString() + (Mathf.Round(timePassed % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(timePassed % 60 * 100) % 10 == 0 ? "0" : "");
+        gameTimer.text = ((int)timePassed / 60).ToString() + ":" + (timePassed % 60 < 10 ? "0" : "") + (Mathf.Round(timePassed % 60 * 100) / 100.0f).ToString() + (Mathf.Round(timePassed % 60 * 100) % 1 != 0 ? ((Mathf.Round(timePassed % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(timePassed % 60 * 100) % 10 == 0 ? "0" : "")) : "");
         //if(timePassed < 60)
         //{
         //    gameTimer.text = timePassed.ToString();
@@ -156,15 +157,15 @@ public class UI : MonoBehaviour {
             newHighScoreText.SetActive(true);
             if(gameMode == 1)
             {
-                playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + (gameTime < 600 ? "0" : "") + (gameTime < 60 ? "0" : "") + ((int)(gameTime / 60)).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "");
-                Debug.Log(playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text);
-                playMenuText.transform.Find("MARATHON SCORE").gameObject.SetActive(true);
-            }
-            else if (gameMode == 2)
-            {
                 playMenuText.transform.Find("SPRINT SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + (gameTime < 600 ? "0" : "") + (gameTime < 60 ? "0" : "") + ((int)(gameTime / 60)).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "");
                 Debug.Log(playMenuText.transform.Find("SPRINT SCORE").GetComponent<Text>().text);
                 playMenuText.transform.Find("SPRINT SCORE").gameObject.SetActive(true);
+            }
+            else if (gameMode == 2)
+            {
+                playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + (gameTime < 600 ? "0" : "") + (gameTime < 60 ? "0" : "") + ((int)(gameTime / 60)).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "");
+                Debug.Log(playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text);
+                playMenuText.transform.Find("MARATHON SCORE").gameObject.SetActive(true);
             }
             //Debug.Log(newHighScore);
             //highScoreText.GetComponent<Text>().text = "High Score: " + newHighScore;
@@ -224,7 +225,7 @@ public class UI : MonoBehaviour {
             if (uiIndex == -2)
             {
                 pauseText.SetActive(true);
-                selectorSprite.SetActive(true);
+                //selectorSprite.SetActive(true);
                 if (!controlsVisible)
                 {
                     //if (Input.GetKeyDown(KeyCode.UpArrow) && pauseIndex > 0)
@@ -263,7 +264,7 @@ public class UI : MonoBehaviour {
                     {
                         pauseIndex = 0;
                     }
-                    selectorSprite.transform.localPosition = mainMenuStartPosition - new Vector3(0, pauseIndex * mainMenuDisplace);
+                    selectorSprite.transform.localPosition = pauseMenuStartPosition - new Vector3(0, pauseIndex * mainMenuDisplace);
                     if (Input.GetKeyDown(rotateRightKey))
                     {
                         rotateSelector(true);
@@ -342,7 +343,8 @@ public class UI : MonoBehaviour {
                 if (Input.GetKeyDown(pauseKey))
                 {
                     //selectorSprite.transform.position = startingSelectorPosition;
-                    selectorSprite.transform.localPosition = mainMenuStartPosition;
+                    selectorSprite.gameObject.SetActive(true);
+                    selectorSprite.transform.localPosition = pauseMenuStartPosition;
                     selectorSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
                     pauseIndex = 0;
                     uiIndex = -2;
@@ -359,7 +361,7 @@ public class UI : MonoBehaviour {
                     }
                     mainMenuText.SetActive(true);
                     selectorSprite.SetActive(true);
-                    authorText.SetActive(true);
+                    //authorText.SetActive(true);
                     if (Input.GetKeyDown(rotateRightKey))
                     {
                         rotateSelector(true);

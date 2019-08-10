@@ -1573,7 +1573,14 @@ public class Piece : MonoBehaviour {
             return;
         }
         fallOnce();
-        timer = dropTimeIntervalBase;
+        if(dropTimeIntervalBase < 15)
+        {
+            timer = dropTimeIntervalBase * 3;
+        }
+        else
+        {
+            timer = dropTimeIntervalBase;
+        }
         //if(Input.GetKey(controlsKeys[softDropIndex]) && !letter)
         //{
         //    Debug.Log("Playing lower sound");
@@ -1592,9 +1599,16 @@ public class Piece : MonoBehaviour {
             gameBoard.emptyTriangles(trianglesIndices);
             coreTriangle = gameBoard.GetComponent<Board>().getGhostCoreTriangle();
             updateTriangleIndices();
-            if(lockDelayFlag)
+            if (lockDelayFlag)
             {
-                timer = dropTimeIntervalBase;
+                if (dropTimeIntervalBase < 15)
+                {
+                    timer = dropTimeIntervalBase * 3;
+                }
+                else
+                {
+                    timer = dropTimeIntervalBase;
+                }
             }
             else
             {
