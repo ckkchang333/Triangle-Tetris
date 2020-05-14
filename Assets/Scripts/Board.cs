@@ -205,6 +205,14 @@ public class Board : MonoBehaviour {
                     sprintRecordRows = rowsCleared;
                     sprintRecordTime = gameTime;
                 }
+                else if (sprintRecordTime > gameTime)
+                {
+                    newHighScoreFlag = true;
+                    //Debug.Log("New Sprint Time High Score Time");
+                    sprintRecordSetFlag = true;
+                    sprintRecordRows = rowsCleared;
+                    sprintRecordTime = gameTime;
+                }
             }
             else
             {
@@ -226,6 +234,15 @@ public class Board : MonoBehaviour {
                 if (marathonRecordRows < rowsCleared)
                 {
                     newHighScoreFlag = true;
+                    //Debug.Log("New Marathon Time High Score Time");
+                    marathonRecordSetFlag = true;
+                    marathonRecordRows = rowsCleared;
+                    marathonRecordTime = gameTime;
+                }
+                else if (marathonRecordTime > gameTime)
+                {
+                    newHighScoreFlag = true;
+                    //Debug.Log("New Marathon Time High Score Time");
                     marathonRecordSetFlag = true;
                     marathonRecordRows = rowsCleared;
                     marathonRecordTime = gameTime;
@@ -236,6 +253,7 @@ public class Board : MonoBehaviour {
                 if (marathonRecordTime > gameTime)
                 {
                     newHighScoreFlag = true;
+                    //Debug.Log("New Marathon Time High Score Time");
                     marathonRecordSetFlag = true;
                     marathonRecordRows = rowsCleared;
                     marathonRecordTime = gameTime;
@@ -272,14 +290,7 @@ public class Board : MonoBehaviour {
     public void resetGame()
     {
         rowsCleared = 0;
-        if(gameMode == 1)
-        {
-            scoreText.text = "Rows Left: " + (sprintTotalRows - rowsCleared);
-        }
-        else
-        {
-            scoreText.text = "Rows Cleared: " + rowsCleared;
-        }
+        scoreText.text = "Rows Cleared: " + rowsCleared;
         obilterateBoard();
         setGameOver(false);
         pieceHolder.GetComponent<pieceHolder>().empty();
@@ -540,7 +551,11 @@ public class Board : MonoBehaviour {
                             {
                                 highscoreRowsText.color = Color.green;
                             }
-                            scoreText.text = "Rows Left: " + rowsLeft.ToString();
+                            else if(rowsCleared == sprintRecordRows)
+                            {
+                                highscoreRowsText.color = Color.black;
+                            }
+                            scoreText.text = "Rows Cleared: " + rowsCleared.ToString();
                         }
                         else
                         {
@@ -549,20 +564,24 @@ public class Board : MonoBehaviour {
                             {
                                 highscoreRowsText.color = Color.green;
                             }
+                            else if (rowsCleared == marathonRecordRows)
+                            {
+                                highscoreRowsText.color = Color.black;
+                            }
                         }
                         //TODO Implement Marathon Mode
                         if(gameMode == 2)
                         {
                             int level = rowsCleared / rowsPerMarathonLevel;
-                            if(level > marathonLevelFallIntervals.Count)
+                            if (level >= marathonLevelFallIntervals.Count)
                             {
-                                level = marathonLevelFallIntervals.Count;
+                                setGameOver(true);
+                                level = marathonLevelFallIntervals.Count - 1;
                             }
                             uiController.updateMarathonLevelText(level);
                             pieceCurrentLowerTimer = marathonLevelFallIntervals[level];
-                            if(rowsCleared > marathonLevelFallIntervals.Count * rowsPerMarathonLevel)
+                            if(rowsCleared >= marathonLevelFallIntervals.Count * rowsPerMarathonLevel)
                             {
-                                setGameOver(true);
                             }
                         }
                         counter = 0;
@@ -686,10 +705,17 @@ public class Board : MonoBehaviour {
         {
             highscoreRowsText.gameObject.SetActive(true);
             highscoreRowsText.text = "HI: " + sprintRecordRows;
-            highscoreRowsText.color = Color.red;
+            if(sprintRecordRows == 0)
+            {
+                highscoreRowsText.color = Color.black;
+            }
+            else
+            {
+                highscoreRowsText.color = Color.red;
+            }
 
             highscoreTimeText.gameObject.SetActive(true);
-            highscoreTimeText.text = "HI: " + ((int)marathonRecordTime / 60).ToString() + ":" + (marathonRecordTime % 60 < 10 ? "0" : "") + (Mathf.Round(marathonRecordTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(marathonRecordTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(sprintRecordTime % 60 * 100) % 10 == 0 ? "0" : ""); ;
+            highscoreTimeText.text = "HI: " + ((int) sprintRecordTime / 60).ToString() + ":" + (sprintRecordTime % 60 < 10 ? "0" : "") + (Mathf.Round(sprintRecordTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(sprintRecordTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(sprintRecordTime % 60 * 100) % 10 == 0 ? "0" : ""); ;
             highscoreTimeText.color = Color.green;
         }
         else if(gameMode == 2 && marathonRecordSetFlag)
@@ -697,10 +723,17 @@ public class Board : MonoBehaviour {
 
             highscoreRowsText.gameObject.SetActive(true);
             highscoreRowsText.text = "HI: " + marathonRecordRows;
-            highscoreRowsText.color = Color.red;
+            if (marathonRecordRows == 0)
+            {
+                highscoreRowsText.color = Color.black;
+            }
+            else
+            {
+                highscoreRowsText.color = Color.red;
+            }
 
             highscoreTimeText.gameObject.SetActive(true);
-            highscoreTimeText.text = "HI: " + ((int)marathonRecordTime / 60).ToString() + ":" + (marathonRecordTime % 60 < 10 ? "0" : "") + (Mathf.Round(marathonRecordTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(marathonRecordTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(marathonRecordTime % 60 * 100) % 10 == 0 ? "0" : "");
+            highscoreTimeText.text = "HI: " + ((int) marathonRecordTime / 60).ToString() + ":" + (marathonRecordTime % 60 < 10 ? "0" : "") + (Mathf.Round(marathonRecordTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(marathonRecordTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(marathonRecordTime % 60 * 100) % 10 == 0 ? "0" : "");
             highscoreTimeText.color = Color.green;
         }
     }

@@ -18,7 +18,8 @@ public class pieceHolder : MonoBehaviour {
         }
         heldPiece = incoming;
         Destroy(currentSprite);
-        currentSprite = Instantiate(heldPiece.GetComponent<Piece>().getSprite(), this.transform.position, Quaternion.Euler(0, 0, 0));
+        currentSprite = Instantiate(heldPiece.GetComponent<Piece>().getSprite(), this.transform.localPosition, Quaternion.Euler(0, 0, 0));
+        currentSprite.transform.position = new Vector3(-4.058f, 2.8f, 0);
         currentSprite.transform.parent = this.transform;
         return outgoing;
     }

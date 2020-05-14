@@ -190,6 +190,9 @@ public class SettingsMenu : MonoBehaviour {
         startingSelectorKeysPosition = selectorKeys.transform.position;
         startingTriangleSelectorPosition = selectorParameters.transform.position;
 
+        selectorParameters.SetActive(false);
+        selectorKeys.SetActive(false);
+
 
         leftDasText.text = leftDasValue.ToString();
         leftArrText.text = leftArrValue.ToString();
@@ -259,6 +262,7 @@ public class SettingsMenu : MonoBehaviour {
                 {
                     menuIndex = 0;
                     selectorKeys.transform.localPosition = selectorKeyLocalTop;
+                    selectorParameters.SetActive(false);
                     selectorParameters.transform.localPosition = selectorParameterLocalTop;
                 }
                 else if (menuIndex <= 10)
@@ -277,6 +281,7 @@ public class SettingsMenu : MonoBehaviour {
                 if (menuIndex < 0)
                 {
                     menuIndex = 16;
+                    selectorKeys.SetActive(false);
                     selectorKeys.transform.localPosition = selectorKeyLocalBottom;
                     selectorParameters.transform.localPosition = selectorParameterLocalBottom;
                 }

@@ -35,7 +35,7 @@ public class UI : MonoBehaviour {
     private int pauseIndex = 0;
 
     [Header("Post Game Menu")]
-    public GameObject highScoreText;
+    //public GameObject highScoreText;
     public GameObject newHighScoreText;
     public GameObject gameOverText;
 
@@ -47,6 +47,9 @@ public class UI : MonoBehaviour {
     public GameObject scoreText;
     public GameObject selectorSprite;
     public Text marathonLevelText;
+
+    public GameObject highscoreRows;
+    public GameObject highscoreTime;
 
     public bool active;
     public int uiIndex;
@@ -61,10 +64,14 @@ public class UI : MonoBehaviour {
 
     private KeyCode rotateLeftKey = KeyCode.Z;
     private KeyCode rotateRightKey = KeyCode.X;
+    private KeyCode upKey = KeyCode.UpArrow;
+    private KeyCode downKey = KeyCode.DownArrow;
     private KeyCode replayTitleKey = KeyCode.F10;
     private KeyCode pauseKey = KeyCode.P;
     private int rotateLeftIndex = 0;
     private int rotateRightIndex = 1;
+    private int upKeyIndex = 0;
+    private int downKeyIndex = 1;
     private int replayTitleIndex = 10;
     private int pauseKeyIndex = 9;
 
@@ -79,7 +86,7 @@ public class UI : MonoBehaviour {
 
     public void setGameTimer(float timePassed)
     {
-        gameTimer.text = ((int)timePassed / 60).ToString() + ":" + (timePassed % 60 < 10 ? "0" : "") + (Mathf.Round(timePassed % 60 * 100) / 100.0f).ToString() + (Mathf.Round(timePassed % 60 * 100) % 1 != 0 ? ((Mathf.Round(timePassed % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(timePassed % 60 * 100) % 10 == 0 ? "0" : "")) : "");
+        gameTimer.text = ((int)timePassed / 60).ToString() + ":" + (timePassed % 60 < 10 ? "0" : "") + (Mathf.Round(timePassed % 60 * 100) / 100.0f).ToString() + (Mathf.Round(timePassed % 60 * 100) % 100 != 0 ? ((Mathf.Round(timePassed % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(timePassed % 60 * 100) % 10 == 0 ? "0" : "")) : ".00");
         //if(timePassed < 60)
         //{
         //    gameTimer.text = timePassed.ToString();
@@ -157,13 +164,13 @@ public class UI : MonoBehaviour {
             newHighScoreText.SetActive(true);
             if(gameMode == 1)
             {
-                playMenuText.transform.Find("SPRINT SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + (gameTime < 600 ? "0" : "") + (gameTime < 60 ? "0" : "") + ((int)(gameTime / 60)).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "");
+                playMenuText.transform.Find("SPRINT SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + ((int)gameTime / 60).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 != 0 ? ((Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "")) : ".00");
                 Debug.Log(playMenuText.transform.Find("SPRINT SCORE").GetComponent<Text>().text);
                 playMenuText.transform.Find("SPRINT SCORE").gameObject.SetActive(true);
             }
             else if (gameMode == 2)
             {
-                playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + (gameTime < 600 ? "0" : "") + (gameTime < 60 ? "0" : "") + ((int)(gameTime / 60)).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "");
+                playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text = "R: " + rowsCleared + " / T: " + ((int)gameTime / 60).ToString() + ":" + (gameTime % 60 < 10 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) / 100.0f).ToString() + (Mathf.Round(gameTime % 60 * 100) % 100 != 0 ? ((Mathf.Round(gameTime % 60 * 100) % 100 == 0 ? "0" : "") + (Mathf.Round(gameTime % 60 * 100) % 10 == 0 ? "0" : "")) : ".00");
                 Debug.Log(playMenuText.transform.Find("MARATHON SCORE").GetComponent<Text>().text);
                 playMenuText.transform.Find("MARATHON SCORE").gameObject.SetActive(true);
             }
@@ -185,16 +192,9 @@ public class UI : MonoBehaviour {
         pauseText.SetActive(false);
         selectorSprite.SetActive(false);
         uiIndex = -1;
-        if(playMenuIndex == 2)
-        {
-            scoreText.GetComponent<Text>().text = "Rows Left: 40";
-        }
-        else
-        {
-            scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
-        }
+        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
 
-        if(playMenuIndex == 3)
+        if (playMenuIndex == 3)
         {
             updateMarathonLevelText(0);
         }
@@ -295,7 +295,9 @@ public class UI : MonoBehaviour {
                             marathonLevelText.gameObject.SetActive(false);
                             scoreText.SetActive(false);
                             newHighScoreText.SetActive(false);
-                            highScoreText.SetActive(false);
+                            highscoreRows.SetActive(false);
+                            highscoreTime.SetActive(false);
+                            //highScoreText.SetActive(false);
                             audioSource.PlayOneShot(newMenuClip, 0.1f);
                         }
                         //else if (pauseIndex == 1)
@@ -438,8 +440,10 @@ public class UI : MonoBehaviour {
                         marathonLevelText.gameObject.SetActive(false);
                         scoreText.SetActive(false);
                         newHighScoreText.SetActive(false);
-                        highScoreText.SetActive(false);
+                        //highScoreText.SetActive(false);
                         gameOverText.SetActive(false);
+                        highscoreRows.SetActive(false);
+                        highscoreTime.SetActive(false);
                         if(playMenuIndex == 0)
                         {
                             selectorSprite.transform.localPosition = playMenuStartPositionBase;
@@ -490,6 +494,7 @@ public class UI : MonoBehaviour {
             else if (uiIndex == 1)
             {
                 mainMenuText.SetActive(false);
+                
                 playMenuText.SetActive(true);
 
                 if (Input.GetKeyDown(replayTitleKey))
@@ -578,7 +583,7 @@ public class UI : MonoBehaviour {
                         authorText.SetActive(false);
                         settings.setGameMode(1);
                         settings.updateAll();
-                        scoreText.GetComponent<Text>().text = "Rows Left: " + gameBoard.GetComponent<Board>().getMarathonLevelsCount();
+                        scoreText.GetComponent<Text>().text = "Rows Cleared: 0";
                         gameBoard.GetComponent<Board>().startGame();
                         scoreText.SetActive(true);
                         gameTimer.gameObject.SetActive(true);
